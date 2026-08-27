@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Keep Going — Tools, Shortcuts &amp; Free Learning | Tech Exchange</title>
+<meta name="description" content="AI tools, Windows keyboard shortcuts, and free places to keep learning after the Tech Exchange Essential Digital Literacy course.">
+<style>
+:root{
+  --ink:#231F20;--lime:#99CC33;--slate:#332E2F;--paper:#FFFFFF;--muted:#B9B4B5;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --mono:"IBM Plex Mono","Courier New",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:0 5vw}
+a{color:inherit}
+
+header{border-bottom:1px solid #3d3839;padding:1.1rem 0;display:flex}
+header .wrap{display:flex;align-items:center;justify-content:space-between;width:100%;gap:1rem}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:900;letter-spacing:-.02em;font-size:1rem}
+.brand .mark{width:1.7em;height:1.7em;background:var(--lime);border-radius:4px;
+  display:grid;place-items:center;color:var(--ink);font-size:.85em;font-weight:900}
+.back{font-family:var(--mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--lime);text-decoration:none;font-weight:600;white-space:nowrap}
+.back:hover{text-decoration:underline}
+
+.hero{padding:3.2rem 0 2.2rem;border-left:5px solid var(--lime);
+  padding-left:clamp(1rem,4vw,2.2rem);margin:2.4rem 0 0}
+.eyebrow{font-family:var(--mono);color:var(--lime);letter-spacing:.2em;text-transform:uppercase;
+  font-weight:600;font-size:.72rem;margin-bottom:1rem}
+h1{font-size:clamp(2rem,6vw,3.5rem);font-weight:900;letter-spacing:-.035em;line-height:1}
+.hero p{font-size:clamp(1.02rem,2.2vw,1.28rem);color:#E4E1E1;margin-top:1.2rem;max-width:54ch}
+
+h2{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;letter-spacing:-.025em;margin:3.2rem 0 .4rem}
+h2 .n{display:block;font-family:var(--mono);color:var(--lime);font-size:.44em;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:.6em}
+.sub{color:var(--muted);font-size:.98rem;margin-bottom:1.3rem;max-width:60ch}
+
+.cards{display:grid;gap:.85rem;grid-template-columns:1fr 1fr}
+@media(max-width:700px){.cards{grid-template-columns:1fr}}
+.card{background:var(--slate);border-radius:7px;padding:1.25rem 1.35rem;
+  border-left:4px solid var(--lime)}
+.card h3{font-size:1.12rem;font-weight:800;letter-spacing:-.015em;margin-bottom:.15rem}
+.card .url{font-family:var(--mono);font-size:.78rem;color:var(--lime);
+  display:block;margin-bottom:.6rem;text-decoration:none;word-break:break-all}
+.card .url:hover{text-decoration:underline}
+.card p{color:#CFCACB;font-size:.93rem;line-height:1.48}
+.card .best{display:block;margin-top:.65rem;padding-top:.6rem;border-top:1px solid #4a4445;
+  font-size:.88rem;color:#DDD9DA}
+.card .best b{color:var(--lime);font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;
+  text-transform:uppercase;display:block;margin-bottom:.25rem;font-weight:600}
+
+table{width:100%;border-collapse:collapse;margin-top:.5rem}
+th,td{text-align:left;padding:.55rem .5rem;border-bottom:1px solid #3d3839;font-size:.95rem}
+th{font-family:var(--mono);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--lime);font-weight:600}
+td.k{width:11rem}
+kbd{font-family:var(--mono);background:#4a4445;border-radius:3px;padding:.14em .45em;
+  font-size:.85em;color:var(--lime);white-space:nowrap}
+.tag-taught{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink);background:var(--lime);border-radius:2px;padding:.1em .4em;font-weight:600;
+  margin-left:.4rem;white-space:nowrap}
+
+.note{background:var(--slate);border-radius:7px;padding:1.15rem 1.35rem;margin-top:1.1rem;
+  border-left:4px solid var(--lime)}
+.note .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--lime);font-weight:600;display:block;margin-bottom:.4rem}
+.note p{font-size:.97rem;color:#DDD9DA}
+.note p + p{margin-top:.55rem}
+
+.list{margin-top:.5rem}
+.list li{list-style:none;padding:.6rem 0 .6rem 1.5rem;position:relative;
+  border-bottom:1px solid #3d3839;font-size:.96rem;color:#DDD9DA}
+.list li::before{content:"";position:absolute;left:.15rem;top:1.05em;width:.45em;height:.45em;
+  background:var(--lime);border-radius:1px}
+.list a{font-family:var(--mono);color:var(--lime);text-decoration:none;font-size:.9rem}
+.list a:hover{text-decoration:underline}
+.list span{display:block;color:var(--muted);font-size:.9rem;margin-top:.15rem}
+
+footer{margin-top:4rem;border-top:1px solid #3d3839;padding:1.8rem 0 3rem;
+  font-family:var(--mono);font-size:.78rem;color:var(--muted);line-height:1.9}
+footer a{color:var(--lime);text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div class="brand"><span class="mark">T</span>Tech&nbsp;Exchange</div>
+  <a class="back" href="index.html">← All course materials</a>
+</div></header>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">After the course</div>
+  <h1>Keep going</h1>
+  <p>The eight hours were a start. These are the tools, shortcuts, and free courses that will take you further — all of them free, all of them things you can open today.</p>
+</div>
+
+<h2><span class="n">Section 1</span>AI assistants worth knowing</h2>
+<p class="sub">In Class 1 you met Perplexity. These are the others. All are free to start, and all of them work in the browser you already have — nothing to install. Ask them to explain something confusing, draft a letter, or summarise something long.</p>
+
+<div class="cards">
+  <div class="card">
+    <h3>Claude</h3>
+    <a class="url" href="https://claude.ai">claude.ai</a>
+    <p>Built by Anthropic. Strong at reading long documents, writing, and thinking through a problem step by step.</p>
+    <span class="best"><b>Best for</b>Pasting in a long letter, lease, or benefits notice and asking what it actually says.</span>
+  </div>
+  <div class="card">
+    <h3>Gemini</h3>
+    <a class="url" href="https://gemini.google.com">gemini.google.com</a>
+    <p>Google's assistant. Works inside Gmail, Docs, Drive, and Sheets — the tools from Class 2.</p>
+    <span class="best"><b>Best for</b>Help writing a document or email without leaving the app you're already in.</span>
+  </div>
+  <div class="card">
+    <h3>ChatGPT</h3>
+    <a class="url" href="https://chatgpt.com">chatgpt.com</a>
+    <p>The most widely used. Handles text, pictures, voice, and files in one conversation.</p>
+    <span class="best"><b>Best for</b>Talking to it out loud instead of typing, if typing is slow going.</span>
+  </div>
+  <div class="card">
+    <h3>Perplexity</h3>
+    <a class="url" href="https://perplexity.ai">perplexity.ai</a>
+    <p>Answers questions and lists its sources underneath, so you can check where the answer came from. No account needed.</p>
+    <span class="best"><b>Best for</b>Anything you need to verify — the sources are right there to click.</span>
+  </div>
+  <div class="card">
+    <h3>Microsoft Copilot</h3>
+    <a class="url" href="https://copilot.microsoft.com">copilot.microsoft.com</a>
+    <p>Built into Windows and into Word, Excel, and Outlook.</p>
+    <span class="best"><b>Best for</b>Help inside Word or Excel, on the laptop you took home.</span>
+  </div>
+  <div class="card">
+    <h3>Grok</h3>
+    <a class="url" href="https://grok.com">grok.com</a>
+    <p>Made by xAI, connected to X (formerly Twitter). Geared toward current events and live discussion.</p>
+    <span class="best"><b>Best for</b>Following breaking news and what people are saying about it right now.</span>
+  </div>
+</div>
+
+<div class="note">
+  <span class="tag">Remember from Class 1</span>
+  <p>AI is confident even when it is wrong. Use it to <strong>understand</strong> something. Then check anything that matters — names, dates, prices, phone numbers, medical or legal advice — against the real <strong>.gov</strong> or <strong>.org</strong> website.</p>
+  <p>Never paste your passphrase, your Social Security number, or your bank details into any of these.</p>
+</div>
+
+<h2><span class="n">Section 2</span>Twenty keyboard shortcuts</h2>
+<p class="sub">Hold the first key, then tap the second. The green ones you already practised in class — start there, and add the rest as you need them.</p>
+
+<table>
+<tr><th>Keys</th><th>What it does</th></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>C</kbd></td><td>Copy what you selected<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>V</kbd></td><td>Paste it<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>X</kbd></td><td>Cut — pick something up to move it<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>Z</kbd></td><td>Undo your last action<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>Y</kbd></td><td>Redo — undo the undo</td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>A</kbd></td><td>Select everything<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>S</kbd></td><td>Save<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>D</kbd></td><td>Bookmark the page you're on<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>P</kbd></td><td>Print</td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>F</kbd></td><td>Find a word on this page</td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>N</kbd></td><td>Open a new window</td></tr>
+<tr><td class="k"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd></td><td>Reopen the browser tab you just closed</td></tr>
+<tr><td class="k"><kbd>Alt</kbd> + <kbd>Tab</kbd></td><td>Switch between open programs<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>Alt</kbd> + <kbd>F4</kbd></td><td>Close the window you're in</td></tr>
+<tr><td class="k"><kbd>⊞</kbd> (Windows key)</td><td>Open the Start menu<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>⊞</kbd> + <kbd>E</kbd></td><td>Open File Explorer<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>⊞</kbd> + <kbd>D</kbd></td><td>Jump back to the desktop<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>⊞</kbd> + <kbd>L</kbd></td><td>Lock your screen when you step away</td></tr>
+<tr><td class="k"><kbd>⊞</kbd> + <kbd>S</kbd></td><td>Open Search<span class="tag-taught">In class</span></td></tr>
+<tr><td class="k"><kbd>Esc</kbd></td><td>Back out of almost anything<span class="tag-taught">In class</span></td></tr>
+</table>
+
+<div class="note">
+  <span class="tag">Two worth learning next</span>
+  <p><kbd>⊞</kbd> + <kbd>L</kbd> locks your screen instantly. Use it any time you walk away from your laptop in a library, a café, or a clinic waiting room.</p>
+  <p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd> brings back the browser tab you closed by mistake. It works several times in a row.</p>
+</div>
+
+<h2><span class="n">Section 3</span>Free places to keep learning</h2>
+<p class="sub">All free. No payment details, no trial that turns into a bill.</p>
+
+<h3 style="font-size:1.05rem;font-weight:800;margin:1.6rem 0 .2rem;color:var(--lime);
+  font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;font-size:.76rem">Courses and tutorials</h3>
+<ul class="list">
+  <li><a href="https://edu.gcfglobal.org">GCFGlobal.org</a><span>Short written tutorials on computer basics, Microsoft Office, Google apps, and internet safety. Closest match to what we covered in class.</span></li>
+  <li><a href="https://www.digitallearn.org">DigitalLearn.org</a><span>Beginner courses from the Public Library Association. Go at your own pace, repeat anything.</span></li>
+  <li><a href="https://applieddigitalskills.withgoogle.com">Applied Digital Skills (Google)</a><span>Free video lessons on Google Workspace, online safety, and job searching.</span></li>
+</ul>
+
+<h3 style="font-weight:800;margin:1.8rem 0 .2rem;color:var(--lime);
+  font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;font-size:.76rem">Typing practice</h3>
+<ul class="list">
+  <li><a href="https://www.typingclub.com">TypingClub.com</a><span>Structured lessons from the very beginning. Fifteen minutes a day makes a real difference within a month.</span></li>
+  <li><a href="https://www.keybr.com">Keybr.com</a><span>Adjusts to the letters you keep getting wrong.</span></li>
+</ul>
+
+<h3 style="font-weight:800;margin:1.8rem 0 .2rem;color:var(--lime);
+  font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;font-size:.76rem">Staying safe and managing passwords</h3>
+<ul class="list">
+  <li><a href="https://bitwarden.com">Bitwarden</a><span>A free password manager. It remembers a different strong passphrase for every account so you don't have to. This is the one we demonstrated in Class 2 — setting it up takes about ten minutes at home.</span></li>
+  <li><a href="https://haveibeenpwned.com">Have I Been Pwned</a><span>Type in your email address to see whether it has turned up in a company data breach. If it has, change that password.</span></li>
+  <li><a href="https://staysafeonline.org">StaySafeOnline.org</a><span>Plain-language guidance on passwords, scams, and protecting your personal information.</span></li>
+</ul>
+
+<div class="note">
+  <span class="tag">Need a person, not a website?</span>
+  <p><strong>Tech Exchange</strong> — (510) 866-2260 · Support@TechExchange.org<br>1716 Telegraph Ave., Oakland CA 94612</p>
+  <p><strong>Your public library</strong> — free computer help, free Wi-Fi, and someone who will sit down with you. No appointment needed at most branches.</p>
+</div>
+
+<div class="note" style="border-left-color:#4a4445">
+  <p style="font-size:1.05rem;color:var(--paper)">Keep practicing. Keep asking questions. Keep growing.<br>The digital world is yours.</p>
+</div>
+
+</div>
+
+<footer><div class="wrap">
+Tech Exchange · Essential Digital Literacy<br>
+1716 Telegraph Ave., Oakland CA 94612 · (510) 866-2260 · <a href="mailto:Support@TechExchange.org">Support@TechExchange.org</a><br>
+<a href="https://www.techexchange.org">techexchange.org</a>
+</div></footer>
+
+</body>
+</html>

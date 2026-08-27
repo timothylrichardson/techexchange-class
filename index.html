@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Essential Digital Literacy — Course Materials | Tech Exchange</title>
+<meta name="description" content="All slides and handouts from the Tech Exchange Essential Digital Literacy course. Free to use anytime.">
+<style>
+:root{
+  --ink:#231F20;--lime:#99CC33;--slate:#332E2F;--paper:#FFFFFF;--muted:#B9B4B5;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --mono:"IBM Plex Mono","Courier New",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:0 5vw}
+a{color:inherit}
+
+header{border-bottom:1px solid #3d3839;padding:1.1rem 0}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:900;letter-spacing:-.02em;font-size:1rem}
+.brand .mark{width:1.7em;height:1.7em;background:var(--lime);border-radius:4px;
+  display:grid;place-items:center;color:var(--ink);font-size:.85em;font-weight:900}
+
+.hero{padding:3.5rem 0 2.6rem;border-left:5px solid var(--lime);padding-left:clamp(1rem,4vw,2.2rem);
+  margin:2.6rem 0 0}
+.eyebrow{font-family:var(--mono);color:var(--lime);letter-spacing:.2em;text-transform:uppercase;
+  font-weight:600;font-size:.72rem;margin-bottom:1rem}
+h1{font-size:clamp(2.1rem,6.5vw,3.9rem);font-weight:900;letter-spacing:-.035em;line-height:1}
+.hero p{font-size:clamp(1.02rem,2.2vw,1.3rem);color:#E4E1E1;margin-top:1.2rem;max-width:52ch}
+
+h2{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;letter-spacing:-.025em;margin:3.2rem 0 .4rem}
+h2 .n{display:block;font-family:var(--mono);color:var(--lime);font-size:.44em;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:.6em}
+.sub{color:var(--muted);font-size:.98rem;margin-bottom:1.3rem}
+
+.cards{display:grid;gap:.85rem;grid-template-columns:1fr 1fr}
+@media(max-width:700px){.cards{grid-template-columns:1fr}}
+.card{display:block;background:var(--slate);border-radius:7px;padding:1.35rem 1.45rem;
+  text-decoration:none;border-left:4px solid var(--lime);transition:background .15s,transform .15s}
+.card:hover,.card:focus-visible{background:#3f3839;transform:translateY(-2px)}
+.card:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.card .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--lime);font-weight:600;display:block;margin-bottom:.5rem}
+.card h3{font-size:1.22rem;font-weight:800;letter-spacing:-.015em;margin-bottom:.35rem}
+.card p{color:#CFCACB;font-size:.94rem;line-height:1.45}
+.card .go{display:inline-block;margin-top:.8rem;font-family:var(--mono);font-size:.8rem;
+  color:var(--lime);font-weight:600}
+
+.lecs{margin-top:1rem;border-top:1px solid #4a4445;padding-top:.9rem}
+.lecs li{list-style:none;font-size:.9rem;color:#CFCACB;padding:.22rem 0 .22rem 1.5rem;position:relative}
+.lecs li::before{content:"";position:absolute;left:.15rem;top:.72em;width:.42em;height:.42em;
+  background:var(--lime);border-radius:1px}
+.lecs .id{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-right:.45rem}
+
+.note{background:var(--slate);border-radius:7px;padding:1.15rem 1.35rem;margin-top:1rem;
+  border-left:4px solid var(--lime)}
+.note .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--lime);font-weight:600;display:block;margin-bottom:.4rem}
+.note p{font-size:.97rem;color:#DDD9DA}
+.note p + p{margin-top:.55rem}
+kbd{font-family:var(--mono);background:#4a4445;border-radius:3px;padding:.1em .4em;
+  font-size:.86em;color:var(--lime)}
+
+table{width:100%;border-collapse:collapse;margin-top:.4rem}
+th,td{text-align:left;padding:.62rem .5rem;border-bottom:1px solid #3d3839;font-size:.95rem}
+th{font-family:var(--mono);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--lime);font-weight:600}
+td:first-child{font-family:var(--mono);color:var(--muted);white-space:nowrap;width:4.6rem}
+
+footer{margin-top:4rem;border-top:1px solid #3d3839;padding:1.8rem 0 3rem;
+  font-family:var(--mono);font-size:.78rem;color:var(--muted);line-height:1.9}
+footer a{color:var(--lime);text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<header><div class="wrap"><div class="brand"><span class="mark">T</span>Tech&nbsp;Exchange</div></div></header>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Course materials · Free to use anytime</div>
+  <h1>Essential<br>Digital Literacy</h1>
+  <p>Everything from both classes, in one place. Open the slides on your own laptop, follow along at your own pace, and look things up whenever you need them.</p>
+</div>
+
+<h2><span class="n">Start here</span>The slides</h2>
+<p class="sub">These open right in your browser. Use the arrow keys, or swipe on a phone.</p>
+
+<div class="cards">
+  <a class="card" href="class-1.html">
+    <span class="k">Class 1 · 4 hours</span>
+    <h3>The Fundamentals</h3>
+    <p>Your laptop, Windows, the internet, and staying safe online.</p>
+    <ul class="lecs">
+      <li><span class="id">C1-L1</span>Computer Essentials</li>
+      <li><span class="id">C1-L2</span>Windows Fundamentals</li>
+      <li><span class="id">C2-L1</span>Internet Fundamentals</li>
+      <li><span class="id">C2-L2</span>Staying Safe Online</li>
+    </ul>
+    <span class="go">Open the slides →</span>
+  </a>
+
+  <a class="card" href="class-2.html">
+    <span class="k">Class 2 · 4 hours</span>
+    <h3>Communicate &amp; Collaborate</h3>
+    <p>Email, cloud storage, and video calls — joining and hosting.</p>
+    <ul class="lecs">
+      <li><span class="id">C3-L1</span>Email Fundamentals</li>
+      <li><span class="id">C3-L2</span>Drive, Docs &amp; Sheets</li>
+      <li><span class="id">C4-L1</span>Zoom</li>
+      <li><span class="id">C4-L2</span>Google Meet</li>
+    </ul>
+    <span class="go">Open the slides →</span>
+  </a>
+</div>
+
+<h2><span class="n">Print or save</span>The handouts</h2>
+<p class="sub">Step-by-step instructions for every exercise, plus the take-home reference pages.</p>
+
+<div class="cards">
+  <a class="card" href="class-1-handout.pdf">
+    <span class="k">PDF · 5 pages</span>
+    <h3>Class 1 handout</h3>
+    <p>The four exercises, the five safety habits, the scam warning signs, and a shortcut table.</p>
+    <span class="go">Open the PDF →</span>
+  </a>
+  <a class="card" href="class-2-handout.pdf">
+    <span class="k">PDF · 5 pages</span>
+    <h3>Class 2 handout</h3>
+    <p>The four exercises, an email reference table, video-call troubleshooting, and where to get help.</p>
+    <span class="go">Open the PDF →</span>
+  </a>
+</div>
+
+<h2><span class="n">After the course</span>Keep going</h2>
+<p class="sub">Free tools, shortcuts, and courses to carry on with once the eight hours are done.</p>
+
+<div class="cards">
+  <a class="card" href="resources.html">
+    <span class="k">Web page</span>
+    <h3>Tools, shortcuts &amp; free learning</h3>
+    <p>Six AI assistants worth knowing, twenty Windows keyboard shortcuts, and free places to keep learning — typing practice, password managers, and beginner courses.</p>
+    <span class="go">Open the page &rarr;</span>
+  </a>
+  <a class="card" href="https://edu.gcfglobal.org">
+    <span class="k">Outside link</span>
+    <h3>GCFGlobal tutorials</h3>
+    <p>The closest free match to what we covered in class. Short written lessons on computer basics, Office, Google apps, and internet safety.</p>
+    <span class="go">Visit GCFGlobal &rarr;</span>
+  </a>
+</div>
+
+<div class="note" style="display:flex;gap:1.3rem;align-items:center;flex-wrap:wrap">
+  <img src="data:image/png;base64,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" alt="QR code linking to this page"
+       style="width:118px;height:118px;border-radius:5px;flex:0 0 auto">
+  <div style="flex:1;min-width:230px">
+    <span class="tag">Save this page</span>
+    <p>Point a phone camera at the square to open this page on your phone.</p>
+    <p>On a laptop, press <kbd>Ctrl</kbd> + <kbd>D</kbd> to bookmark it. On a phone, use the share button and choose Add to Home Screen.</p>
+  </div>
+</div>
+
+<h2><span class="n">What we cover</span>Eight hours, eight things you build</h2>
+<table>
+<tr><th>Hour</th><th>Topic</th><th>What you make</th></tr>
+<tr><td>1 · 1</td><td>Computer Essentials</td><td>A contact card file you own</td></tr>
+<tr><td>1 · 2</td><td>Windows Fundamentals</td><td>Folders that hold it</td></tr>
+<tr><td>1 · 3</td><td>Internet Fundamentals</td><td>Your own bookmarks</td></tr>
+<tr><td>1 · 4</td><td>Staying Safe Online</td><td>A passphrase you can remember</td></tr>
+<tr><td>2 · 1</td><td>Email Fundamentals</td><td>A sent email, labelled and filed</td></tr>
+<tr><td>2 · 2</td><td>Drive, Docs &amp; Sheets</td><td>Your files in the cloud</td></tr>
+<tr><td>2 · 3</td><td>Zoom</td><td>A meeting you joined yourself</td></tr>
+<tr><td>2 · 4</td><td>Google Meet</td><td>A meeting you started yourself</td></tr>
+</table>
+
+<div class="note">
+  <span class="tag">Need help?</span>
+  <p><strong>Tech Exchange</strong> — (510) 866-2260 · Support@TechExchange.org<br>1716 Telegraph Ave., Oakland CA 94612</p>
+  <p><strong>Your public library</strong> — free computer help, free Wi-Fi, and a person who will sit with you.</p>
+</div>
+
+</div>
+
+<footer><div class="wrap">
+Tech Exchange · Essential Digital Literacy<br>
+1716 Telegraph Ave., Oakland CA 94612 · (510) 866-2260 · <a href="mailto:Support@TechExchange.org">Support@TechExchange.org</a><br>
+<a href="https://www.techexchange.org">techexchange.org</a>
+</div></footer>
+
+</body>
+</html>
