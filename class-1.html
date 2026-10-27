@@ -3,1112 +3,927 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Class 1 — The Fundamentals | Tech Exchange Digital Literacy</title>
-<style>
-:root{
-  --ink:#231F20; --lime:#99CC33; --slate:#332E2F; --paper:#FFFFFF; --flag:#FF4D4D;
-  --muted:#B9B4B5;
-  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  --mono:"IBM Plex Mono","Courier New",Courier,monospace;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  background:var(--ink); color:var(--paper); font-family:var(--sans);
-  overflow:hidden; -webkit-font-smoothing:antialiased;
-}
-/* ---------- stage ---------- */
-#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:2.5vh 3vw 9vh}
-.slide{display:none;width:100%;max-width:1180px;max-height:100%;overflow-y:auto}
-.slide.on{display:block;animation:in .22s ease-out}
-@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.slide.on{animation:none}}
-
-/* ---------- chip strip ---------- */
-#chips{position:fixed;top:0;left:0;right:0;height:4.2vh;min-height:34px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 3vw;border-bottom:1px solid #3d3839;background:var(--ink);z-index:5}
-#chipL{font-family:var(--mono);font-size:clamp(11px,1.15vw,14px);letter-spacing:.14em;
-  text-transform:uppercase;color:var(--muted)}
-#chipR{font-family:var(--mono);font-size:clamp(11px,1.15vw,14px);font-weight:600;
-  background:var(--lime);color:var(--ink);padding:.25em .8em;border-radius:2px;letter-spacing:.06em}
-
-/* ---------- footer ---------- */
-#foot{position:fixed;bottom:0;left:0;right:0;height:6.4vh;min-height:48px;
-  display:flex;align-items:center;justify-content:space-between;padding:0 3vw;
-  border-top:1px solid #3d3839;background:var(--ink);z-index:5;gap:1rem}
-#brand{display:flex;align-items:center;gap:.6rem;font-weight:900;letter-spacing:-.02em;
-  font-size:clamp(12px,1.2vw,15px)}
-#brand .mark{width:1.5em;height:1.5em;background:var(--lime);border-radius:3px;
-  display:grid;place-items:center;color:var(--ink);font-size:.8em;font-weight:900}
-#nav{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:clamp(11px,1.1vw,13px)}
-button{font:inherit;font-family:var(--mono);background:transparent;color:var(--muted);
-  border:1px solid #4a4445;border-radius:3px;padding:.35em .7em;cursor:pointer}
-button:hover{border-color:var(--lime);color:var(--lime)}
-button:focus-visible{outline:3px solid var(--lime);outline-offset:2px}
-#count{color:var(--muted);min-width:5.5em;text-align:center}
-#bar{position:fixed;bottom:6.4vh;left:0;height:3px;background:var(--lime);z-index:6;transition:width .2s}
-
-/* ---------- type ---------- */
-h1{font-size:clamp(2.1rem,5.4vw,4.4rem);font-weight:900;letter-spacing:-.035em;line-height:.98}
-h2{font-size:clamp(1.6rem,3.5vw,2.9rem);font-weight:900;letter-spacing:-.03em;line-height:1.04;
-  margin-bottom:.6em}
-h2 .n{color:var(--lime);font-family:var(--mono);font-size:.45em;font-weight:600;
-  letter-spacing:.1em;display:block;margin-bottom:.5em}
-p,li{font-size:clamp(1.02rem,1.75vw,1.5rem);line-height:1.5;color:#EDEAEA}
-.lead{font-size:clamp(1.15rem,2.1vw,1.75rem);color:var(--paper)}
-strong{color:var(--paper);font-weight:700}
-.kbd{font-family:var(--mono);background:var(--slate);border:1px solid #4a4445;
-  border-radius:3px;padding:.12em .45em;font-size:.9em;color:var(--lime);white-space:nowrap}
-ul{list-style:none}
-ul li{position:relative;padding-left:1.5em;margin-bottom:.65em}
-ul li::before{content:"";position:absolute;left:0;top:.62em;width:.55em;height:.55em;
-  background:var(--lime);border-radius:1px}
-ol{padding-left:0;counter-reset:s;list-style:none}
-ol li{position:relative;padding-left:2.4em;margin-bottom:.7em;counter-increment:s}
-ol li::before{content:counter(s);position:absolute;left:0;top:.05em;font-family:var(--mono);
-  font-size:.85em;font-weight:600;color:var(--ink);background:var(--lime);width:1.7em;height:1.7em;
-  display:grid;place-items:center;border-radius:3px}
-
-/* ---------- components ---------- */
-.grid{display:grid;gap:1rem;margin-top:.4em}
-.g2{grid-template-columns:repeat(2,1fr)}
-.g3{grid-template-columns:repeat(3,1fr)}
-.g4{grid-template-columns:repeat(4,1fr)}
-@media(max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}}
-.card{background:var(--slate);border-radius:5px;padding:1.1em 1.2em;border-left:3px solid var(--lime)}
-.card h3{font-size:clamp(.95rem,1.5vw,1.25rem);font-weight:700;margin-bottom:.35em;color:var(--paper)}
-.card p{font-size:clamp(.9rem,1.35vw,1.12rem);color:#CFCACB;line-height:1.42}
-.plain{border-left-color:#4a4445}
-
-.callout{border-radius:5px;padding:1em 1.2em;margin-top:1.1em;background:var(--slate);
-  border-left:4px solid var(--lime)}
-.callout .tag{font-family:var(--mono);font-size:.72em;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--lime);font-weight:600;display:block;margin-bottom:.35em}
-.callout.caution{border-left-color:var(--flag)}
-.callout.caution .tag{color:var(--flag)}
-.callout p{font-size:clamp(.95rem,1.5vw,1.25rem)}
-
-.obj{background:var(--slate);border-radius:5px;padding:1.1em 1.3em;margin-top:1em}
-.obj .tag{font-family:var(--mono);font-size:.72em;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--lime);font-weight:600;display:block;margin-bottom:.6em}
-
-.cover{border-left:5px solid var(--lime);padding-left:clamp(1rem,3vw,2.4rem)}
-.cover .eyebrow{font-family:var(--mono);color:var(--lime);letter-spacing:.2em;font-weight:600;
-  text-transform:uppercase;font-size:clamp(.75rem,1.3vw,1rem);margin-bottom:1.1em}
-.cover .meta{font-family:var(--mono);color:var(--muted);margin-top:1.6em;
-  font-size:clamp(.8rem,1.3vw,1.05rem);line-height:1.9}
-.cover .meta b{color:var(--lime);font-weight:600}
-
-.steps li{background:var(--slate);border-radius:4px;padding:.75em 1em .75em 3.4em;margin-bottom:.55em}
-.steps li::before{left:.8em;top:.75em}
-
-.qa{background:var(--slate);border-radius:5px;padding:1em 1.2em;margin-bottom:.7em}
-.qa .q{font-weight:700;font-size:clamp(1rem,1.6vw,1.3rem);margin-bottom:.3em}
-.qa .a{color:var(--lime);font-family:var(--mono);font-size:clamp(.88rem,1.4vw,1.1rem)}
-
-table{width:100%;border-collapse:collapse;margin-top:.6em}
-th,td{text-align:left;padding:.6em .7em;border-bottom:1px solid #433d3e;
-  font-size:clamp(.88rem,1.4vw,1.15rem)}
-th{font-family:var(--mono);font-size:.78em;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--lime);font-weight:600}
-
-/* scam drill */
-.msg{background:var(--slate);border-radius:6px;padding:1.2em 1.4em;font-size:clamp(.95rem,1.55vw,1.25rem);
-  line-height:1.65;max-width:44ch;border:1px solid #4a4445}
-.flag{background:#4a4445;border-radius:3px;padding:.05em .3em;cursor:pointer;
-  border-bottom:2px dotted var(--lime)}
-.flag:hover{background:#5a5354}
-.flag.hit{background:var(--flag);color:var(--ink);font-weight:700;border-bottom-color:transparent}
-#drillCount{font-family:var(--mono);color:var(--lime);font-weight:600;margin-top:.9em;display:block;
-  font-size:clamp(.9rem,1.4vw,1.15rem)}
-
-/* notes */
-#notes{position:fixed;left:0;right:0;bottom:6.4vh;max-height:42vh;overflow-y:auto;
-  background:#171415;border-top:2px solid var(--lime);padding:1.1em 3vw;display:none;z-index:7}
-#notes.on{display:block}
-#notes h4{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--lime);margin-bottom:.5em}
-#notes p{font-size:clamp(.9rem,1.3vw,1.08rem);color:#DAD6D7;line-height:1.55}
-
-/* menu */
-#menu{position:fixed;inset:0;background:rgba(20,17,18,.97);z-index:9;display:none;
-  padding:6vh 6vw;overflow-y:auto}
-#menu.on{display:block}
-#menu h3{font-family:var(--mono);color:var(--lime);letter-spacing:.16em;text-transform:uppercase;
-  font-size:.85rem;margin:1.4em 0 .6em}
-#menu h3:first-child{margin-top:0}
-#menu a{display:block;color:#DAD6D7;text-decoration:none;padding:.35em 0;
-  font-size:clamp(.92rem,1.4vw,1.15rem);border-bottom:1px solid #2e2a2b}
-#menu a:hover,#menu a:focus{color:var(--lime)}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-</style>
+<title>Class 1 — Computer &amp; Windows Essentials | Tech Exchange Digital Literacy</title>
+<meta name="description" content="Tech Exchange Essential Digital Literacy, Class 1: Lecture 1 Computer Essentials (mouse, touchpad, keyboard, TypingClub) and Lecture 2 Windows 11 Fundamentals.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://static.wixstatic.com">
+<link rel="stylesheet" href="assets/deck.css?v=20261027">
 </head>
 <body>
 <div id="chips"><span id="chipL"></span><span id="chipR"></span></div>
-<div id="stage"><div id="slides"></div></div>
+<main id="stage"><div id="slides"></div></main>
 <div id="bar" style="width:0"></div>
-<div id="notes"><h4>Instructor notes</h4><p id="notesBody"></p></div>
-<div id="menu" role="dialog" aria-label="Jump to section"></div>
-<div id="foot">
-  <div id="brand"><span class="mark">T</span> Tech&nbsp;Exchange &nbsp;·&nbsp; Digital Literacy</div>
-  <div id="nav">
-    <button id="btnMenu" aria-label="Jump to section">Menu</button>
-    <button id="btnNotes" aria-label="Toggle instructor notes">Notes (N)</button>
-    <button id="btnPrev" aria-label="Previous slide">←</button>
-    <span id="count"></span>
-    <button id="btnNext" aria-label="Next slide">→</button>
+<div id="notes" aria-live="polite"><h4>Instructor notes</h4><p id="notesBody"></p></div>
+<div id="menu" role="dialog" aria-label="Jump to a slide"></div>
+<div id="live" class="sr" aria-live="polite"></div>
+<footer id="foot">
+  <div id="brand">
+    <img data-logo src="https://static.wixstatic.com/media/3c9e35_1265111053414362a4400f4e68c14291~mv2.png" alt="Tech Exchange" width="2376" height="904">
+    <span class="wm" hidden>Tech Exchange</span>
+    <span class="prog" id="prog"></span>
   </div>
-</div>
+  <nav id="nav" aria-label="Slide controls">
+    <button id="btnMenu" type="button" title="Jump to a slide (M)">Menu</button>
+    <button id="btnNotes" type="button" aria-pressed="false" title="Instructor notes (N)">Notes</button>
+    <button id="btnAns" type="button" aria-pressed="false" title="Show answers (A)">Answers</button>
+    <button id="btnFs" type="button" title="Full screen (F)">Full screen</button>
+    <button id="btnPrev" type="button" aria-label="Previous slide">←</button>
+    <span id="count"></span>
+    <button id="btnNext" type="button" aria-label="Next slide">→</button>
+  </nav>
+</footer>
 <script>
-const DECK = [
+var LOGO='<img class="logo" data-logo src="https://static.wixstatic.com/media/3c9e35_1265111053414362a4400f4e68c14291~mv2.png" alt="Tech Exchange" width="2376" height="904"><span class="wm" hidden style="font-weight:800;font-size:1.6rem">Tech Exchange</span>';
+window.DECK = [
 
-/* ===================== FRONT MATTER ===================== */
-{h:"Class 1",c:"Welcome",t:"0:10",html:`
-<div class="cover">
-  <div class="eyebrow">Essential Digital Literacy · Class 1 of 2</div>
-  <h1>The<br>Fundamentals</h1>
+/* ============================== CLASS 1 · FRONT MATTER ============================== */
+{h:"Class 1",c:"Welcome",t:"1:00 PM",html:`
+<div class="cover">`+LOGO+`
+  <div class="eyebrow">Essential Digital Literacy · Class 1</div>
+  <h1>Computer &amp; Windows<br>Essentials</h1>
   <div class="meta">
-    <b>Today</b> &nbsp;Wednesday, September 16, 2026 · 1:00 PM  – 3:00 PM <br>
-    <b>Where</b> &nbsp;1721 Broadway, Oakland · MacArthur Meeting Room<br>
+    <b>Date</b>Tuesday, October 27, 2026 · 1:00 PM – 5:00 PM<br>
+    <b>Where</b>1721 Broadway, Oakland · MacArthur Meeting Room<br>
+    <b>Bring</b>Your laptop and its charger
   </div>
 </div>`,
-n:"Sign-in sheet goes around now. Have everyone open the laptop and power on while you talk — the boot takes two minutes and you want that happening in the background."},
+n:"Sign-in sheet goes around now. Have everyone open the laptop and press the power button while you talk — start-up takes about two minutes and you want that happening in the background."},
 
-{h:"Class 1",c:"Welcome",t:"0:10",html:`
-<h2><span class="n">Today's plan</span>Four hours, four topics</h2>
+{h:"Class 1",c:"Today's plan",t:"1:05 PM",html:`
+<h2><span class="n">Today's plan</span>Four lectures, four things you build</h2>
 <table>
-<tr><th>Hour</th><th>What we cover</th><th>What you walk out with</th></tr>
-<tr><td><span class="kbd">11:00</span></td><td>Computer Essentials</td><td>A contact card file you own</td></tr>
-<tr><td><span class="kbd">12:00</span></td><td>Windows Fundamentals</td><td>Folders that hold it</td></tr>
-<tr><td><span class="kbd">13:10</span></td><td>Internet Fundamentals</td><td>Your own bookmarks</td></tr>
-<tr><td><span class="kbd">14:00</span></td><td>Staying Safe Online</td><td>A strong passphrase</td></tr>
+<tr><th>Time</th><th>Lecture</th><th>Hands-on lab — what you walk out with</th></tr>
+<tr><td><span class="kbd">1:00</span></td><td><b>1 · Computer Essentials</b><br><span class="small">Mouse, touchpad, keyboard, typing</span></td><td>TypingClub stars and your first keyboard shortcuts</td></tr>
+<tr><td><span class="kbd">2:00</span></td><td><b>2 · Windows 11 Fundamentals</b><br><span class="small">Desktop, Start, files, windows</span></td><td>A filing system that holds your contact card</td></tr>
+<tr><td><span class="kbd">3:00</span></td><td><b>3 · Internet Fundamentals</b> <span class="small">(Class 2)</span></td><td>A favorites bar of sites you really use</td></tr>
+<tr><td><span class="kbd">4:00</span></td><td><b>4 · Staying Safe Online</b> <span class="small">(Class 2)</span></td><td>A strong passphrase you can remember</td></tr>
 </table>
-<div class="callout"><span class="tag">Note</span><p>Break every hour. Lunch at 12:40. We finish at 3:00 sharp.</p></div>`,
-n:"Point at the artifact column. That is the promise of the day — they leave with four things they made, not four things they watched."},
-
-{h:"Class 1",c:"Welcome",t:"0:10",html:`
-<h2><span class="n">Ground rule</span>You cannot break this laptop</h2>
-<p class="lead">Nothing you do today is permanent. Every mistake in this room has an undo.</p>
-<div class="grid g3" style="margin-top:1.4em">
+<div class="grid g3 mt">
 <div class="card"><h3>Wrong click?</h3><p>Press <span class="kbd">Esc</span>. It backs you out of almost anything.</p></div>
-<div class="card"><h3>Deleted something?</h3><p>Press <span class="kbd">Ctrl</span> + <span class="kbd">Z</span>. It undoes your last action.</p></div>
-<div class="card"><h3>Totally lost?</h3><p>Raise your hand. That is what I am here for.</p></div>
-</div>
-<div class="callout"><span class="tag">Important</span><p>Ask the question. If you are wondering, three other people are wondering too.</p></div>`,
-n:"Say this slowly. Fear of breaking the machine is the single biggest barrier in this room — more than any skill gap. Come back to Ctrl+Z all day."},
+<div class="card"><h3>Deleted something?</h3><p>Press <span class="kbd">Ctrl</span> + <span class="kbd">Z</span> to undo it.</p></div>
+<div class="card"><h3>Lost?</h3><p>Raise your hand. Ten-minute break at the end of every hour.</p></div>
+</div>`,
+n:"Ground rule, said slowly: you cannot break this laptop today — every mistake has an undo. Fear of breaking the machine is the biggest barrier in the room, bigger than any skill gap. Point at the right-hand column: they leave with four things they made, not four things they watched."},
 
-/* ===================== HOUR 1 : C1-L1 ===================== */
-{h:"Hour 1 · C1-L1",c:"Module cover",t:"40 min",html:`
+/* ============================== LECTURE 1 · COMPUTER ESSENTIALS ============================== */
+{h:"Lecture 1",c:"Lecture cover",t:"1:00–1:50",html:`
 <div class="cover">
-  <div class="eyebrow">Hour 1 · Module C1-L1</div>
+  <div class="eyebrow">Class 1 · Lecture 1 of 4</div>
   <h1>Computer<br>Essentials</h1>
   <div class="meta">
-    <b>Teach</b> 25 min &nbsp;·&nbsp; <b>Hands-on</b> 12 min &nbsp;·&nbsp; <b>Checkpoint</b> 3 min<br>
-    <b>You will build</b> &nbsp;My Info.txt — your own contact card
+    <b>Covers</b>The parts of a computer · mouse &amp; touchpad · keyboard · typing<br>
+    <b>Timing</b>Teach 30 min · Hands-on lab 15 min · Checkpoint 5 min · Break 10 min<br>
+    <b>You build</b>TypingClub progress and five shortcuts you can do without looking
   </div>
 </div>`,
-n:"Clock check: you should start this at 11:10 and be at the lab launch by 11:35."},
+n:"Clock check: teaching should finish by 1:30 so the lab starts on time."},
 
-{h:"Hour 1 · C1-L1",c:"Why this matters",t:"1:30",html:`
+{h:"Lecture 1",c:"Objectives",t:"1 min",html:`
 <h2><span class="n">Why this matters</span>The parts you touch every minute</h2>
-<p class="lead">You will spend more time on the touchpad and keyboard than on anything else this laptop does. Twenty minutes here saves you hours later.</p>
-<div class="obj"><span class="tag">By the end of this hour you can</span>
+<p class="lead">You will spend more time on the touchpad and keyboard than on anything else this laptop does. Thirty minutes here saves hours later.</p>
+<div class="obj"><span class="tag">By the end of this lecture you can</span>
 <ul>
-<li>Identify the four groups of parts inside your laptop</li>
-<li>Move, select, open, and drag using the touchpad</li>
-<li>Locate the eight keys that do the most work</li>
-<li>Find any program by typing its name</li>
-<li>Copy text in one program and paste it into another</li>
+<li>Name the four jobs inside every computer: input, processing, storage, output</li>
+<li>Hover, click, double-click, right-click, drag, and scroll — with a mouse or a touchpad</li>
+<li>Find the command keys and use the shortcuts that save the most time</li>
+<li>Sit and place your hands correctly, and practice typing on TypingClub</li>
 </ul></div>`,
 n:"Read the objectives out loud. Adults want to know the destination before the trip."},
 
-{h:"Hour 1 · C1-L1",c:"Recall",t:"1:00",html:`
-<h2><span class="n">You already know this</span>A laptop is a phone with more room</h2>
-<div class="grid g2">
-<div class="card"><h3>On your phone</h3><p>You tap an app to open it. You swipe to scroll. You hold and drag to move an icon. You type on a keyboard that appears.</p></div>
-<div class="card"><h3>On this laptop</h3><p>You tap the touchpad to open. You slide two fingers to scroll. You press and drag to move. You type on a keyboard that is always there.</p></div>
+{h:"Lecture 1",c:"Concept",t:"3 min",html:`
+<h2><span class="n">How a computer works</span>Four jobs, one machine</h2>
+<div class="fig">
+<svg class="dg" viewBox="0 0 820 430" role="img" aria-label="Diagram: input devices send information to the processor, which sends results to output devices. Memory and storage connect to the processor.">
+<defs><marker id="ar1" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#3F6B0A"/></marker></defs>
+<rect class="ui" x="20" y="30" width="220" height="245" rx="12"/><rect class="lime" x="20" y="30" width="220" height="50" rx="12"/><rect class="lime" x="20" y="62" width="220" height="18"/>
+<text class="t-l" x="130" y="62" text-anchor="middle">INPUT</text>
+<text class="t-m" x="40" y="115">Keyboard</text><text class="t-m" x="40" y="145">Mouse / touchpad</text><text class="t-m" x="40" y="175">Webcam</text><text class="t-m" x="40" y="205">Microphone</text>
+<text class="t-s t-mut" x="40" y="255">You tell the computer</text>
+<rect class="ui" x="300" y="30" width="220" height="245" rx="12"/><rect class="lime" x="300" y="30" width="220" height="50" rx="12"/><rect class="lime" x="300" y="62" width="220" height="18"/>
+<text class="t-l" x="410" y="62" text-anchor="middle">PROCESSING</text>
+<text class="t-m" x="320" y="115">CPU — the brain</text><text class="t-m" x="320" y="145">GPU — draws the</text><text class="t-m" x="320" y="167">picture on screen</text>
+<text class="t-s t-mut" x="320" y="255">The computer thinks</text>
+<rect class="ui" x="580" y="30" width="220" height="245" rx="12"/><rect class="lime" x="580" y="30" width="220" height="50" rx="12"/><rect class="lime" x="580" y="62" width="220" height="18"/>
+<text class="t-l" x="690" y="62" text-anchor="middle">OUTPUT</text>
+<text class="t-m" x="600" y="115">Screen</text><text class="t-m" x="600" y="145">Speakers</text><text class="t-m" x="600" y="175">Headphones</text><text class="t-m" x="600" y="205">Printer</text>
+<text class="t-s t-mut" x="600" y="255">The computer answers</text>
+<line class="wire-l" x1="242" y1="152" x2="296" y2="152" marker-end="url(#ar1)"/>
+<line class="wire-l" x1="522" y1="152" x2="576" y2="152" marker-end="url(#ar1)"/>
+<line class="wire-l" x1="410" y1="280" x2="410" y2="318" marker-start="url(#ar1)" marker-end="url(#ar1)"/>
+<rect class="limesoft" x="170" y="322" width="480" height="96" rx="12"/>
+<text class="t-l" x="410" y="352" text-anchor="middle">MEMORY &amp; STORAGE</text>
+<text class="t-m" x="410" y="380" text-anchor="middle">RAM — short-term workspace (cleared at shut down)</text>
+<text class="t-m" x="410" y="404" text-anchor="middle">SSD / hard drive, flash drive, memory card — keeps files</text>
+</svg>
+<div>
+<p class="lead">Every computer, phone, and tablet does the same four jobs.</p>
+<div class="callout"><span class="tag">Troubleshooting tip</span><p>Slow? Usually processing or memory. Not responding to you? Usually input. Knowing the four jobs is most of troubleshooting.</p></div>
 </div>
-<p style="margin-top:1.2em">The ideas are identical. Only the surface changed.</p>`,
-n:"Almost everyone in this room has a smartphone. Anchor everything to it — you are teaching a translation, not a new language."},
-
-{h:"Hour 1 · C1-L1",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 1 of 9</span>Four groups of parts</h2>
-<p>Think of an office. Different departments, one job.</p>
-<div class="grid g4" style="margin-top:1em">
-<div class="card"><h3>Processing</h3><p>The brain. Does the thinking and the calculating.</p></div>
-<div class="card"><h3>Memory &amp; storage</h3><p>Where your files live. Documents, photos, programs.</p></div>
-<div class="card"><h3>Input</h3><p>How you talk to it. Touchpad, keyboard, camera, microphone.</p></div>
-<div class="card"><h3>Output</h3><p>How it answers you. Screen, speakers, printer.</p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>When something is slow, it is usually processing or memory. When something will not respond to you, it is usually input. Knowing which group is which is most of troubleshooting.</p></div>`,
-n:"Do not linger. This is orientation, not an exam. Ninety seconds and move."},
-
-{h:"Hour 1 · C1-L1",c:"Concept",t:"2:30",html:`
-<h2><span class="n">Concept 2 of 9</span>The touchpad is your steering wheel</h2>
-<p class="lead">The flat rectangle below the keyboard. Light touches, not hard presses.</p>
-<div class="grid g2" style="margin-top:1em">
-<div class="card"><h3>Hover</h3><p>Rest one finger and slide. The arrow on screen follows you. Nothing is selected yet.</p></div>
-<div class="card"><h3>Tap once</h3><p>One quick, light tap. Selects the thing under the arrow.</p></div>
-<div class="card"><h3>Tap twice</h3><p>Two quick taps. Opens a file, folder, or program.</p></div>
-<div class="card"><h3>Tap with two fingers</h3><p>Opens the hidden menu of extra options. This is the one people forget.</p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>Not registering? Use slightly more pressure — but never press hard. The touchpad reads contact, not force.</p></div>`,
-n:"Have everyone put a finger on the touchpad and move it while you talk. Physical repetition beats explanation here."},
-
-{h:"Hour 1 · C1-L1",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 3 of 9</span>Press and drag</h2>
-<p class="lead">Picking something up and putting it somewhere else.</p>
-<ol class="steps">
-<li>Put the arrow on the thing you want to move.</li>
-<li>Press down on the touchpad and keep holding.</li>
-<li>Slide your finger. The thing comes with you.</li>
-<li>Let go where you want it.</li>
-</ol>
-<p style="margin-top:.9em">You will use this to move files into folders, to highlight a sentence, and to resize a window by its corner.</p>`,
-n:"Demo on the projector once, slowly, then have them drag the Recycle Bin icon a few inches and back."},
-
-{h:"Hour 1 · C1-L1",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 4 of 9</span>One finger or two?</h2>
-<div class="grid g2">
-<div class="card"><h3>One-finger tap — "do it"</h3><p>Open a file. Click a link. Press a button. Select some text. This is the tap you use ninety percent of the time.</p></div>
-<div class="card"><h3>Two-finger tap — "what else?"</h3><p>Copy, paste, rename, delete, properties. The menu of things that are not on screen.</p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>When in doubt, try one finger first. If nothing useful happens, try two fingers to see what else is available.</p></div>`,
-n:"This is the single most useful distinction of the hour. Two-finger tap is invisible until someone shows you — most self-taught users never find it."},
-
-{h:"Hour 1 · C1-L1",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 5 of 9</span>Your keyboard has neighborhoods</h2>
-<div class="grid g3">
-<div class="card"><h3>Letters and numbers</h3><p>The middle. Where you write.</p></div>
-<div class="card"><h3>Command keys</h3><p>The edges. <span class="kbd">Ctrl</span> <span class="kbd">Alt</span> <span class="kbd">Shift</span> <span class="kbd">Esc</span> <span class="kbd">⊞</span>. They do not type — they instruct.</p></div>
-<div class="card"><h3>Arrow keys</h3><p>Bottom right. Move through a document without touching the touchpad.</p></div>
-</div>
-<p style="margin-top:1.2em">You do not need all 104 keys. You need eight.</p>`,
-n:"Transition line. Deliver it and move straight to the next slide."},
-
-{h:"Hour 1 · C1-L1",c:"Concept",t:"2:30",html:`
-<h2><span class="n">Concept 6 of 9</span>Four keys that get you out of trouble</h2>
-<div class="grid g2">
-<div class="card"><h3><span class="kbd">Esc</span> — Escape</h3><p>Backs out. Closes a box you did not mean to open. Exits full screen. Your emergency exit.</p></div>
-<div class="card"><h3><span class="kbd">⊞</span> — Windows key</h3><p>Bottom left, has the window logo. Opens the Start menu. Your way home from anywhere.</p></div>
-<div class="card"><h3><span class="kbd">Shift</span></h3><p>Hold it for CAPITAL letters and for the symbols printed above the numbers.</p></div>
-<div class="card"><h3><span class="kbd">Backspace</span> / <span class="kbd">Delete</span></h3><p>Backspace erases to the <b>left</b>. Delete erases to the <b>right</b>.</p></div>
 </div>`,
-n:"Have them physically locate each key as you name it. Wait for hands to find it before moving on."},
+n:"Walk left to right: input, processing, output — then down to memory and storage. Ninety seconds, then move on. This is orientation, not an exam."},
 
-{h:"Hour 1 · C1-L1",c:"Concept",t:"2:30",html:`
-<h2><span class="n">Concept 7 of 9</span>Four keys that save you time</h2>
+{h:"Lecture 1",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Memory vs. storage</span>The desk and the filing cabinet</h2>
 <div class="grid g2">
-<div class="card"><h3><span class="kbd">Ctrl</span> — Control</h3><p>Held with another key, it gives a command. <span class="kbd">Ctrl</span>+<span class="kbd">C</span> copy. <span class="kbd">Ctrl</span>+<span class="kbd">V</span> paste. <span class="kbd">Ctrl</span>+<span class="kbd">S</span> save.</p></div>
-<div class="card"><h3><span class="kbd">Ctrl</span> + <span class="kbd">Z</span> — Undo</h3><p>Takes back your last action. Press it again to go back further. The most important two keys on the laptop.</p></div>
-<div class="card"><h3><span class="kbd">Alt</span> + <span class="kbd">Tab</span></h3><p>Hold Alt, tap Tab. Switches between the programs you have open.</p></div>
-<div class="card"><h3><span class="kbd">Enter</span></h3><p>Says yes. Confirms, submits a form, starts a new line.</p></div>
+<div class="card"><span class="tag">Memory · RAM</span><h3>Your desk</h3><p>Where the work you have open right now sits. Fast, but cleared when the computer shuts down. More RAM = more programs open at once without slowing down.</p></div>
+<div class="card"><span class="tag">Storage · SSD or hard drive</span><h3>Your filing cabinet</h3><p>Where files live when you are not using them. Stays put when the power is off. This is why you <b>save</b> your work.</p></div>
 </div>
-<div class="callout"><span class="tag">Important</span><p>If you remember one thing from this hour: <span class="kbd">Ctrl</span> + <span class="kbd">Z</span>. It is why you cannot break this laptop.</p></div>`,
-n:"Do the Ctrl+Z demo live: type a sentence in Notepad, delete it all, undo it. The room reacts to this every single time."},
+<div class="grid g2 mt">
+<div class="card plain"><h3>Flash drive</h3><p>A filing cabinet that fits on your key ring. Plugs into a USB port.</p></div>
+<div class="card plain"><h3>Memory card</h3><p>The small card inside cameras and some phones. Same job, smaller.</p></div>
+</div>
+<div class="callout"><span class="tag">Remember</span><p>Not saved = still only on the desk. Shut down before saving and it is gone.</p></div>`,
+n:"This is the 'why save' slide. In Lecture 2 they save a file — tie it back to the filing cabinet then."},
 
-{h:"Hour 1 · C1-L1",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 8 of 9</span>Stop hunting. Start typing.</h2>
-<p class="lead">You never have to remember where anything lives.</p>
-<ol class="steps">
-<li>Look at the bottom-left of the screen for the search box or magnifying glass.</li>
-<li>Click it and start typing what you want — a few letters is enough.</li>
-<li>Windows shows matches instantly. Click the one you want.</li>
+{h:"Lecture 1",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Pointing devices</span>Mouse and touchpad do the same job</h2>
+<div class="fig">
+<svg class="dg" viewBox="0 0 820 400" role="img" aria-label="Diagram of a mouse with left button, right button and scroll wheel, and a laptop touchpad with touch surface and left and right click zones.">
+<rect class="ui" x="95" y="40" width="170" height="290" rx="85"/>
+<path class="wire" d="M180,40 L180,150 M100,150 L260,150"/>
+<rect class="ink" x="171" y="72" width="18" height="46" rx="9"/>
+<rect class="frame" x="430" y="50" width="360" height="290" rx="16"/>
+<rect class="ui" x="500" y="110" width="220" height="160" rx="12"/>
+<path class="dash" d="M500,232 L720,232 M610,232 L610,270"/>
+<text class="t-l" x="180" y="378" text-anchor="middle">MOUSE</text>
+<text class="t-l" x="610" y="378" text-anchor="middle">TOUCHPAD</text>
+<line class="lead" x1="62" y1="100" x2="132" y2="100"/><g class="co"><circle cx="50" cy="100" r="15"/><text x="50" y="100">1</text></g>
+<line class="lead" x1="298" y1="100" x2="228" y2="100"/><g class="co"><circle cx="310" cy="100" r="15"/><text x="310" y="100">2</text></g>
+<line class="lead" x1="298" y1="200" x2="190" y2="110"/><g class="co"><circle cx="310" cy="205" r="15"/><text x="310" y="205">3</text></g>
+<line class="lead" x1="745" y1="150" x2="680" y2="170"/><g class="co"><circle cx="760" cy="148" r="15"/><text x="760" y="148">4</text></g>
+<line class="lead" x1="472" y1="292" x2="550" y2="252"/><g class="co"><circle cx="460" cy="300" r="15"/><text x="460" y="300">5</text></g>
+<line class="lead" x1="748" y1="292" x2="670" y2="252"/><g class="co"><circle cx="760" cy="300" r="15"/><text x="760" y="300">6</text></g>
+</svg>
+<ol class="legend">
+<li data-n="1"><b>Left button</b> — select and open</li>
+<li data-n="2"><b>Right button</b> — more options</li>
+<li data-n="3"><b>Scroll wheel</b> — move up and down a page</li>
+<li data-n="4"><b>Touch surface</b> — slide one finger to move the pointer; tap to click</li>
+<li data-n="5"><b>Left click zone</b> — press down here to click</li>
+<li data-n="6"><b>Right click zone</b> — or tap with two fingers</li>
 </ol>
-<div class="callout"><span class="tag">Tip</span><p>Search finds more than programs. Try typing <b>calculator</b>, <b>printer</b>, or even <b>change wallpaper</b>.</p></div>`,
-n:"Frame this as permission, not a feature: they are allowed to forget where things are. That relief is the point."},
+</div>`,
+n:"Have everyone put a finger on the touchpad and move it while you talk. Light touches — the touchpad reads contact, not force."},
 
-{h:"Hour 1 · C1-L1",c:"Concept",t:"2:30",html:`
-<h2><span class="n">Concept 9 of 9</span>Cut, copy, paste</h2>
-<div class="grid g3">
-<div class="card"><h3>Copy — <span class="kbd">Ctrl</span>+<span class="kbd">C</span></h3><p>Makes a duplicate. The original stays where it is.</p></div>
-<div class="card"><h3>Cut — <span class="kbd">Ctrl</span>+<span class="kbd">X</span></h3><p>Picks it up to move it. The original goes away once you paste.</p></div>
-<div class="card"><h3>Paste — <span class="kbd">Ctrl</span>+<span class="kbd">V</span></h3><p>Puts it down wherever your cursor is.</p></div>
+{h:"Lecture 1",c:"Concept",t:"3 min",html:`
+<h2><span class="n">Six pointer actions</span>Everything you do with the pointer</h2>
+<table>
+<tr><th>Action</th><th>Mouse</th><th>Touchpad</th><th>Use it to</th></tr>
+<tr><td><b>Hover</b></td><td>Move the mouse</td><td>Slide one finger</td><td>Point at something — nothing is selected yet</td></tr>
+<tr><td><b>Click</b></td><td>Press left button once</td><td>Tap once</td><td>Select an item, press a button, follow a link</td></tr>
+<tr><td><b>Double-click</b></td><td>Two quick left clicks</td><td>Two quick taps</td><td>Open a file, folder, or program</td></tr>
+<tr><td><b>Right-click</b></td><td>Press right button</td><td>Tap with two fingers</td><td>Open the menu of extra options</td></tr>
+<tr><td><b>Click and drag</b></td><td>Hold left button, move</td><td>Press, hold, slide</td><td>Move a file, highlight text, resize a window</td></tr>
+<tr><td><b>Scroll</b></td><td>Roll the wheel</td><td>Slide two fingers</td><td>Move up and down a long page</td></tr>
+</table>
+<div class="callout"><span class="tag">Tip</span><p>Not sure? Click once first. If nothing useful happens, right-click to see what else is possible.</p></div>`,
+n:"Demo each row on the projector, then have the room do it: drag the Recycle Bin icon a few inches and back; right-click the desktop and press Esc to close the menu."},
+
+{h:"Lecture 1",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Selecting text</span>Highlight first, then act</h2>
+<p class="lead">Before you can copy, delete, or bold text, you select it. It turns highlighted.</p>
+<div class="grid g2 mt">
+<div class="card"><h3>Click and drag</h3><p>Press at the start of the words, hold, and slide to the end. Let go.</p></div>
+<div class="card"><h3>Double-click a word</h3><p>Selects just that one word.</p></div>
+<div class="card"><h3>Triple-click</h3><p>Selects the whole paragraph or line.</p></div>
+<div class="card"><h3><span class="kbd">Ctrl</span> + <span class="kbd">A</span></h3><p>Selects <b>all</b> — every word on the page or every file in the folder.</p></div>
 </div>
-<div class="callout"><span class="tag">Note</span><p>Copying looks like nothing happened. That is normal — the text is being held invisibly until you paste it.</p></div>`,
-n:"Name the invisible-clipboard confusion out loud. Beginners often copy twice because they saw no feedback."},
+<div class="callout"><span class="tag">Note</span><p>Typing while text is highlighted replaces it. If that happens by accident: <span class="kbd">Ctrl</span> + <span class="kbd">Z</span>.</p></div>`,
+n:"Most beginners only know drag-to-select, and it is the hardest one on a touchpad. Double-click and Ctrl+A are the easy wins."},
 
-{h:"Hour 1 · C1-L1",c:"Demonstration",t:"3:00",html:`
-<h2><span class="n">Watch first</span>Everything at once, in 90 seconds</h2>
-<ol class="steps">
-<li>Click the search box. Type <b>notepad</b>. Press <span class="kbd">Enter</span>.</li>
-<li>Type your first and last name. Use <span class="kbd">Shift</span> for the capitals.</li>
-<li>Press <span class="kbd">Enter</span> for a new line. Type your phone number.</li>
-<li>Press <span class="kbd">Ctrl</span>+<span class="kbd">A</span> to select everything, then <span class="kbd">Ctrl</span>+<span class="kbd">C</span> to copy it.</li>
-<li>Press <span class="kbd">Ctrl</span>+<span class="kbd">S</span>. Choose <b>Documents</b>. Name it <b>My Info</b>. Click <b>Save</b>.</li>
-</ol>
-<div class="callout"><span class="tag">Important</span><p>Watch me do it once all the way through. Do not follow along yet — you will do it yourself in a moment.</p></div>`,
-n:"Do it on the projector at real speed, then again narrating each keystroke. Insist they watch the first pass with hands off keyboards."},
+{h:"Lecture 1",c:"Concept",t:"2 min",html:`
+<h2><span class="n">The keyboard</span>Your keyboard has neighborhoods</h2>
+<svg class="dg" viewBox="0 0 900 420" role="img" aria-label="Laptop keyboard with zones: letters and numbers, command keys, editing keys, arrow keys, and the function row.">
+<rect class="frame" x="10" y="8" width="880" height="350" rx="14"/>
+<rect class="limesoft" x="25.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="50.5" y="42.0" text-anchor="middle" font-weight="700">Esc</text>
+<rect class="ui2" x="81.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="106.5" y="42.0" text-anchor="middle">F1</text>
+<rect class="ui2" x="137.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="162.5" y="42.0" text-anchor="middle">F2</text>
+<rect class="ui2" x="193.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="218.5" y="42.0" text-anchor="middle">F3</text>
+<rect class="ui2" x="249.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="274.5" y="42.0" text-anchor="middle">F4</text>
+<rect class="ui2" x="305.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="330.5" y="42.0" text-anchor="middle">F5</text>
+<rect class="ui2" x="361.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="386.5" y="42.0" text-anchor="middle">F6</text>
+<rect class="ui2" x="417.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="442.5" y="42.0" text-anchor="middle">F7</text>
+<rect class="ui2" x="473.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="498.5" y="42.0" text-anchor="middle">F8</text>
+<rect class="ui2" x="529.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="554.5" y="42.0" text-anchor="middle">F9</text>
+<rect class="ui2" x="585.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="610.5" y="42.0" text-anchor="middle">F10</text>
+<rect class="ui2" x="641.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="666.5" y="42.0" text-anchor="middle">F11</text>
+<rect class="ui2" x="697.0" y="20" width="51.0" height="34" rx="6"/>
+<text class="t-s" x="722.5" y="42.0" text-anchor="middle">F12</text>
+<rect class="lime" x="753.0" y="20" width="107.0" height="34" rx="6"/>
+<text class="t-s" x="806.5" y="42.0" text-anchor="middle" font-weight="700">Del</text>
+<rect class="ui" x="25.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="50.5" y="93.0" text-anchor="middle">&#96;</text>
+<rect class="ui" x="81.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="106.5" y="93.0" text-anchor="middle">1</text>
+<rect class="ui" x="137.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="162.5" y="93.0" text-anchor="middle">2</text>
+<rect class="ui" x="193.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="218.5" y="93.0" text-anchor="middle">3</text>
+<rect class="ui" x="249.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="274.5" y="93.0" text-anchor="middle">4</text>
+<rect class="ui" x="305.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="330.5" y="93.0" text-anchor="middle">5</text>
+<rect class="ui" x="361.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="386.5" y="93.0" text-anchor="middle">6</text>
+<rect class="ui" x="417.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="442.5" y="93.0" text-anchor="middle">7</text>
+<rect class="ui" x="473.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="498.5" y="93.0" text-anchor="middle">8</text>
+<rect class="ui" x="529.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="554.5" y="93.0" text-anchor="middle">9</text>
+<rect class="ui" x="585.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="610.5" y="93.0" text-anchor="middle">0</text>
+<rect class="ui" x="641.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="666.5" y="93.0" text-anchor="middle">-</text>
+<rect class="ui" x="697.0" y="62" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="722.5" y="93.0" text-anchor="middle">=</text>
+<rect class="lime" x="753.0" y="62" width="107.0" height="52" rx="6"/>
+<text class="t-s" x="806.5" y="93.0" text-anchor="middle" font-weight="700">Backspace</text>
+<rect class="limesoft" x="25.0" y="120" width="79.0" height="52" rx="6"/>
+<text class="t-m" x="64.5" y="151.0" text-anchor="middle" font-weight="700">Tab</text>
+<rect class="ui" x="109.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="134.5" y="151.0" text-anchor="middle">Q</text>
+<rect class="ui" x="165.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="190.5" y="151.0" text-anchor="middle">W</text>
+<rect class="ui" x="221.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="246.5" y="151.0" text-anchor="middle">E</text>
+<rect class="ui" x="277.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="302.5" y="151.0" text-anchor="middle">R</text>
+<rect class="ui" x="333.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="358.5" y="151.0" text-anchor="middle">T</text>
+<rect class="ui" x="389.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="414.5" y="151.0" text-anchor="middle">Y</text>
+<rect class="ui" x="445.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="470.5" y="151.0" text-anchor="middle">U</text>
+<rect class="ui" x="501.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="526.5" y="151.0" text-anchor="middle">I</text>
+<rect class="ui" x="557.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="582.5" y="151.0" text-anchor="middle">O</text>
+<rect class="ui" x="613.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="638.5" y="151.0" text-anchor="middle">P</text>
+<rect class="ui" x="669.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="694.5" y="151.0" text-anchor="middle">[</text>
+<rect class="ui" x="725.0" y="120" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="750.5" y="151.0" text-anchor="middle">]</text>
+<rect class="ui" x="781.0" y="120" width="79.0" height="52" rx="6"/>
+<text class="t-m" x="820.5" y="151.0" text-anchor="middle">&#92;</text>
+<rect class="limesoft" x="25.0" y="178" width="93.0" height="52" rx="6"/>
+<text class="t-s" x="71.5" y="209.0" text-anchor="middle" font-weight="700">Caps Lock</text>
+<rect class="ui" x="123.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="148.5" y="209.0" text-anchor="middle">A</text>
+<rect class="ui" x="179.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="204.5" y="209.0" text-anchor="middle">S</text>
+<rect class="ui" x="235.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="260.5" y="209.0" text-anchor="middle">D</text>
+<rect class="ui" x="291.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="316.5" y="209.0" text-anchor="middle">F</text>
+<rect class="ui" x="347.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="372.5" y="209.0" text-anchor="middle">G</text>
+<rect class="ui" x="403.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="428.5" y="209.0" text-anchor="middle">H</text>
+<rect class="ui" x="459.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="484.5" y="209.0" text-anchor="middle">J</text>
+<rect class="ui" x="515.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="540.5" y="209.0" text-anchor="middle">K</text>
+<rect class="ui" x="571.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="596.5" y="209.0" text-anchor="middle">L</text>
+<rect class="ui" x="627.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="652.5" y="209.0" text-anchor="middle">;</text>
+<rect class="ui" x="683.0" y="178" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="708.5" y="209.0" text-anchor="middle">'</text>
+<rect class="lime" x="739.0" y="178" width="121.0" height="52" rx="6"/>
+<text class="t-s" x="799.5" y="209.0" text-anchor="middle" font-weight="700">Enter</text>
+<rect class="limesoft" x="25.0" y="236" width="121.0" height="52" rx="6"/>
+<text class="t-s" x="85.5" y="267.0" text-anchor="middle" font-weight="700">Shift</text>
+<rect class="ui" x="151.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="176.5" y="267.0" text-anchor="middle">Z</text>
+<rect class="ui" x="207.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="232.5" y="267.0" text-anchor="middle">X</text>
+<rect class="ui" x="263.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="288.5" y="267.0" text-anchor="middle">C</text>
+<rect class="ui" x="319.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="344.5" y="267.0" text-anchor="middle">V</text>
+<rect class="ui" x="375.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="400.5" y="267.0" text-anchor="middle">B</text>
+<rect class="ui" x="431.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="456.5" y="267.0" text-anchor="middle">N</text>
+<rect class="ui" x="487.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="512.5" y="267.0" text-anchor="middle">M</text>
+<rect class="ui" x="543.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="568.5" y="267.0" text-anchor="middle">,</text>
+<rect class="ui" x="599.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="624.5" y="267.0" text-anchor="middle">.</text>
+<rect class="ui" x="655.0" y="236" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="680.5" y="267.0" text-anchor="middle">/</text>
+<rect class="limesoft" x="711.0" y="236" width="149.0" height="52" rx="6"/>
+<text class="t-s" x="785.5" y="267.0" text-anchor="middle" font-weight="700">Shift</text>
+<rect class="limesoft" x="25.0" y="294" width="65.0" height="52" rx="6"/>
+<text class="t-s" x="57.5" y="325.0" text-anchor="middle" font-weight="700">Ctrl</text>
+<rect class="limesoft" x="95.0" y="294" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="120.5" y="325.0" text-anchor="middle" font-weight="700">Fn</text>
+<rect class="limesoft" x="151.0" y="294" width="65.0" height="52" rx="6"/>
+<text class="t-m" x="183.5" y="325.0" text-anchor="middle" font-weight="700">⊞</text>
+<rect class="limesoft" x="221.0" y="294" width="65.0" height="52" rx="6"/>
+<text class="t-m" x="253.5" y="325.0" text-anchor="middle" font-weight="700">Alt</text>
+<rect class="ui" x="291.0" y="294" width="261.0" height="52" rx="6"/>
+<text class="t-s" x="421.5" y="325.0" text-anchor="middle">Space</text>
+<rect class="limesoft" x="557.0" y="294" width="65.0" height="52" rx="6"/>
+<text class="t-m" x="589.5" y="325.0" text-anchor="middle" font-weight="700">Alt</text>
+<rect class="limesoft" x="627.0" y="294" width="65.0" height="52" rx="6"/>
+<text class="t-s" x="659.5" y="325.0" text-anchor="middle" font-weight="700">Ctrl</text>
+<rect class="frame" x="697.0" y="294" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="722.5" y="325.0" text-anchor="middle">←</text>
+<rect class="frame" x="753.0" y="294" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="778.5" y="325.0" text-anchor="middle">↑↓</text>
+<rect class="frame" x="809.0" y="294" width="51.0" height="52" rx="6"/>
+<text class="t-m" x="834.5" y="325.0" text-anchor="middle">→</text>
+<rect class="ink" x="309.5" y="220" width="14" height="3" rx="1.5"/>
+<rect class="ink" x="477.5" y="220" width="14" height="3" rx="1.5"/>
+<rect class="ui" x="25" y="378" width="22" height="22" rx="4" stroke="#C7C0B4" stroke-width="1.5"/>
+<text class="t-s" x="55" y="394">Letters &amp; numbers</text>
+<rect class="limesoft" x="203" y="378" width="22" height="22" rx="4" stroke="#C7C0B4" stroke-width="1.5"/>
+<text class="t-s" x="233" y="394">Command keys</text>
+<rect class="lime" x="381" y="378" width="22" height="22" rx="4" stroke="#C7C0B4" stroke-width="1.5"/>
+<text class="t-s" x="411" y="394">Editing keys</text>
+<rect class="frame" x="559" y="378" width="22" height="22" rx="4" stroke="#C7C0B4" stroke-width="1.5"/>
+<text class="t-s" x="589" y="394">Arrow keys</text>
+<rect class="ui2" x="737" y="378" width="22" height="22" rx="4" stroke="#C7C0B4" stroke-width="1.5"/>
+<text class="t-s" x="767" y="394">Function row</text>
+</svg>
+<p class="mt">Letters and numbers <b>write</b>. Command keys <b>instruct</b>. Editing keys <b>erase and confirm</b>. Arrow keys <b>move</b> the cursor.</p>`,
+n:"Have them find each zone on their own keyboard as you point at it. Laptop layouts differ slightly — the zones are always in the same neighborhoods."},
 
-{h:"Hour 1 · C1-L1",c:"Lab launch",t:"12:00",html:`
-<h2><span class="n">Lab 1 · 12 minutes</span>My Contact Card</h2>
-<p class="lead">Every form asks for the same details. Type them once today, paste them forever.</p>
-<div class="grid g2" style="margin-top:1em">
-<div class="card"><h3>You will produce</h3><p>A file named <b>My Info.txt</b>, saved in Documents, containing your name, phone, email, and address.</p></div>
-<div class="card"><h3>Done when</h3><p>You close Notepad, reopen it from Documents, and your details are still there.</p></div>
+{h:"Lecture 1",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Keys that get you out of trouble</span>Four keys to know by touch</h2>
+<div class="grid g2">
+<div class="card"><h3><span class="kbd">Esc</span> Escape</h3><p>Top-left. Closes a menu or pop-up you did not mean to open, and exits full screen.</p></div>
+<div class="card"><h3><span class="kbd">⊞</span> Windows key</h3><p>Bottom row, has the window logo. Opens the Start menu — your way home from anywhere.</p></div>
+<div class="card"><h3><span class="kbd">Backspace</span> vs <span class="kbd">Delete</span></h3><p>Backspace erases to the <b>left</b> of the cursor. Delete erases to the <b>right</b> — and sends a selected file to the Recycle Bin.</p></div>
+<div class="card"><h3><span class="kbd">Enter</span></h3><p>Says yes: confirms, submits a form, or starts a new line.</p></div>
+</div>`,
+n:"Wait for every hand to find each key before moving on. The Delete-to-Recycle-Bin point comes back in Lecture 2."},
+
+{h:"Lecture 1",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Modifier and toggle keys</span>Keys that change other keys</h2>
+<table>
+<tr><th>Key</th><th>What it does</th></tr>
+<tr><td><span class="kbd">Shift</span></td><td>Hold it for one capital letter, or the symbol printed on top of a number key (<b>Shift + 2</b> = @)</td></tr>
+<tr><td><span class="kbd">Caps Lock</span></td><td>An on/off switch: every letter in CAPITALS until you press it again. A small light often shows it is on.</td></tr>
+<tr><td><span class="kbd">Ctrl</span></td><td>Control — held with a letter to give a command (copy, paste, save)</td></tr>
+<tr><td><span class="kbd">Alt</span></td><td>Alternate — held with another key for more commands (<b>Alt + Tab</b> switches programs)</td></tr>
+<tr><td><span class="kbd">Fn</span></td><td>Function — unlocks the second job printed on some keys, like volume and brightness</td></tr>
+<tr><td><span class="kbd">Tab</span></td><td>Jumps to the next box in a form</td></tr>
+</table>
+<div class="callout caution"><span class="tag">Password trouble?</span><p>Check Caps Lock first. It is the most common reason a correct password is rejected.</p></div>`,
+n:"The Caps Lock tip prevents a dozen 'my password doesn't work' questions later. Say it twice."},
+
+{h:"Lecture 1",c:"Concept",t:"3 min",html:`
+<h2><span class="n">Shortcuts</span>Ten shortcuts worth memorizing</h2>
+<div class="split even">
+<table>
+<tr><th>Press</th><th>To</th></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">C</span></td><td>Copy</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">X</span></td><td>Cut</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">V</span></td><td>Paste</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">Z</span></td><td><b>Undo</b></td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">Y</span></td><td>Redo</td></tr>
+</table>
+<table>
+<tr><th>Press</th><th>To</th></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">A</span></td><td>Select all</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">S</span></td><td>Save</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">P</span></td><td>Print</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">F</span></td><td>Find a word on the page</td></tr>
+<tr><td><span class="kbd">Alt</span>+<span class="kbd">Tab</span></td><td>Switch between open programs</td></tr>
+</table>
 </div>
-<div class="callout"><span class="tag">Tip</span><p>No touchpad? Every step works from the keyboard: <span class="kbd">⊞</span> to search, <span class="kbd">Tab</span> to move between buttons, <span class="kbd">Enter</span> to press one.</p></div>`,
-n:"Circulate immediately — do not stand at the front. Watch for two failure points: saving to the wrong folder, and typing into the file-name box before choosing the folder."},
+<div class="callout"><span class="tag">How to press a shortcut</span><p>Hold the first key down, tap the second, then let go of both — just like Shift for a capital letter.</p></div>`,
+n:"Live demo of Ctrl+Z: type a sentence in Notepad, select it all, delete it, then undo. The room reacts every time. That one shortcut is why they cannot break the laptop."},
 
-{h:"Hour 1 · C1-L1",c:"Checkpoint",t:"1:30",html:`
-<h2><span class="n">Checkpoint</span>Three questions</h2>
-<div class="qa"><div class="q">1. You want to see the extra options for a file. Which tap?</div></div>
-<div class="qa"><div class="q">2. You just deleted a paragraph by accident. What do you press?</div></div>
-<div class="qa"><div class="q">3. Where do you go when you cannot remember where a program lives?</div></div>`,
-n:"Ask for hands, not shouted answers. Give them fifteen seconds of quiet to think first."},
+{h:"Lecture 1",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Cut, copy, paste</span>The invisible clipboard</h2>
+<svg class="dg" viewBox="0 0 820 290" role="img" aria-label="Diagram: copy or cut sends selected text to the clipboard; paste puts it where the cursor is.">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#3F6B0A"/></marker></defs>
+<text class="t-m t-mut" x="140" y="30" text-anchor="middle">Where it is now</text>
+<rect class="ui" x="30" y="45" width="220" height="210" rx="10"/>
+<rect class="ui2" x="50" y="70" width="180" height="12" rx="3"/><rect class="lime" x="50" y="100" width="150" height="16" rx="3"/><rect class="ui2" x="50" y="132" width="170" height="12" rx="3"/><rect class="ui2" x="50" y="160" width="120" height="12" rx="3"/><rect class="ui2" x="50" y="188" width="175" height="12" rx="3"/>
+<text class="t-s t-green" x="50" y="235">selected text</text>
+<rect class="limesoft" x="330" y="70" width="160" height="170" rx="12"/><rect class="ink" x="375" y="56" width="70" height="26" rx="6"/>
+<text class="t-l" x="410" y="160" text-anchor="middle">CLIPBOARD</text>
+<text class="t-s t-mut" x="410" y="185" text-anchor="middle">holds one item,</text><text class="t-s t-mut" x="410" y="203" text-anchor="middle">out of sight</text>
+<text class="t-m t-mut" x="680" y="30" text-anchor="middle">Where you want it</text>
+<rect class="ui" x="570" y="45" width="220" height="210" rx="10"/>
+<rect class="ui2" x="590" y="70" width="170" height="12" rx="3"/><rect class="ui2" x="590" y="98" width="140" height="12" rx="3"/><rect class="ink" x="590" y="126" width="3" height="22"/><rect class="lime" x="598" y="129" width="150" height="16" rx="3"/><rect class="ui2" x="590" y="166" width="160" height="12" rx="3"/>
+<text class="t-s t-green" x="590" y="235">pasted at the cursor</text>
+<line class="wire-l" x1="252" y1="118" x2="326" y2="118" marker-end="url(#ar2)"/><text class="t-s" x="289" y="92" text-anchor="middle" font-weight="700">Ctrl+C</text><text class="t-s" x="289" y="108" text-anchor="middle">copy</text>
+<line class="wire-l" x1="252" y1="200" x2="326" y2="200" marker-end="url(#ar2)"/><text class="t-s" x="289" y="220" text-anchor="middle" font-weight="700">Ctrl+X</text><text class="t-s" x="289" y="236" text-anchor="middle">cut</text>
+<line class="wire-l" x1="492" y1="155" x2="566" y2="155" marker-end="url(#ar2)"/><text class="t-s" x="529" y="129" text-anchor="middle" font-weight="700">Ctrl+V</text><text class="t-s" x="529" y="145" text-anchor="middle">paste</text>
+</svg>
+<div class="grid g3 mt">
+<div class="card"><h3>Copy</h3><p>Makes a duplicate. The original stays.</p></div>
+<div class="card"><h3>Cut</h3><p>Moves it. The original leaves when you paste.</p></div>
+<div class="card"><h3>Paste</h3><p>Puts it down at the blinking cursor. Paste as many times as you like.</p></div>
+</div>`,
+n:"Name the invisible-clipboard confusion out loud: copying looks like nothing happened. Beginners copy twice because they saw no feedback. The same three keys work on files in Lecture 2."},
 
-{h:"Hour 1 · C1-L1",c:"Checkpoint",t:"1:30",html:`
-<h2><span class="n">Checkpoint</span>Answers</h2>
-<div class="qa"><div class="q">1. You want to see the extra options for a file.</div><div class="a">Two-finger tap. One finger does it; two fingers ask what else.</div></div>
-<div class="qa"><div class="q">2. You just deleted a paragraph by accident.</div><div class="a">Ctrl + Z. Press it again to go back further.</div></div>
-<div class="qa"><div class="q">3. You cannot remember where a program lives.</div><div class="a">The search box, bottom left. Type a few letters of the name.</div></div>`,
-n:"If more than two people miss question 1, re-demo the two-finger tap before you break. It underpins the rest of the day."},
+{h:"Lecture 1",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Posture and the home row</span>Set up before you type</h2>
+<svg class="dg" viewBox="0 0 820 230" role="img" aria-label="Home row: left fingers rest on A S D F, right fingers rest on J K L semicolon. F and J have bumps. Thumbs rest on the space bar.">
+<rect class="limesoft" x="30" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="66.0" y="84" text-anchor="middle">A</text>
+<text class="t-s t-mut" x="66.0" y="132" text-anchor="middle">pinky</text>
+<rect class="limesoft" x="106" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="142.0" y="84" text-anchor="middle">S</text>
+<text class="t-s t-mut" x="142.0" y="132" text-anchor="middle">ring</text>
+<rect class="limesoft" x="182" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="218.0" y="84" text-anchor="middle">D</text>
+<text class="t-s t-mut" x="218.0" y="132" text-anchor="middle">middle</text>
+<rect class="limesoft" x="258" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="294.0" y="84" text-anchor="middle">F</text>
+<rect class="ink" x="284.0" y="96" width="20" height="4" rx="2"/>
+<text class="t-s t-mut" x="294.0" y="132" text-anchor="middle">index</text>
+<rect class="ui" x="334" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="370.0" y="84" text-anchor="middle">G</text>
+<rect class="ui" x="410" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="446.0" y="84" text-anchor="middle">H</text>
+<rect class="limesoft" x="486" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="522.0" y="84" text-anchor="middle">J</text>
+<rect class="ink" x="512.0" y="96" width="20" height="4" rx="2"/>
+<text class="t-s t-mut" x="522.0" y="132" text-anchor="middle">index</text>
+<rect class="limesoft" x="562" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="598.0" y="84" text-anchor="middle">K</text>
+<text class="t-s t-mut" x="598.0" y="132" text-anchor="middle">middle</text>
+<rect class="limesoft" x="638" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="674.0" y="84" text-anchor="middle">L</text>
+<text class="t-s t-mut" x="674.0" y="132" text-anchor="middle">ring</text>
+<rect class="limesoft" x="714" y="40" width="72" height="72" rx="8"/>
+<text class="t-l" x="750.0" y="84" text-anchor="middle">;</text>
+<text class="t-s t-mut" x="750.0" y="132" text-anchor="middle">pinky</text>
+<text class="t-m t-green" x="180.0" y="26" text-anchor="middle">LEFT HAND</text>
+<text class="t-m t-green" x="636.0" y="26" text-anchor="middle">RIGHT HAND</text>
+<rect class="ui" x="182" y="160" width="452" height="44" rx="8"/>
+<text class="t-m" x="408.0" y="188" text-anchor="middle">Space bar — both thumbs</text>
+</svg>
+<div class="grid g4 mt">
+<div class="card plain"><p><b>Feet flat,</b> back against the chair.</p></div>
+<div class="card plain"><p><b>Wrists straight,</b> floating above the keys.</p></div>
+<div class="card plain"><p><b>Screen</b> an arm's length away, top at eye level.</p></div>
+<div class="card plain"><p><b>Eyes on the screen,</b> not your hands.</p></div>
+</div>`,
+n:"Have everyone find the bumps on F and J with their index fingers, eyes closed. That is how touch typists find home without looking."},
 
-{h:"Hour 1 · C1-L1",c:"Summary",t:"1:00",html:`
-<h2><span class="n">Hour 1 complete</span>What you can now do</h2>
-<ul>
-<li>Name the four groups of parts inside your laptop</li>
-<li>Hover, tap, double-tap, two-finger tap, and drag</li>
-<li>Use <span class="kbd">Esc</span>, <span class="kbd">⊞</span>, <span class="kbd">Shift</span>, <span class="kbd">Ctrl</span>, <span class="kbd">Alt</span>, <span class="kbd">Enter</span>, <span class="kbd">Backspace</span>, <span class="kbd">Delete</span></li>
-<li>Find any program by typing its name</li>
-<li>Copy in one place and paste in another</li>
-<li>Save a file you can find again</li>
+{h:"Lecture 1",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Practice tool</span>TypingClub — free typing lessons</h2>
+<div class="split">
+<div>
+<p class="lead">A free website that teaches touch typing one small lesson at a time.</p>
+<ul class="mt">
+<li><b>Free</b> for individuals and schools</li>
+<li><b>No account needed</b> to start. Make a free profile later only if you want to save progress</li>
+<li><b>Earn up to 5 stars</b> per lesson. Repeat a lesson to raise your stars</li>
+<li>The screen shows <b>which finger</b> to use for every key</li>
 </ul>
-<div class="callout"><span class="tag">Next</span><p>Ten-minute break. Then Hour 2 — where that file actually lives, and how to build somewhere to keep it.</p></div>`,
-n:"Say the break end time out loud and write it on the board. 11:50 out, 12:00 back."},
+</div>
+<div class="card"><span class="tag">The rule</span><h3>Accuracy first, speed later</h3><p>Slow and correct builds the habit. Speed comes on its own. A few minutes a day for two weeks makes a real difference.</p></div>
+</div>
+<p class="mt">Address: <span class="url">typingclub.com</span></p>`,
+n:"Set expectations: nobody becomes a fast typist today. The goal is to know the tool exists and finish the first few lessons so they can keep going at home or at the library."},
 
-/* ===================== HOUR 2 : C1-L2 ===================== */
-{h:"Hour 2 · C1-L2",c:"Module cover",t:"40 min",html:`
+{h:"Lecture 1",c:"Demonstration",t:"3 min",html:`
+<h2><span class="n">Watch first</span>Start TypingClub in under a minute</h2>
+<ol class="steps">
+<li>Press <span class="kbd">⊞</span>, type <b>edge</b>, press <span class="kbd">Enter</span> to open the Microsoft Edge browser.</li>
+<li>Click the long bar at the top, type <span class="url">typingclub.com</span>, press <span class="kbd">Enter</span>.</li>
+<li>Click <b>Get Started</b>. Skip sign-up — it is optional.</li>
+<li>Open <b>Lesson 1</b>. Rest your fingers on the home row — index fingers on the F and J bumps.</li>
+<li>Type what the screen shows. Watch the screen, not your hands.</li>
+</ol>
+<div class="callout"><span class="tag">Important</span><p>Watch me once all the way through. Hands off keyboards — you will do it yourself in a moment.</p></div>`,
+n:"Do it on the projector at real speed, then once more narrating each step. Check the site loads on the venue Wi-Fi before class. If TypingClub is blocked or slow, run the Notepad shortcut drill (Part B of the lab) for the full 15 minutes."},
+
+{h:"Lecture 1",c:"Hands-on lab",t:"15 min",html:`
+<div class="lab">
+<span class="badge">Lab 1 · 15 minutes</span>
+<h2 style="margin-bottom:.4em">Keyboard Warm-up</h2>
+<div class="grid g2">
+<div class="card"><span class="tag">Part A · 10 min</span><h3>TypingClub</h3><p>Open <span class="url">typingclub.com</span> and complete <b>Lessons 1–3</b>. Repeat any lesson below 3 stars.</p></div>
+<div class="card"><span class="tag">Part B · 5 min</span><h3>Shortcut drill in Notepad</h3><p>Open Notepad. Type your full name. <span class="kbd">Ctrl</span>+<span class="kbd">A</span> → <span class="kbd">Ctrl</span>+<span class="kbd">C</span> → <span class="kbd">End</span> → <span class="kbd">Enter</span> → <span class="kbd">Ctrl</span>+<span class="kbd">V</span> twice. Then <span class="kbd">Ctrl</span>+<span class="kbd">Z</span>.</p></div>
+</div>
+<div class="callout"><span class="tag">Done when</span><p>Three TypingClub lessons show stars, and your name appears twice in Notepad after the undo. Leave Notepad open — you use it in Lecture 2.</p></div>
+</div>`,
+n:"Circulate immediately — do not stand at the front. Watch for fingers drifting off the home row and people looking down at their hands. In Part B, the common slip is pressing the keys one after another instead of holding Ctrl."},
+
+{h:"Lecture 1",c:"Checkpoint",t:"3 min",html:`
+<h2><span class="n">Checkpoint</span>Five quick questions</h2>
+<div class="qa"><div class="q">1. You want the menu of extra options for a file. What do you do?</div><div class="a">Right-click — or tap with two fingers on the touchpad.</div></div>
+<div class="qa"><div class="q">2. You deleted a paragraph by accident. What do you press?</div><div class="a">Ctrl + Z (undo). Press again to go further back.</div></div>
+<div class="qa"><div class="q">3. Which is the desk and which is the filing cabinet — RAM or storage?</div><div class="a">RAM is the desk (temporary). Storage is the filing cabinet (keeps files).</div></div>
+<div class="qa"><div class="q">4. Your correct password keeps getting rejected. What do you check first?</div><div class="a">Caps Lock.</div></div>
+<div class="qa"><div class="q">5. Which two keys have small bumps, and why?</div><div class="a">F and J — so your index fingers find the home row without looking.</div></div>
+<p class="hint">Press A (or the Answers button) to show the answers.</p>`,
+n:"Ask for hands, not shouted answers. Give fifteen seconds of quiet first. If more than two people miss question 1, re-demo right-click before the break."},
+
+{h:"Lecture 1",c:"Summary",t:"1 min",html:`
+<h2><span class="n">Lecture 1 complete</span>What you can now do</h2>
+<ul>
+<li>Explain input, processing, output, and memory &amp; storage</li>
+<li>Hover, click, double-click, right-click, drag, and scroll</li>
+<li>Use <span class="kbd">Esc</span> <span class="kbd">⊞</span> <span class="kbd">Shift</span> <span class="kbd">Ctrl</span> <span class="kbd">Alt</span> <span class="kbd">Enter</span> <span class="kbd">Backspace</span> <span class="kbd">Delete</span></li>
+<li>Copy, cut, paste, and undo</li>
+<li>Find the home row and keep practicing on TypingClub</li>
+</ul>
+<div class="callout"><span class="tag">Next</span><p>Ten-minute break. Back at <b>2:00</b> for Lecture 2 — Windows 11, where your files live, and how to keep them organized.</p></div>`,
+n:"Say the return time out loud and write it on the board: 1:50 out, 2:00 back."},
+
+/* ============================== LECTURE 2 · WINDOWS 11 ============================== */
+{h:"Lecture 2",c:"Lecture cover",t:"2:00–2:50",html:`
 <div class="cover">
-  <div class="eyebrow">Hour 2 · Module C1-L2</div>
-  <h1>Windows<br>Fundamentals</h1>
+  <div class="eyebrow">Class 1 · Lecture 2 of 4</div>
+  <h1>Windows 11<br>Fundamentals</h1>
   <div class="meta">
-    <b>Teach</b> 25 min &nbsp;·&nbsp; <b>Hands-on</b> 12 min &nbsp;·&nbsp; <b>Checkpoint</b> 3 min<br>
-    <b>You will build</b> &nbsp;A filing system that holds your contact card
+    <b>Covers</b>The operating system · desktop · Start · windows · files &amp; folders<br>
+    <b>Timing</b>Teach 30 min · Hands-on lab 15 min · Checkpoint 5 min · Break 10 min<br>
+    <b>You build</b>A filing system in Documents that holds your contact card
   </div>
 </div>`,
-n:"Start 12:00. Lab launch by 12:25. Lunch at 12:40 — protect that, people get restless."},
+n:"Start at 2:00. Lab launch by 2:30. Protect the break at 2:50."},
 
-{h:"Hour 2 · C1-L2",c:"Why this matters",t:"1:30",html:`
+{h:"Lecture 2",c:"Objectives",t:"1 min",html:`
 <h2><span class="n">Why this matters</span>Where did my file go?</h2>
-<p class="lead">You saved something last hour. In three weeks you will want it back. This hour is about never losing it.</p>
-<div class="obj"><span class="tag">By the end of this hour you can</span>
+<p class="lead">You will save something today. In three weeks you will want it back. This lecture is about never losing it.</p>
+<div class="obj"><span class="tag">By the end of this lecture you can</span>
 <ul>
 <li>Explain what an operating system does</li>
-<li>Locate the desktop, taskbar, and Start menu</li>
-<li>Open a program three different ways</li>
-<li>Create folders and move files into them</li>
-<li>Choose correctly between Sleep, Restart, and Shut down</li>
+<li>Name the parts of the desktop, taskbar, and Start menu</li>
+<li>Open a program four ways and arrange two windows side by side</li>
+<li>Create folders, move files into them, and restore a deleted file</li>
+<li>Choose correctly between Lock, Sleep, Restart, and Shut down</li>
 </ul></div>`,
-n:"Open with the question, not the definition. 'Where did my file go' is the anxiety they actually have."},
+n:"Open with the question, not the definition. 'Where did my file go?' is the anxiety they actually have."},
 
-{h:"Hour 2 · C1-L2",c:"Recall",t:"1:00",html:`
-<h2><span class="n">Building on Hour 1</span>You already saved a file</h2>
-<p class="lead">You typed your details, pressed <span class="kbd">Ctrl</span>+<span class="kbd">S</span>, and chose Documents.</p>
-<p style="margin-top:1em">Documents is a folder. Folders live inside a filing system. That filing system is run by the operating system — which is what we are about to meet.</p>
-<div class="callout"><span class="tag">Note</span><p>Everything this hour is a zoom-out from a thing you already did.</p></div>`,
-n:"Literal callback to Lab 1. Continuity is what makes four hours feel like one course instead of four lectures."},
-
-{h:"Hour 2 · C1-L2",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 1 of 10</span>What an operating system is</h2>
-<p class="lead">The program that runs all the other programs.</p>
-<p style="margin-top:.8em">It starts when you press the power button. It draws what you see. It remembers where your files are. It lets your keyboard talk to your screen.</p>
-<div class="callout"><span class="tag">Note</span><p>Without it, the laptop powers on and does nothing at all — like a car with a full tank and no engine.</p></div>`,
-n:"Ninety seconds. Do not get pulled into a hardware-versus-software discussion."},
-
-{h:"Hour 2 · C1-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 2 of 10</span>You have met these before</h2>
-<div class="grid g4">
-<div class="card"><h3>Windows</h3><p>Most laptops and desktops. What is on the machine in front of you.</p></div>
-<div class="card plain"><h3>macOS</h3><p>Apple computers.</p></div>
-<div class="card plain"><h3>Linux</h3><p>Free and open. Popular with technicians.</p></div>
-<div class="card plain"><h3>Android / iOS</h3><p>Your phone runs one of these.</p></div>
+{h:"Lecture 2",c:"Concept",t:"2 min",html:`
+<h2><span class="n">The operating system</span>The program that runs everything else</h2>
+<div class="fig">
+<svg class="dg" viewBox="0 0 760 400" role="img" aria-label="Diagram: four layers. You at the top, then apps, then Windows 11, then hardware. Your click travels down; the result travels back up.">
+<defs><marker id="ar3" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#3F6B0A"/></marker></defs>
+<rect class="ui" x="150" y="20" width="460" height="60" rx="10"/><text class="t-l" x="380" y="50" text-anchor="middle">YOU</text><text class="t-s t-mut" x="380" y="70" text-anchor="middle">click, tap, type</text>
+<rect class="ui" x="150" y="105" width="460" height="70" rx="10"/><text class="t-l" x="380" y="135" text-anchor="middle">APPS</text><text class="t-s t-mut" x="380" y="158" text-anchor="middle">Edge · Word · Notepad · Calculator</text>
+<rect class="limesoft" x="150" y="200" width="460" height="90" rx="10"/><text class="t-l" x="380" y="232" text-anchor="middle">WINDOWS 11 — THE OPERATING SYSTEM</text><text class="t-s" x="380" y="256" text-anchor="middle">starts the computer · runs the apps · keeps track of files</text><text class="t-s" x="380" y="276" text-anchor="middle">lets the keyboard, screen, and Wi-Fi work together</text>
+<rect class="ui" x="150" y="315" width="460" height="70" rx="10"/><text class="t-l" x="380" y="345" text-anchor="middle">HARDWARE</text><text class="t-s t-mut" x="380" y="368" text-anchor="middle">CPU · memory · storage · screen · keyboard</text>
+<line class="wire-l" x1="110" y1="40" x2="110" y2="360" marker-end="url(#ar3)"/><text class="t-s t-green" x="100" y="200" text-anchor="end">your</text><text class="t-s t-green" x="100" y="218" text-anchor="end">click</text>
+<line class="wire-l" x1="650" y1="360" x2="650" y2="40" marker-end="url(#ar3)"/><text class="t-s t-green" x="660" y="200">the</text><text class="t-s t-green" x="660" y="218">result</text>
+</svg>
+<div>
+<p class="lead">Without it, the laptop powers on and does nothing — a car with fuel and no engine.</p>
+<div class="callout"><span class="tag">Others you have met</span><p>macOS on Apple computers · Android or iOS on phones · ChromeOS on Chromebooks.</p></div>
 </div>
-<p style="margin-top:1.2em">Yours is <b>Windows 11</b>. Everything today is Windows 11.</p>`,
-n:"Thirty seconds of context, then move. Somebody always asks about Mac — answer briefly and keep going."},
-
-{h:"Hour 2 · C1-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 3 of 10</span>The desktop is home base</h2>
-<p class="lead">The screen you land on after signing in.</p>
-<div class="grid g3" style="margin-top:1em">
-<div class="card"><h3>Icons</h3><p>Small pictures. Each opens a program, file, or folder.</p></div>
-<div class="card"><h3>Background</h3><p>The picture behind everything. Yours to change.</p></div>
-<div class="card"><h3>Taskbar</h3><p>The strip along the bottom. Always there.</p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>Lost in a pile of open windows? Press <span class="kbd">⊞</span>+<span class="kbd">D</span> to jump straight back to the desktop.</p></div>`,
-n:"Have them press Windows+D. Instant, visible, and it always gets a reaction."},
-
-{h:"Hour 2 · C1-L2",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 4 of 10</span>The taskbar</h2>
-<div class="grid g2">
-<div class="card"><h3>Start button</h3><p>The window logo. Opens the Start menu.</p></div>
-<div class="card"><h3>Search box</h3><p>Right beside Start. Type anything.</p></div>
-<div class="card"><h3>Pinned programs</h3><p>Your regulars, one click away.</p></div>
-<div class="card"><h3>Clock and notifications</h3><p>Far right. Time, date, Wi-Fi, battery, volume.</p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>A program that is running shows a small line under its icon. That is how you tell open from merely pinned.</p></div>`,
-n:"Point out the underline on the projector. It answers 'is it open or not' — a question beginners ask constantly."},
-
-{h:"Hour 2 · C1-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 5 of 10</span>The Start menu</h2>
-<p class="lead">Press <span class="kbd">⊞</span> or click the window logo.</p>
-<div class="grid g3" style="margin-top:1em">
-<div class="card"><h3>Pinned</h3><p>Apps put up front for quick reach.</p></div>
-<div class="card"><h3>All apps</h3><p>Everything installed, in alphabetical order.</p></div>
-<div class="card"><h3>Your account and power</h3><p>Bottom corners. Sign out, lock, sleep, shut down.</p></div>
 </div>`,
-n:"Open it live and leave it on screen while you talk through the three zones."},
+n:"Ninety seconds. Do not get pulled into a Mac-versus-PC discussion — answer briefly and keep going."},
 
-{h:"Hour 2 · C1-L2",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 6 of 10</span>Three ways to open a program</h2>
-<ol class="steps">
-<li><b>Click its taskbar icon.</b> Fastest, if it is pinned there.</li>
-<li><b>Open Start and find it in All apps.</b> Best when you are browsing rather than looking.</li>
-<li><b>Search its name.</b> Best when you know what you want. Usually the fastest of all.</li>
-</ol>
-<div class="callout"><span class="tag">Tip</span><p>Pick whichever feels natural. There is no wrong one — they all end in the same place.</p></div>`,
-n:"Say the no-wrong-answer line explicitly. Beginners assume there is a correct method and freeze looking for it."},
-
-{h:"Hour 2 · C1-L2",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 7 of 10</span>File Explorer — where your files really are</h2>
-<p class="lead">The yellow folder on the taskbar. Or press <span class="kbd">⊞</span>+<span class="kbd">E</span>.</p>
-<div class="grid g3" style="margin-top:1em">
-<div class="card"><h3>Documents</h3><p>Where <b>My Info.txt</b> went last hour.</p></div>
-<div class="card"><h3>Downloads</h3><p>Where anything you get from the internet lands.</p></div>
-<div class="card"><h3>Pictures</h3><p>Photos and images.</p></div>
+{h:"Lecture 2",c:"Concept",t:"1 min",html:`
+<h2><span class="n">Your version</span>Windows 11 — and what about Windows 10?</h2>
+<div class="grid g2">
+<div class="card good"><span class="tag">On your laptop</span><h3>Windows 11</h3><p>Taskbar icons in the center. Rounded corners. Start opens from the middle of the taskbar.</p></div>
+<div class="card plain"><span class="tag">Older computers</span><h3>Windows 10</h3><p>Start button on the far left. Microsoft ended free support on <b>October 14, 2025</b>, so it no longer gets regular security fixes.</p></div>
 </div>
-<div class="callout"><span class="tag">Tip</span><p>Left side is the map. Right side is what is inside. Click on the left, look on the right.</p></div>`,
-n:"Open File Explorer and show them My Info.txt sitting in Documents. Making Lab 1's output visible here lands the whole idea of a filing system."},
+<div class="callout"><span class="tag">What that means at home</span><p>A Windows 10 computer still turns on and works. Without security updates it is riskier online, so upgrade or replace it when you can.</p></div>`,
+n:"Someone will ask whether their home computer stopped working. It did not — it stopped getting free security updates. Keep it short."},
 
-{h:"Hour 2 · C1-L2",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 8 of 10</span>Folders are drawers</h2>
-<p class="lead">A folder holds files. A folder can hold other folders.</p>
-<ol class="steps">
-<li>Two-finger tap on empty space inside a folder or on the desktop.</li>
-<li>Choose <b>New</b>, then <b>Folder</b>.</li>
-<li>Type the name while it is highlighted, then press <span class="kbd">Enter</span>.</li>
+{h:"Lecture 2",c:"Concept",t:"2 min",html:`
+<h2><span class="n">The desktop</span>Home base after you sign in</h2>
+<div class="fig wide">
+<svg class="dg" viewBox="0 0 820 470" role="img" aria-label="Annotated Windows 11 desktop showing wallpaper, desktop icons, an open window, Start button, search box, taskbar apps, and the system tray with clock.">
+<rect class="frame" x="20" y="20" width="780" height="430" rx="10"/>
+<rect class="ui" x="45" y="45" width="44" height="40" rx="6"/><text class="t-s" x="67" y="104" text-anchor="middle">Recycle Bin</text>
+<rect class="ui" x="45" y="125" width="44" height="40" rx="6"/><text class="t-s" x="67" y="184" text-anchor="middle">Edge</text>
+<rect class="ui" x="250" y="70" width="400" height="250" rx="8"/><rect class="ui2" x="251" y="71" width="398" height="34" rx="7"/><text class="t-s" x="268" y="93">Notepad</text><text class="t-s" x="575" y="93">—</text><text class="t-s" x="600" y="93">☐</text><text class="t-s" x="625" y="93">✕</text>
+<rect class="ui2" x="270" y="125" width="260" height="10" rx="3"/><rect class="ui2" x="270" y="148" width="200" height="10" rx="3"/>
+<rect class="ui" x="20" y="402" width="780" height="48"/>
+<g transform="translate(262,414)"><rect class="ink" width="10" height="10"/><rect class="ink" x="12" width="10" height="10"/><rect class="ink" y="12" width="10" height="10"/><rect class="ink" x="12" y="12" width="10" height="10"/></g>
+<rect class="ui2" x="298" y="413" width="130" height="26" rx="13"/><text class="t-s t-mut" x="318" y="431">Search</text>
+<rect class="ui2" x="445" y="413" width="26" height="26" rx="5"/><rect class="ui2" x="481" y="413" width="26" height="26" rx="5"/><rect class="ui2" x="517" y="413" width="26" height="26" rx="5"/>
+<rect class="lime" x="522" y="443" width="16" height="4" rx="2"/>
+<path class="wire" d="M650,422 q10,-8 20,0 M654,427 q6,-5 12,0"/><circle class="ink" cx="660" cy="431" r="2"/>
+<path class="ink" d="M682,421 h5 l7,-5 v20 l-7,-5 h-5z"/>
+<rect class="ui" x="704" y="419" width="22" height="12" rx="2"/><rect class="ink" x="707" y="422" width="12" height="6"/>
+<text class="t-s" x="770" y="423" text-anchor="middle">1:05 PM</text><text class="t-s" x="770" y="441" text-anchor="middle">10/27/2026</text>
+<g class="co"><circle cx="720" cy="120" r="15"/><text x="720" y="120">1</text></g>
+<line class="lead" x1="92" y1="65" x2="112" y2="65"/><g class="co"><circle cx="127" cy="65" r="15"/><text x="127" y="65">2</text></g>
+<line class="lead" x1="450" y1="55" x2="450" y2="68"/><g class="co"><circle cx="450" cy="40" r="15"/><text x="450" y="40">3</text></g>
+<line class="lead" x1="273" y1="395" x2="273" y2="410"/><g class="co"><circle cx="273" cy="380" r="15"/><text x="273" y="380">4</text></g>
+<line class="lead" x1="363" y1="395" x2="363" y2="410"/><g class="co"><circle cx="363" cy="380" r="15"/><text x="363" y="380">5</text></g>
+<line class="lead" x1="494" y1="395" x2="494" y2="410"/><g class="co"><circle cx="494" cy="380" r="15"/><text x="494" y="380">6</text></g>
+<line class="lead" x1="688" y1="395" x2="688" y2="414"/><g class="co"><circle cx="688" cy="380" r="15"/><text x="688" y="380">7</text></g>
+</svg>
+<ol class="legend cols">
+<li data-n="1"><b>Desktop</b> — <span class="kbd">⊞</span>+<span class="kbd">D</span> jumps here</li>
+<li data-n="2"><b>Desktop icons</b> — double-click to open</li>
+<li data-n="3"><b>A window</b> — each open program gets one</li>
+<li data-n="4"><b>Start</b> — every app and the power button</li>
+<li data-n="5"><b>Search</b> — type to find anything</li>
+<li data-n="6"><b>Taskbar apps</b> — one click to open or switch</li>
+<li data-n="7"><b>System tray</b> — Wi-Fi, volume, battery, clock</li>
 </ol>
-<div class="callout"><span class="tag">Tip</span><p>Name folders the way you would label a drawer at home: <b>Jobs</b>, <b>Health</b>, <b>Taxes</b>. Not <b>New Folder (3)</b>.</p></div>`,
-n:"The naming advice matters more than the mechanics. Bad names are why people cannot find their own files later."},
+</div>`,
+n:"Have them press Windows + D (callout 1) — it jumps to the desktop, and pressing it again brings the windows back. Instant and visible; it always gets a reaction."},
 
-{h:"Hour 2 · C1-L2",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 9 of 10</span>Moving files is the same three keys</h2>
+{h:"Lecture 2",c:"Concept",t:"2 min",html:`
+<h2><span class="n">The taskbar</span>The strip along the bottom</h2>
+<svg class="dg" viewBox="0 0 900 210" role="img" aria-label="Close-up of the Windows 11 taskbar with numbered callouts.">
+<rect class="ui" x="10" y="80" width="880" height="72" rx="10"/>
+<g transform="translate(150,104)"><rect class="ink" width="11" height="11"/><rect class="ink" x="13" width="11" height="11"/><rect class="ink" y="13" width="11" height="11"/><rect class="ink" x="13" y="13" width="11" height="11"/></g>
+<rect class="ui2" x="195" y="98" width="170" height="36" rx="18"/><circle class="wire" cx="217" cy="114" r="7"/><line class="wire" x1="222" y1="119" x2="228" y2="125"/><text class="t-m t-mut" x="240" y="122">Search</text>
+<rect class="ui" x="388" y="102" width="20" height="18" rx="3"/><rect class="ui" x="394" y="108" width="20" height="18" rx="3"/>
+<path class="limesoft" d="M440,106 h14 l5,5 h19 v19 h-38z"/>
+<circle class="ui" cx="510" cy="116" r="15"/><text class="t-s" x="510" y="121" text-anchor="middle">e</text>
+<rect class="ui" x="537" y="101" width="30" height="30" rx="5"/><text class="t-m" x="552" y="122" text-anchor="middle" font-weight="700">W</text>
+<rect class="ui" x="585" y="101" width="26" height="30" rx="3"/><rect class="ui2" x="590" y="109" width="16" height="3"/><rect class="ui2" x="590" y="116" width="16" height="3"/><rect class="ui2" x="590" y="123" width="12" height="3"/>
+<rect class="lime" x="451" y="140" width="16" height="4" rx="2"/><rect class="lime" x="544" y="140" width="16" height="4" rx="2"/>
+<text class="t-m" x="660" y="122">⌃</text>
+<path class="wire" d="M694,112 q12,-10 24,0 M698,117 q8,-6 16,0"/><circle class="ink" cx="706" cy="122" r="2.5"/>
+<path class="ink" d="M736,110 h6 l8,-6 v24 l-8,-6 h-6z"/>
+<rect class="ui" x="768" y="107" width="26" height="14" rx="3"/><rect class="ink" x="771" y="110" width="15" height="8"/>
+<text class="t-s" x="845" y="111" text-anchor="middle">1:05 PM</text><text class="t-s" x="845" y="131" text-anchor="middle">10/27/2026</text>
+<line class="lead" x1="162" y1="60" x2="162" y2="98"/><g class="co"><circle cx="162" cy="45" r="15"/><text x="162" y="45">1</text></g>
+<line class="lead" x1="280" y1="60" x2="280" y2="96"/><g class="co"><circle cx="280" cy="45" r="15"/><text x="280" y="45">2</text></g>
+<line class="lead" x1="400" y1="60" x2="400" y2="100"/><g class="co"><circle cx="400" cy="45" r="15"/><text x="400" y="45">3</text></g>
+<line class="lead" x1="525" y1="60" x2="525" y2="98"/><g class="co"><circle cx="525" cy="45" r="15"/><text x="525" y="45">4</text></g>
+<line class="lead" x1="503" y1="172" x2="548" y2="148"/><g class="co"><circle cx="490" cy="182" r="15"/><text x="490" y="182">5</text></g>
+<line class="lead" x1="664" y1="60" x2="664" y2="104"/><g class="co"><circle cx="664" cy="45" r="15"/><text x="664" y="45">6</text></g>
+<line class="lead" x1="740" y1="60" x2="740" y2="102"/><g class="co"><circle cx="740" cy="45" r="15"/><text x="740" y="45">7</text></g>
+<line class="lead" x1="845" y1="60" x2="845" y2="96"/><g class="co"><circle cx="845" cy="45" r="15"/><text x="845" y="45">8</text></g>
+</svg>
+<div class="grid g4 mt">
+<div class="card plain"><p><b>1 Start</b> &nbsp;·&nbsp; <b>2 Search</b></p></div>
+<div class="card plain"><p><b>3 Task View</b> — see every open window</p></div>
+<div class="card plain"><p><b>4 Pinned apps</b> · <b>5</b> a line under an icon means it is open</p></div>
+<div class="card plain"><p><b>6 Hidden icons</b> · <b>7 Wi-Fi, volume, battery</b> · <b>8 Date &amp; time</b></p></div>
+</div>`,
+n:"Point out the underline on the projector. It answers 'is it open or not?' — a question beginners ask constantly. Click the Wi-Fi/volume/battery group to show Quick Settings."},
+
+{h:"Lecture 2",c:"Concept",t:"2 min",html:`
+<h2><span class="n">The Start menu</span>Press <span class="kbd">⊞</span> or click Start</h2>
+<div class="fig">
+<svg class="dg" viewBox="0 0 700 520" role="img" aria-label="Annotated Windows 11 Start menu showing search, pinned apps, All apps button, recommended files, account, and power.">
+<rect class="ui" x="20" y="10" width="580" height="500" rx="12"/>
+<rect class="ui2" x="45" y="32" width="530" height="40" rx="20"/><text class="t-s t-mut" x="75" y="57">Search for apps, settings, and documents</text>
+<text class="t-m" x="50" y="110" font-weight="700">Pinned</text><rect class="ui2" x="500" y="94" width="78" height="26" rx="5"/><text class="t-s" x="539" y="112" text-anchor="middle">All  ›</text>
+<g class="t-s">
+<rect class="ui2" x="62" y="132" width="40" height="40" rx="8"/><text x="82" y="190" text-anchor="middle">Edge</text>
+<rect class="ui2" x="150" y="132" width="40" height="40" rx="8"/><text x="170" y="190" text-anchor="middle">Word</text>
+<rect class="ui2" x="238" y="132" width="40" height="40" rx="8"/><text x="258" y="190" text-anchor="middle">Outlook</text>
+<rect class="ui2" x="326" y="132" width="40" height="40" rx="8"/><text x="346" y="190" text-anchor="middle">Photos</text>
+<rect class="ui2" x="414" y="132" width="40" height="40" rx="8"/><text x="434" y="190" text-anchor="middle">Settings</text>
+<rect class="ui2" x="502" y="132" width="40" height="40" rx="8"/><text x="522" y="190" text-anchor="middle">Store</text>
+<rect class="ui2" x="62" y="212" width="40" height="40" rx="8"/><text x="82" y="270" text-anchor="middle">Notepad</text>
+<rect class="ui2" x="150" y="212" width="40" height="40" rx="8"/><text x="170" y="270" text-anchor="middle">Calculator</text>
+<rect class="ui2" x="238" y="212" width="40" height="40" rx="8"/><text x="258" y="270" text-anchor="middle">Explorer</text>
+<rect class="ui2" x="326" y="212" width="40" height="40" rx="8"/><text x="346" y="270" text-anchor="middle">Paint</text>
+<rect class="ui2" x="414" y="212" width="40" height="40" rx="8"/><text x="434" y="270" text-anchor="middle">Clock</text>
+<rect class="ui2" x="502" y="212" width="40" height="40" rx="8"/><text x="522" y="270" text-anchor="middle">Camera</text>
+</g>
+<text class="t-m" x="50" y="320" font-weight="700">Recommended</text>
+<rect class="ui2" x="50" y="336" width="250" height="44" rx="6"/><text class="t-s" x="66" y="363">My Info.txt · Recently opened</text>
+<rect class="ui2" x="320" y="336" width="250" height="44" rx="6"/><text class="t-s" x="336" y="363">Resume.docx · Yesterday</text>
+<rect class="ui2" x="21" y="450" width="578" height="59"/>
+<circle class="lime" cx="60" cy="480" r="16"/><text class="t-s" x="86" y="485">Student</text>
+<circle class="ui" cx="565" cy="480" r="16"/><path class="wire" d="M559,474 a9,9 0 1,0 12,0 M565,468 v10"/>
+<line class="lead" x1="578" y1="52" x2="628" y2="52"/><g class="co"><circle cx="645" cy="52" r="15"/><text x="645" y="52">1</text></g>
+<line class="lead" x1="546" y1="180" x2="628" y2="180"/><g class="co"><circle cx="645" cy="180" r="15"/><text x="645" y="180">2</text></g>
+<line class="lead" x1="580" y1="107" x2="628" y2="107"/><g class="co"><circle cx="645" cy="107" r="15"/><text x="645" y="107">3</text></g>
+<line class="lead" x1="572" y1="358" x2="628" y2="358"/><g class="co"><circle cx="645" cy="358" r="15"/><text x="645" y="358">4</text></g>
+<g class="co"><circle cx="160" cy="480" r="15"/><text x="160" y="480">5</text></g>
+<line class="lead" x1="583" y1="480" x2="628" y2="480"/><g class="co"><circle cx="645" cy="480" r="15"/><text x="645" y="480">6</text></g>
+</svg>
+<ol class="legend">
+<li data-n="1"><b>Search</b> — just start typing</li>
+<li data-n="2"><b>Pinned</b> — your favorite apps up front</li>
+<li data-n="3"><b>All</b> — every installed app, A to Z</li>
+<li data-n="4"><b>Recommended</b> — files you opened recently</li>
+<li data-n="5"><b>Your account</b> — lock, sign out, switch user</li>
+<li data-n="6"><b>Power</b> — sleep, restart, shut down</li>
+</ol>
+</div>`,
+n:"Open Start live and leave it on screen while you walk through the six numbers. Your pinned apps will differ from the drawing — the layout is the same. Close it by pressing the Windows key again or Esc."},
+
+{h:"Lecture 2",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Opening programs</span>Four ways — all correct</h2>
+<div class="grid g2">
+<div class="card"><span class="tag">1 · Fastest when you know the name</span><h3>Search</h3><p>Press <span class="kbd">⊞</span>, type a few letters (<b>calc</b>), press <span class="kbd">Enter</span>.</p></div>
+<div class="card"><span class="tag">2 · One click</span><h3>Taskbar</h3><p>Click an app pinned to the taskbar.</p></div>
+<div class="card"><span class="tag">3 · Browsing</span><h3>Start → All</h3><p>Open Start, click <b>All</b>, scroll the alphabetical list.</p></div>
+<div class="card"><span class="tag">4 · Shortcut</span><h3>Desktop icon</h3><p>Double-click the icon on the desktop.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>Use an app often? Right-click it in Start and choose <b>Pin to taskbar</b>.</p></div>`,
+n:"Say the no-wrong-answer line explicitly. Beginners assume there is one correct method and freeze looking for it. Search is the one to recommend — they never have to remember where anything lives."},
+
+{h:"Lecture 2",c:"Concept",t:"3 min",html:`
+<h2><span class="n">Anatomy of a window · open with ⊞ + E</span>File Explorer — every window works like this</h2>
+<div class="fig wide">
+<svg class="dg" viewBox="0 0 840 470" role="img" aria-label="Annotated File Explorer window: tab, window buttons, address bar, search box, command bar, navigation pane, files and folders, scroll bar.">
+<rect class="ui" x="20" y="20" width="760" height="430" rx="10"/>
+<rect class="ui2" x="21" y="21" width="758" height="44" rx="9"/>
+<rect class="ui" x="40" y="29" width="180" height="36" rx="8"/><text class="t-s" x="58" y="52">Documents</text><text class="t-s t-mut" x="200" y="52">✕</text>
+<text class="t-m" x="660" y="50">—</text><text class="t-m" x="698" y="50">☐</text><text class="t-m" x="738" y="50">✕</text>
+<text class="t-m t-mut" x="38" y="92">←  →  ↑</text>
+<rect class="ui2" x="130" y="74" width="440" height="28" rx="6"/><text class="t-s" x="145" y="93">›  This PC  ›  Documents  ›  My Files</text>
+<rect class="ui2" x="585" y="74" width="180" height="28" rx="6"/><text class="t-s t-mut" x="600" y="93">Search My Files</text>
+<line class="wire" x1="21" y1="110" x2="779" y2="110"/>
+<text class="t-s" x="40" y="132">⊕ New    Cut    Copy    Paste    Rename    Share    Delete    ⋯</text>
+<line class="wire" x1="21" y1="145" x2="779" y2="145"/>
+<rect class="ui2" x="21" y="146" width="180" height="303"/>
+<g class="t-s"><text x="40" y="175">Home</text><text x="40" y="205">Desktop</text><text x="40" y="235">Downloads</text></g>
+<rect class="limesoft" x="30" y="248" width="162" height="28" rx="5"/><text class="t-s" x="40" y="267" font-weight="700">Documents</text>
+<g class="t-s"><text x="40" y="300">Pictures</text><text x="40" y="330">This PC</text></g>
+<path class="limesoft" d="M240,175 h22 l7,7 h35 v40 h-64z"/><text class="t-s" x="272" y="245" text-anchor="middle">Personal</text>
+<path class="limesoft" d="M340,175 h22 l7,7 h35 v40 h-64z"/><text class="t-s" x="372" y="245" text-anchor="middle">Jobs</text>
+<path class="limesoft" d="M440,175 h22 l7,7 h35 v40 h-64z"/><text class="t-s" x="472" y="245" text-anchor="middle">Health</text>
+<path class="ui" d="M548,172 h34 l12,12 v40 h-46z"/><text class="t-s" x="571" y="245" text-anchor="middle">My Info.txt</text>
+<rect class="ui2" x="762" y="150" width="10" height="292" rx="5"/><rect class="ink" x="762" y="160" width="10" height="70" rx="5" opacity=".45"/>
+<g class="co"><circle cx="250" cy="47" r="15"/><text x="250" y="47">1</text></g>
+<line class="lead" x1="795" y1="45" x2="756" y2="45"/><g class="co"><circle cx="812" cy="45" r="15"/><text x="812" y="45">2</text></g>
+<g class="co"><circle cx="455" cy="88" r="15"/><text x="455" y="88">3</text></g>
+<line class="lead" x1="795" y1="88" x2="766" y2="88"/><g class="co"><circle cx="812" cy="88" r="15"/><text x="812" y="88">4</text></g>
+<line class="lead" x1="795" y1="128" x2="600" y2="128"/><g class="co"><circle cx="812" cy="128" r="15"/><text x="812" y="128">5</text></g>
+<g class="co"><circle cx="150" cy="400" r="15"/><text x="150" y="400">6</text></g>
+<g class="co"><circle cx="640" cy="330" r="15"/><text x="640" y="330">7</text></g>
+<line class="lead" x1="795" y1="200" x2="774" y2="200"/><g class="co"><circle cx="812" cy="200" r="15"/><text x="812" y="200">8</text></g>
+</svg>
+<ol class="legend cols">
+<li data-n="1"><b>Tab</b> — what this window is showing</li>
+<li data-n="2"><b>Minimize · Maximize · Close</b></li>
+<li data-n="3"><b>Address bar</b> — the path to where you are</li>
+<li data-n="4"><b>Search</b> — searches this folder only</li>
+<li data-n="5"><b>Command bar</b> — New, Cut, Copy, Paste, Delete</li>
+<li data-n="6"><b>Navigation pane</b> — the map: click on the left…</li>
+<li data-n="7"><b>Files and folders</b> — …look on the right</li>
+<li data-n="8"><b>Scroll bar</b> — drag to see more</li>
+</ol>
+</div>`,
+n:"Open File Explorer live with Windows+E and match each number to the real window. Minimize is not close — the program is still running on the taskbar."},
+
+{h:"Lecture 2",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Where files live</span>Folders inside folders</h2>
+<div class="fig">
+<svg class="dg" viewBox="0 0 640 430" role="img" aria-label="Folder tree: This PC contains Desktop, Documents and Downloads. Documents contains My Files, which contains Personal, Jobs and Health. Personal contains My Info.txt.">
+<path class="wire" d="M40,60 V392 M40,92 H84 M40,142 H84 M40,392 H84 M104,155 V342 M104,192 H154 M104,342 H154 M174,205 V302 M174,242 H224 M174,302 H224 M244,255 V282 H304"/>
+<path class="limesoft" d="M20,30 h14 l5,5 h21 v24 h-40z"/><text class="t-m" x="72" y="52" font-weight="700">This PC</text>
+<path class="limesoft" d="M84,80 h14 l5,5 h21 v24 h-40z"/><text class="t-m" x="134" y="100">Desktop</text>
+<path class="limesoft" d="M84,130 h14 l5,5 h21 v24 h-40z"/><text class="t-m" x="134" y="150" font-weight="700">Documents</text>
+<path class="limesoft" d="M154,180 h14 l5,5 h21 v24 h-40z"/><text class="t-m" x="204" y="200" font-weight="700">My Files</text>
+<path class="limesoft" d="M224,230 h14 l5,5 h21 v24 h-40z"/><text class="t-m" x="274" y="250">Personal</text>
+<path class="ui" d="M304,268 h18 l7,7 v22 h-25z"/><text class="t-m t-green" x="340" y="290">My Info.txt</text>
+<path class="limesoft" d="M224,290 h14 l5,5 h21 v24 h-40z"/><text class="t-m" x="274" y="310">Jobs</text>
+<path class="limesoft" d="M154,330 h14 l5,5 h21 v24 h-40z"/><text class="t-m" x="204" y="350">Health</text>
+<path class="limesoft" d="M84,380 h14 l5,5 h21 v24 h-40z"/><text class="t-m" x="134" y="400">Downloads</text>
+</svg>
+<div>
+<div class="card"><span class="tag">Documents</span><p>Your main filing cabinet. Save your work here.</p></div>
+<div class="card mt"><span class="tag">Downloads</span><p>Where anything you get from the internet lands. Check here first.</p></div>
+<div class="callout"><span class="tag">The path</span><p class="small"><span class="url">This PC › Documents › My Files › Personal</span> — the address bar shows exactly this.</p></div>
+</div>
+</div>`,
+n:"The tree on the left is exactly what they build in the lab: My Files holds Personal, Jobs, and Health, and the contact card goes inside Personal."},
+
+{h:"Lecture 2",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Create and organize</span>Make a folder, move a file</h2>
+<div class="grid g2">
+<div>
+<h3 style="font-size:1.4rem;margin-bottom:.4em">New folder</h3>
+<ol class="steps">
+<li>In File Explorer, click <b>⊕ New</b> → <b>Folder</b> (or right-click empty space → <b>New</b> → <b>Folder</b>).</li>
+<li>Type the name while it is highlighted.</li>
+<li>Press <span class="kbd">Enter</span>.</li>
+</ol>
+</div>
+<div>
+<h3 style="font-size:1.4rem;margin-bottom:.4em">Move a file</h3>
 <table>
-<tr><th></th><th>With text</th><th>With files</th></tr>
-<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">C</span></td><td>Copies the words</td><td>Copies the file — you end up with two</td></tr>
-<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">X</span></td><td>Cuts the words</td><td>Picks the file up to move it</td></tr>
-<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">V</span></td><td>Pastes the words</td><td>Drops the file in this folder</td></tr>
+<tr><th>Keys</th><th>With a file</th></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">X</span></td><td>Pick it up to move</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">C</span></td><td>Copy — you end up with two</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">V</span></td><td>Drop it in this folder</td></tr>
 </table>
-<div class="callout"><span class="tag">Note</span><p>You learned these for text last hour. They work identically on files. That is the whole lesson.</p></div>`,
-n:"This is the payoff slide for Hour 1. Land it — one set of keys, two uses, no new learning."},
-
-{h:"Hour 2 · C1-L2",c:"Concept",t:"2:30",html:`
-<h2><span class="n">Concept 10 of 10</span>Sleep, Restart, or Shut down?</h2>
-<div class="grid g3">
-<div class="card"><h3>Sleep</h3><p>Short breaks. Everything stays open and comes back instantly. Use this at lunch today.</p></div>
-<div class="card"><h3>Restart</h3><p>Off and back on by itself. Use it for updates, or when something is misbehaving.</p></div>
-<div class="card"><h3>Shut down</h3><p>Fully off. Use it at the end of the day. We will do this together at 2:52.</p></div>
+<p class="small mt">Or drag the file onto the folder.</p>
 </div>
-<div class="callout caution"><span class="tag">Caution</span><p>Never close the lid on unsaved work and assume it is safe. Save first — <span class="kbd">Ctrl</span>+<span class="kbd">S</span> — then choose Sleep.</p></div>`,
-n:"Tell them now that lunch is a Sleep, not a Shut down. It saves you ten minutes of boot time at 13:10."},
+</div>
+<div class="callout"><span class="tag">Naming tip</span><p>Name folders like drawers at home — <b>Jobs</b>, <b>Health</b>, <b>Taxes 2026</b>. Never <b>New folder (3)</b>.</p></div>`,
+n:"The payoff from Lecture 1: the same three keys work on files. No new learning — say that."},
 
-{h:"Hour 2 · C1-L2",c:"Demonstration",t:"2:30",html:`
+{h:"Lecture 2",c:"Concept",t:"1 min",html:`
+<h2><span class="n">The Recycle Bin</span>Deleted is not gone — yet</h2>
+<div class="split">
+<ol class="steps">
+<li>Select a file and press <span class="kbd">Delete</span>. It moves to the <b>Recycle Bin</b>.</li>
+<li>Changed your mind? Double-click <b>Recycle Bin</b> on the desktop.</li>
+<li>Right-click the file → <b>Restore</b>. It goes back where it was.</li>
+</ol>
+<div class="callout caution"><span class="tag">Caution</span><p><b>Empty Recycle Bin</b> deletes for good. Files deleted from a flash drive skip the Recycle Bin entirely.</p></div>
+</div>`,
+n:"Quick demo: delete a test file, restore it. This removes the fear of the Delete key."},
+
+{h:"Lecture 2",c:"Concept",t:"3 min",html:`
+<h2><span class="n">Two windows at once</span>Snap side by side</h2>
+<div class="fig">
+<svg class="dg" viewBox="0 0 820 390" role="img" aria-label="A screen split into two windows side by side, and the Snap layouts menu that appears when you hover over the Maximize button.">
+<rect class="frame" x="20" y="40" width="470" height="290" rx="8"/>
+<rect class="ui" x="28" y="48" width="223" height="274" rx="6"/><rect class="ui2" x="29" y="49" width="221" height="26" rx="5"/><text class="t-s" x="40" y="67">Edge</text>
+<rect class="ui2" x="42" y="90" width="190" height="10" rx="3"/><rect class="ui2" x="42" y="112" width="150" height="10" rx="3"/>
+<rect class="ui" x="259" y="48" width="223" height="274" rx="6"/><rect class="ui2" x="260" y="49" width="221" height="26" rx="5"/><text class="t-s" x="271" y="67">File Explorer</text>
+<path class="limesoft" d="M275,95 h14 l5,5 h21 v24 h-40z"/><path class="limesoft" d="M335,95 h14 l5,5 h21 v24 h-40z"/>
+<text class="t-m" x="255" y="365" text-anchor="middle">Result: each window gets half the screen</text>
+<rect class="ui" x="540" y="40" width="260" height="40" rx="6"/><text class="t-s" x="555" y="65">Any window</text>
+<text class="t-m" x="700" y="66">—</text><rect class="limesoft" x="725" y="47" width="28" height="26" rx="4"/><text class="t-m" x="732" y="66">☐</text><text class="t-m" x="770" y="66">✕</text>
+<rect class="ui" x="560" y="92" width="240" height="160" rx="10"/>
+<rect class="lime" x="580" y="110" width="44" height="54" rx="4"/><rect class="ui2" x="628" y="110" width="44" height="54" rx="4"/>
+<rect class="ui2" x="690" y="110" width="58" height="54" rx="4"/><rect class="ui2" x="752" y="110" width="30" height="54" rx="4"/>
+<rect class="ui2" x="580" y="180" width="28" height="54" rx="4"/><rect class="ui2" x="612" y="180" width="28" height="54" rx="4"/><rect class="ui2" x="644" y="180" width="28" height="54" rx="4"/>
+<rect class="ui2" x="690" y="180" width="44" height="25" rx="4"/><rect class="ui2" x="738" y="180" width="44" height="25" rx="4"/><rect class="ui2" x="690" y="209" width="44" height="25" rx="4"/><rect class="ui2" x="738" y="209" width="44" height="25" rx="4"/>
+<line class="lead" x1="739" y1="32" x2="739" y2="46"/><g class="co"><circle cx="739" cy="17" r="15"/><text x="739" y="17">1</text></g>
+<g class="co"><circle cx="540" cy="137" r="15"/><text x="540" y="137">2</text></g>
+<g class="co"><circle cx="255" cy="215" r="15"/><text x="255" y="215">3</text></g>
+</svg>
+<ol class="legend">
+<li data-n="1"><b>Hover</b> over the Maximize button (☐) — don't click</li>
+<li data-n="2"><b>Click a zone</b> in a layout — the left half</li>
+<li data-n="3"><b>Pick the second window</b> from the thumbnails that appear</li>
+</ol>
+</div>
+<div class="callout"><span class="tag">Keyboard way</span><p>Click a window, then press <span class="kbd">⊞</span> + <span class="kbd">←</span> or <span class="kbd">⊞</span> + <span class="kbd">→</span>. Or drag its title bar to the edge of the screen.</p></div>`,
+n:"Everyone uses this when filling in an online form while reading a document. Demo the hover method, then the Windows+arrow method. Challenge early finishers to snap four windows into quarters."},
+
+{h:"Lecture 2",c:"Concept",t:"2 min",html:`
+<h2><span class="n">Switching and power</span>Leave the right way</h2>
+<table>
+<tr><th>Option</th><th>Where</th><th>Use it when</th></tr>
+<tr><td><b>Lock</b> &nbsp;<span class="kbd">⊞</span>+<span class="kbd">L</span></td><td>Start → your name</td><td>Stepping away for a minute in a public place. Everything stays open; your password unlocks it.</td></tr>
+<tr><td><b>Sign out</b></td><td>Start → your name</td><td>Someone else will use the computer. Closes your programs.</td></tr>
+<tr><td><b>Sleep</b></td><td>Start → Power</td><td>Short breaks. Wakes up in seconds right where you were.</td></tr>
+<tr><td><b>Restart</b></td><td>Start → Power</td><td>After updates, or when something is acting strange.</td></tr>
+<tr><td><b>Shut down</b></td><td>Start → Power</td><td>End of the day, or before travel. Fully off.</td></tr>
+</table>
+<div class="callout caution"><span class="tag">Caution</span><p>Save first — <span class="kbd">Ctrl</span> + <span class="kbd">S</span> — then Sleep or Shut down. Switch between open programs any time with <span class="kbd">Alt</span> + <span class="kbd">Tab</span>.</p></div>`,
+n:"The break at 2:50 is a Sleep, not a Shut down — it saves boot time at 3:00. Windows+L is the habit to recommend for libraries and job centers."},
+
+{h:"Lecture 2",c:"Demonstration",t:"3 min",html:`
 <h2><span class="n">Watch first</span>Build a drawer and put something in it</h2>
 <ol class="steps">
-<li>Press <span class="kbd">⊞</span>+<span class="kbd">E</span> to open File Explorer. Click <b>Documents</b>.</li>
-<li>Two-finger tap on empty space. Choose <b>New</b>, then <b>Folder</b>. Name it <b>My Files</b>.</li>
-<li>Click <b>My Info.txt</b> once, then press <span class="kbd">Ctrl</span>+<span class="kbd">X</span>.</li>
-<li>Double-tap <b>My Files</b> to go inside, then press <span class="kbd">Ctrl</span>+<span class="kbd">V</span>.</li>
-<li>Search <b>My Info</b> in the taskbar to prove Windows can still find it.</li>
+<li>In Notepad, type your name, phone, email, and city. Press <span class="kbd">Ctrl</span>+<span class="kbd">S</span>, choose <b>Documents</b>, name it <b>My Info</b>, click <b>Save</b>.</li>
+<li>Press <span class="kbd">⊞</span>+<span class="kbd">E</span>. Click <b>Documents</b>. <b>⊕ New</b> → <b>Folder</b> → name it <b>My Files</b>.</li>
+<li>Open <b>My Files</b>. Create <b>Personal</b>, <b>Jobs</b>, and <b>Health</b>.</li>
+<li>Go back to Documents. Click <b>My Info.txt</b> once, <span class="kbd">Ctrl</span>+<span class="kbd">X</span>. Open My Files › Personal, <span class="kbd">Ctrl</span>+<span class="kbd">V</span>.</li>
+<li>Press <span class="kbd">⊞</span>, type <b>My Info</b> — Windows still finds it.</li>
 </ol>`,
 n:"Deliberately search for the file after moving it. Watching Windows find it instantly is what makes moving files feel safe."},
 
-{h:"Hour 2 · C1-L2",c:"Lab launch",t:"12:00",html:`
-<h2><span class="n">Lab 2 · 12 minutes</span>Build Your Filing Cabinet</h2>
-<p class="lead">Right now everything is one pile. Give it drawers.</p>
-<div class="grid g2" style="margin-top:1em">
-<div class="card"><h3>You will produce</h3><p>Inside Documents: a folder <b>My Files</b> holding three folders — <b>Personal</b>, <b>Jobs</b>, <b>Health</b> — with your contact card inside Personal.</p></div>
-<div class="card"><h3>Done when</h3><p>You search <b>My Info</b>, open the result, and it is sitting in Personal.</p></div>
+{h:"Lecture 2",c:"Hands-on lab",t:"15 min",html:`
+<div class="lab">
+<span class="badge">Lab 2 · 15 minutes</span>
+<h2 style="margin-bottom:.4em">Build Your Filing Cabinet</h2>
+<div class="grid g2">
+<div class="card"><span class="tag">You will produce</span><p>In <b>Documents</b>: a folder <b>My Files</b> holding <b>Personal</b>, <b>Jobs</b>, and <b>Health</b> — with <b>My Info.txt</b> (your contact card) inside Personal.</p></div>
+<div class="card"><span class="tag">Then</span><p>Snap <b>File Explorer</b> and <b>Notepad</b> side by side. Delete a test file and restore it from the Recycle Bin.</p></div>
 </div>
-<div class="callout"><span class="tag">Tip</span><p>Finished early? Pin File Explorer to your taskbar: two-finger tap its icon, choose <b>Pin to taskbar</b>.</p></div>`,
-n:"Watch for people creating the three folders beside My Files rather than inside it. Easiest fix is to drag them in."},
+<div class="callout"><span class="tag">Done when</span><p>You search <b>My Info</b> from Start, open it, and the address bar shows <span class="url">Documents › My Files › Personal</span>.</p></div>
+<p class="hint">Finished early? Pin File Explorer to the taskbar, or snap four windows into quarters.</p>
+</div>`,
+n:"Watch for two failure points: saving to the wrong folder, and typing the file name before choosing the folder. Also watch for the three folders created beside My Files instead of inside it — the fix is to drag them in."},
 
-{h:"Hour 2 · C1-L2",c:"Checkpoint",t:"1:30",html:`
-<h2><span class="n">Checkpoint</span>Three questions</h2>
-<div class="qa"><div class="q">1. You are stepping out for thirty minutes and want your work exactly as you left it. Which power option?</div></div>
-<div class="qa"><div class="q">2. What are the two keys that open File Explorer?</div></div>
-<div class="qa"><div class="q">3. You want to move a file, not duplicate it. Cut or copy?</div></div>`,
-n:"Question 1 is the one that matters today — they are about to go to lunch."},
+{h:"Lecture 2",c:"Checkpoint",t:"3 min",html:`
+<h2><span class="n">Checkpoint</span>Five quick questions</h2>
+<div class="qa"><div class="q">1. Which two keys open File Explorer?</div><div class="a">Windows key + E.</div></div>
+<div class="qa"><div class="q">2. You want to move a file, not duplicate it. Cut or copy?</div><div class="a">Cut — Ctrl + X, then Ctrl + V in the new folder.</div></div>
+<div class="qa"><div class="q">3. You deleted the wrong file. Where do you look?</div><div class="a">The Recycle Bin → right-click the file → Restore.</div></div>
+<div class="qa"><div class="q">4. You are stepping away from a library computer for a minute. What do you press?</div><div class="a">Windows key + L to lock it.</div></div>
+<div class="qa"><div class="q">5. How do you put two windows side by side?</div><div class="a">Hover Maximize and pick a layout — or Windows key + ← / →.</div></div>
+<p class="hint">Press A (or the Answers button) to show the answers.</p>`,
+n:"Ask for hands. Question 4 is the safety habit that matters most outside class."},
 
-{h:"Hour 2 · C1-L2",c:"Checkpoint",t:"1:30",html:`
-<h2><span class="n">Checkpoint</span>Answers</h2>
-<div class="qa"><div class="q">1. Stepping out for thirty minutes.</div><div class="a">Sleep. Everything stays open and returns instantly.</div></div>
-<div class="qa"><div class="q">2. Two keys for File Explorer.</div><div class="a">Windows key + E.</div></div>
-<div class="qa"><div class="q">3. Move, not duplicate.</div><div class="a">Cut — Ctrl + X. Copy would leave you with two.</div></div>`,
-n:"Then send them to lunch: laptops to Sleep, back at 13:10."},
-
-{h:"Hour 2 · C1-L2",c:"Summary",t:"1:00",html:`
-<h2><span class="n">Hour 2 complete</span>What you can now do</h2>
+{h:"Lecture 2",c:"Summary",t:"1 min",html:`
+<h2><span class="n">Class 1 complete</span>What you can now do</h2>
 <ul>
-<li>Say what an operating system does</li>
-<li>Find the desktop, taskbar, Start menu, and search box</li>
-<li>Open a program three different ways</li>
-<li>Create folders and name them usefully</li>
-<li>Move files with cut and paste</li>
-<li>Choose correctly between Sleep, Restart, and Shut down</li>
+<li>Explain what Windows 11 does and find the desktop, taskbar, and Start menu</li>
+<li>Open any program four ways and snap two windows side by side</li>
+<li>Create folders, move files, and restore from the Recycle Bin</li>
+<li>Choose correctly between Lock, Sign out, Sleep, Restart, and Shut down</li>
+<li>Find your contact card any time by searching for it</li>
 </ul>
-<div class="callout"><span class="tag">Next</span><p>Lunch — thirty minutes. Put your laptop to <b>Sleep</b>, not Shut down. Back at 13:10 for the internet.</p></div>`,
-n:"Write 13:10 on the board. Say it twice. Lunch is the segment most likely to run long."},
-/* ===================== HOUR 3 : C2-L1 ===================== */
-{h:"Hour 3 · C2-L1",c:"Module cover",t:"40 min",html:`
-<div class="cover">
-  <div class="eyebrow">Hour 3 · Module C2-L1</div>
-  <h1>Internet<br>Fundamentals</h1>
-  <div class="meta">
-    <b>Teach</b> 25 min &nbsp;·&nbsp; <b>Hands-on</b> 12 min &nbsp;·&nbsp; <b>Checkpoint</b> 3 min<br>
-    <b>You will build</b> &nbsp;A bookmarks bar of sites you actually use
-  </div>
-</div>`,
-n:"Start 13:10. People are post-lunch and slow — open with the address bar demo rather than a definition."},
-
-{h:"Hour 3 · C2-L1",c:"Why this matters",t:"1:30",html:`
-<h2><span class="n">Why this matters</span>Typing the same address every time</h2>
-<p class="lead">Most people search for a site they visit weekly, then click the third result and hope. There is a faster, safer way.</p>
-<div class="obj"><span class="tag">By the end of this hour you can</span>
-<ul>
-<li>Tell the address bar apart from the search box</li>
-<li>Read a web address and know who you are talking to</li>
-<li>Use tabs to hold several pages at once</li>
-<li>Save a site so you never type it again</li>
-<li>Search deliberately instead of hopefully</li>
-</ul></div>`,
-n:"The address-bar-versus-search-box confusion is the biggest practical win of this hour. Flag it early."},
-
-{h:"Hour 3 · C2-L1",c:"Recall",t:"1:00",html:`
-<h2><span class="n">Building on Hours 1 and 2</span>Same skills, new window</h2>
-<div class="grid g3">
-<div class="card"><h3>Tap and double-tap</h3><p>Clicking links works the same way.</p></div>
-<div class="card"><h3>Search by typing</h3><p>You did this in Windows. You are about to do it on the whole internet.</p></div>
-<div class="card"><h3>Copy and paste</h3><p><span class="kbd">Ctrl</span>+<span class="kbd">C</span> and <span class="kbd">Ctrl</span>+<span class="kbd">V</span> work on web pages too.</p></div>
-</div>`,
-n:"Thirty seconds. Reassurance, not instruction."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 1 of 11</span>What the internet actually is</h2>
-<p class="lead">Millions of computers, connected, agreeing to pass messages to each other.</p>
-<p style="margin-top:.8em">Your laptop asks another computer for a page. That computer sends it back. That is the whole thing.</p>
-<div class="callout"><span class="tag">Note</span><p>Your Wi-Fi connects you to that network. The browser is what turns the reply into something you can read.</p></div>`,
-n:"Keep it to sixty seconds. There is no exam on this — it is scaffolding for the browser."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 2 of 11</span>The browser is your window</h2>
-<p class="lead">A program whose only job is to show you web pages.</p>
-<div class="grid g3" style="margin-top:1em">
-<div class="card"><h3>Edge</h3><p>Built into Windows. Already on your laptop.</p></div>
-<div class="card plain"><h3>Chrome</h3><p>Google's. The most widely used.</p></div>
-<div class="card plain"><h3>Firefox</h3><p>Independent. Strong on privacy.</p></div>
-</div>
-<p style="margin-top:1.2em">They all do the same job. Use whichever is on your taskbar.</p>`,
-n:"Do not run a browser-preference debate. Point at the taskbar and move."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 3 of 11</span>Five controls that run the browser</h2>
-<div class="grid g2">
-<div class="card"><h3>Back and Forward</h3><p>The arrows, top left. Back is the most useful button on the internet.</p></div>
-<div class="card"><h3>Refresh</h3><p>The circular arrow. Reloads the page when it looks stuck or stale.</p></div>
-<div class="card"><h3>Address bar</h3><p>The long box across the top. Where the page's address lives.</p></div>
-<div class="card"><h3>Tabs and the star</h3><p>Tabs sit above the address bar. The star saves the page.</p></div>
-</div>`,
-n:"Have them press Back a few times on a live page. It defuses the fear of clicking the wrong link permanently."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"2:30",html:`
-<h2><span class="n">Concept 4 of 11</span>Address bar or search box?</h2>
-<div class="grid g2">
-<div class="card"><h3>Address bar — you know where you are going</h3><p>Type <b>ssa.gov</b> and press <span class="kbd">Enter</span>. You arrive at Social Security. No guessing, no results page, nobody in between.</p></div>
-<div class="card"><h3>Search box — you are looking for something</h3><p>Type <b>how do I replace my social security card</b>. You get a page of possibilities to choose from.</p></div>
-</div>
-<div class="callout"><span class="tag">Important</span><p>If you already know the site, type it in the address bar. Searching for a site you know is how people end up on fake look-alikes.</p></div>
-<p style="margin-top:.9em">You do not need <b>www.</b> or <b>https://</b> — the browser fills those in.</p>`,
-n:"This is the single most valuable slide of the hour. Type ssa.gov live, then search for it and show the ads sitting above the real result."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 5 of 11</span>Reading a web address</h2>
-<p class="lead" style="font-family:var(--mono);color:var(--lime);font-size:clamp(1.1rem,2.4vw,2rem)">www.<b style="color:var(--paper)">techexchange</b>.org/digitalliteracy</p>
-<div class="grid g3" style="margin-top:1.2em">
-<div class="card"><h3>The name</h3><p><b>techexchange</b> — who you are actually talking to. The part that matters.</p></div>
-<div class="card"><h3>The ending</h3><p><b>.org</b> nonprofit · <b>.gov</b> government · <b>.com</b> business · <b>.edu</b> school</p></div>
-<div class="card"><h3>The rest</h3><p><b>/digitalliteracy</b> — which page on that site. Harmless.</p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>Read the address from the left, and stop at the first single slash. Everything before it is who you are dealing with.</p></div>`,
-n:"Plant this carefully — Hour 4's scam recognition is built entirely on it. Say 'stop at the first slash' twice."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 6 of 11</span>Links</h2>
-<p class="lead">Text or pictures you can click to go somewhere else.</p>
-<div class="grid g3" style="margin-top:1em">
-<div class="card"><h3>How to spot one</h3><p>Often blue and underlined. Always: the arrow turns into a pointing hand.</p></div>
-<div class="card"><h3>Check before you click</h3><p>Hover without clicking. The real destination appears in the bottom-left corner.</p></div>
-<div class="card"><h3>If it goes wrong</h3><p>Press Back.</p></div>
-</div>
-<div class="callout"><span class="tag">Important</span><p>Hovering to preview a link costs one second and prevents most bad clicks. Build the habit today.</p></div>`,
-n:"Demo the hover preview on the projector. Most people have never noticed the status bar in the corner."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 7 of 11</span>Tabs</h2>
-<p class="lead">Several pages open at once in one window — like keeping a finger in three books.</p>
-<div class="grid g3" style="margin-top:1em">
-<div class="card"><h3>New tab</h3><p>Click the <b>+</b>, or press <span class="kbd">Ctrl</span>+<span class="kbd">T</span></p></div>
-<div class="card"><h3>Switch</h3><p>Click the tab you want</p></div>
-<div class="card"><h3>Close</h3><p>Click its <b>×</b>, or press <span class="kbd">Ctrl</span>+<span class="kbd">W</span></p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>Closed one by accident? <span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">T</span> brings it straight back.</p></div>`,
-n:"The reopen-closed-tab shortcut always gets a reaction. Worth the ten seconds."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 8 of 11</span>Bookmarks — type it once, ever</h2>
-<ol class="steps">
-<li>Go to the site.</li>
-<li>Click the <b>star</b> at the right end of the address bar, or press <span class="kbd">Ctrl</span>+<span class="kbd">D</span>.</li>
-<li>Give it a short name you will recognise. Choose a folder. Click <b>Done</b>.</li>
-</ol>
-<div class="callout"><span class="tag">Tip</span><p>Turn on the bookmarks bar and your saved sites sit under the address bar permanently — one click, no typing, and no chance of a fake look-alike.</p></div>`,
-n:"Frame bookmarks as a safety feature, not just convenience. A bookmarked bank is a bank you cannot be phished into mistyping."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 9 of 11</span>Searching on purpose</h2>
-<div class="grid g2">
-<div class="card"><h3>Be specific</h3><p><b>bus schedule</b> is weak. <b>AC Transit 51B schedule Oakland</b> is strong.</p></div>
-<div class="card"><h3>Use quotation marks</h3><p><b>"digital literacy classes Oakland"</b> finds that exact phrase.</p></div>
-<div class="card"><h3>Remove a word</h3><p>Put a minus in front: <b>jaguar -car</b> gets you the animal.</p></div>
-<div class="card"><h3>Add the place</h3><p>Ending a search with <b>Oakland</b> or <b>near me</b> changes everything.</p></div>
-</div>`,
-n:"Use a real local example the room will recognise. Specificity is the skill; the operators are garnish."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 10 of 11</span>Reading a results page</h2>
-<ol class="steps">
-<li><b>Sponsored</b> or <b>Ad</b> at the top — someone paid to be there. Not the best answer, just the paid one.</li>
-<li>Real results below. Read the green or grey web address before you click.</li>
-<li>For anything official — benefits, taxes, licences — look for <b>.gov</b>.</li>
-</ol>
-<div class="callout caution"><span class="tag">Caution</span><p>Scam sites buy ads too. A result at the very top of the page has been paid for, not vetted.</p></div>`,
-n:"Search for a government service live and show the sponsored results above the real .gov site. It lands harder than any slide."},
-
-{h:"Hour 3 · C2-L1",c:"Concept",t:"2:30",html:`
-<h2><span class="n">Concept 11 of 11</span>AI assistants</h2>
-<p class="lead">ChatGPT, Gemini, Claude, and Perplexity answer in sentences instead of handing you a list of links.</p>
-<div class="grid g2" style="margin-top:1em">
-<div class="card"><h3>Good for</h3><p>Explaining something confusing in plain words. Drafting a letter or an email. Summarising something long.</p></div>
-<div class="card"><h3>Check before you trust</h3><p>Names, dates, prices, phone numbers, medical and legal advice. AI states wrong things in a confident voice.</p></div>
-</div>
-<div class="callout"><span class="tag">Important</span><p>Use AI to understand. Use a search engine — and the real <b>.gov</b> or <b>.org</b> site — to confirm.</p></div>`,
-n:"Perplexity needs no account, so it is the easiest live demo. Ask it something local and show the citations underneath."},
-
-{h:"Hour 3 · C2-L1",c:"Demonstration",t:"2:30",html:`
-<h2><span class="n">Watch first</span>Same question, two tools</h2>
-<ol class="steps">
-<li>Open a new tab. In the address bar type <b>google.com</b>, press <span class="kbd">Enter</span>.</li>
-<li>Search <b>how do I renew a California ID</b>. Note the ads on top and the <b>dmv.ca.gov</b> result below.</li>
-<li>New tab. Address bar: <b>perplexity.ai</b>. Ask the same question.</li>
-<li>Compare: one hands you links to judge, the other hands you an answer with its sources listed.</li>
-<li>Bookmark <b>dmv.ca.gov</b> with <span class="kbd">Ctrl</span>+<span class="kbd">D</span>.</li>
-</ol>`,
-n:"End the demo on the bookmark. It is the bridge straight into the lab."},
-
-{h:"Hour 3 · C2-L1",c:"Lab launch",t:"12:00",html:`
-<h2><span class="n">Lab 3 · 12 minutes</span>Your Own Bookmarks Bar</h2>
-<p class="lead">Three sites you personally need, saved for good.</p>
-<div class="grid g2" style="margin-top:1em">
-<div class="card"><h3>You will produce</h3><p>A bookmarks folder named <b>My Sites</b> holding three real sites — your bank, benefits portal, transit, library, church, employer. Your choice.</p></div>
-<div class="card"><h3>Done when</h3><p>You close the browser, reopen it, and reach all three in one click each.</p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>Type each address in the address bar rather than searching for it. That is the safe habit we are building.</p></div>`,
-n:"Circulate with suggestions ready — some people freeze on 'which three sites'. Offer: bank, AC Transit, Oakland Public Library."},
-
-{h:"Hour 3 · C2-L1",c:"Checkpoint",t:"1:30",html:`
-<h2><span class="n">Checkpoint</span>Three questions</h2>
-<div class="qa"><div class="q">1. You visit your bank's site every week. Address bar or search box?</div></div>
-<div class="qa"><div class="q">2. In <b>www.oaklandca.gov/services</b>, which part tells you who you are dealing with?</div></div>
-<div class="qa"><div class="q">3. The first result says <b>Sponsored</b>. What does that mean?</div></div>`,
-n:"Question 2 is the one to slow down on. It is the foundation of the next hour."},
-
-{h:"Hour 3 · C2-L1",c:"Checkpoint",t:"1:30",html:`
-<h2><span class="n">Checkpoint</span>Answers</h2>
-<div class="qa"><div class="q">1. A site you visit weekly.</div><div class="a">Address bar — or better, your bookmark. Never search for a site you already know.</div></div>
-<div class="qa"><div class="q">2. Who you are dealing with.</div><div class="a">oaklandca.gov — read from the left, stop at the first slash.</div></div>
-<div class="qa"><div class="q">3. Sponsored.</div><div class="a">Somebody paid for that position. It was not chosen for being the best answer.</div></div>`,
-n:"Then break: 13:50 out, 14:00 back. Last stretch of the day."},
-
-{h:"Hour 3 · C2-L1",c:"Summary",t:"1:00",html:`
-<h2><span class="n">Hour 3 complete</span>What you can now do</h2>
-<ul>
-<li>Use the address bar to go somewhere directly</li>
-<li>Read a web address and identify who owns it</li>
-<li>Open, switch, close, and reopen tabs</li>
-<li>Save a site as a bookmark and organise it in a folder</li>
-<li>Search specifically, and tell ads from real results</li>
-<li>Use an AI assistant and know what to verify</li>
-</ul>
-<div class="callout"><span class="tag">Next</span><p>Ten-minute break. Then the last hour — how to stay safe with everything you just learned.</p></div>`,
-n:"14:00 on the board."},
-
-/* ===================== HOUR 4 : C2-L2 ===================== */
-{h:"Hour 4 · C2-L2",c:"Module cover",t:"40 min",html:`
-<div class="cover">
-  <div class="eyebrow">Hour 4 · Module C2-L2</div>
-  <h1>Staying Safe<br>Online</h1>
-  <div class="meta">
-    <b>Teach</b> 25 min &nbsp;·&nbsp; <b>Hands-on</b> 12 min &nbsp;·&nbsp; <b>Checkpoint</b> 3 min<br>
-    <b>You will build</b> &nbsp;A passphrase you can remember and nobody can guess
-  </div>
-</div>`,
-n:"Start 14:00. Energy is lowest here — the scam drill in the middle is what carries the hour."},
-
-{h:"Hour 4 · C2-L2",c:"Why this matters",t:"1:30",html:`
-<h2><span class="n">Why this matters</span>Two habits stop most of it</h2>
-<p class="lead">You do not need to become a security expert. Almost everything that goes wrong is stopped by two habits and one pause.</p>
-<div class="obj"><span class="tag">By the end of this hour you can</span>
-<ul>
-<li>Read a web address and spot a fake</li>
-<li>Build a passphrase that is strong and memorable</li>
-<li>Explain what two-step sign-in is and why email comes first</li>
-<li>Name the warning signs in a scam text or call</li>
-<li>Find the security tools already on your laptop</li>
-</ul></div>`,
-n:"Set the tone: this is not about fear. Frame it as a small number of habits, repeated."},
-
-{h:"Hour 4 · C2-L2",c:"Recall",t:"1:00",html:`
-<h2><span class="n">Building on Hour 3</span>You already learned the main defence</h2>
-<p class="lead" style="font-family:var(--mono);color:var(--lime);font-size:clamp(1.1rem,2.2vw,1.8rem)">Read from the left. Stop at the first slash.</p>
-<p style="margin-top:1.2em">That one habit catches most fake websites before they can do anything. Everything else this hour is added on top of it.</p>`,
-n:"Say the rule and have the room say it back. It is the hour's spine."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 1 of 11</span>Security in plain English</h2>
-<p class="lead">Keeping your accounts private, your laptop healthy, and your money where it belongs.</p>
-<div class="grid g4" style="margin-top:1em">
-<div class="card"><h3>Updates on</h3><p>Let the laptop fix itself.</p></div>
-<div class="card"><h3>Pause before clicking</h3><p>One second of checking.</p></div>
-<div class="card"><h3>Strong, separate sign-ins</h3><p>Different password per account.</p></div>
-<div class="card"><h3>A copy of what matters</h3><p>Photos and documents backed up.</p></div>
-</div>
-<div class="callout"><span class="tag">Note</span><p>Small habits, repeated. Not perfection.</p></div>`,
-n:"Emphasise habits over perfection. Perfection makes people give up entirely."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"2:30",html:`
-<h2><span class="n">Concept 2 of 11</span>Spotting a fake address</h2>
-<div class="grid g2">
-<div class="card"><h3 style="color:var(--lime)">Real</h3><p style="font-family:var(--mono)">chase.com/login<br>ssa.gov<br>oaklandca.gov</p></div>
-<div class="card" style="border-left-color:var(--flag)"><h3 style="color:var(--flag)">Fake</h3><p style="font-family:var(--mono)">chase-secure-login.com<br>ssa.gov.account-verify.net<br>0aklandca.gov</p></div>
-</div>
-<div class="callout caution"><span class="tag">Caution</span><p>Scammers add real words like <b>secure</b>, <b>login</b>, or <b>verify</b> in front of the name. The name that counts is the one right before <b>.com</b> or <b>.gov</b>.</p></div>`,
-n:"Point at the zero in 0aklandca. Let them find it — do not announce it. The looking is the lesson."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 3 of 11</span>The padlock, honestly</h2>
-<div class="grid g2">
-<div class="card"><h3>What it means</h3><p>Your connection to that site is scrambled, so nobody in between can read it.</p></div>
-<div class="card" style="border-left-color:var(--flag)"><h3>What it does not mean</h3><p>That the site is honest. Scam sites have padlocks too — they are free.</p></div>
-</div>
-<div class="callout"><span class="tag">Important</span><p>The padlock protects the road, not the destination. Read the name in the address bar either way.</p></div>`,
-n:"Many students were taught 'look for the padlock' years ago and stopped there. Correcting it gently is worth the ninety seconds."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 4 of 11</span>When the browser blocks you</h2>
-<p class="lead">A full-screen red or blue warning means Windows or your browser has recognised something dangerous.</p>
-<div class="grid g2" style="margin-top:1em">
-<div class="card"><h3>Do</h3><p>Close the tab. Go to the site by typing its real address, or use your bookmark.</p></div>
-<div class="card" style="border-left-color:var(--flag)"><h3>Do not</h3><p>Click past the warning to continue anyway.</p></div>
-</div>
-<div class="callout"><span class="tag">Note</span><p>These warnings are occasionally over-cautious. They are almost never wrong in a way that hurts you.</p></div>`,
-n:"Tell them the warning is on their side. People click through because it feels like an obstacle rather than a helper."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 5 of 11</span>The passphrase method</h2>
-<p class="lead">Four unrelated words beat a short word with symbols jammed in.</p>
-<div class="grid g2" style="margin-top:1em">
-<div class="card" style="border-left-color:var(--flag)"><h3>Weak</h3><p style="font-family:var(--mono)">P@ssw0rd1<br>Oakland2026!</p><p style="margin-top:.5em">Short, common, and guessable by a machine in seconds.</p></div>
-<div class="card"><h3>Strong</h3><p style="font-family:var(--mono)">purple-tractor-window-42<br>coffee-bridge-lemon-cat</p><p style="margin-top:.5em">Long, unusual, and easy for you to picture.</p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>Pick four words with no connection to each other, join them with hyphens, add a number. Picture them together — that image is your memory.</p></div>`,
-n:"Build one live on the board with the room shouting words. Do not use anyone's real passphrase."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 6 of 11</span>Never reuse the important ones</h2>
-<p class="lead">If one site is broken into, every account sharing that password is now open.</p>
-<div class="grid g3" style="margin-top:1em">
-<div class="card"><h3>1. Email first</h3><p>Whoever holds your email can reset everything else. This one is unique, no exceptions.</p></div>
-<div class="card"><h3>2. Banking and benefits</h3><p>Anywhere money moves.</p></div>
-<div class="card"><h3>3. Shopping</h3><p>Anywhere your card is saved.</p></div>
-</div>
-<div class="callout"><span class="tag">Note</span><p>A password manager remembers them all so you do not have to. We will set one up on Thursday.</p></div>`,
-n:"Email-first is the key idea. Bitwarden setup does not fit today — promise it for Thursday and keep the promise."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"2:00",html:`
-<h2><span class="n">Concept 7 of 11</span>Two-step sign-in</h2>
-<p class="lead">Your password, plus one more proof it is really you — a code, or a tap on your phone.</p>
-<div class="grid g3" style="margin-top:1em">
-<div class="card"><h3>Why it works</h3><p>Even with your password, a stranger cannot get in without your phone.</p></div>
-<div class="card"><h3>Turn it on where?</h3><p>Email first. Then bank. Then everything else.</p></div>
-<div class="card"><h3>Where to find it</h3><p>Account settings, under <b>Security</b> or <b>Sign-in</b>.</p></div>
-</div>
-<div class="callout caution"><span class="tag">Caution</span><p>Get a code you did not ask for? Someone has your password. Do not approve it — change that password immediately.</p></div>`,
-n:"The unrequested-code warning is genuinely actionable. Repeat it in the summary."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"2:30",html:`
-<h2><span class="n">Concept 8 of 11</span>The four signs of a scam</h2>
-<div class="grid g2">
-<div class="card"><h3>1. Urgency</h3><p>Act now. Within 24 hours. Your account will be closed. Real organisations give you time.</p></div>
-<div class="card"><h3>2. A threat or a prize</h3><p>Arrest, a fine, a suspension — or you have won something you never entered.</p></div>
-<div class="card"><h3>3. The address is wrong</h3><p>Close to a real name but not it. Read from the left.</p></div>
-<div class="card"><h3>4. An unusual way to pay</h3><p>Gift cards, wire transfer, cryptocurrency, an app. No real agency asks for these. Ever.</p></div>
-</div>`,
-n:"Sign 4 is the hard stop. No government agency, utility, or bank has ever asked for a gift card. Say it plainly."},
-
-{h:"Hour 4 · C2-L2",c:"Interactive",t:"3:00",html:`
-<h2><span class="n">Try it</span>Find the four red flags</h2>
-<p style="margin-bottom:.9em">A text message. Tap every part that worries you.</p>
-<div class="msg" id="scamMsg">
-<span class="flag" data-f="1">USPS: Your package is on hold. You must confirm within 12 hours</span> or it will be
-<span class="flag" data-f="2">returned and a $3.00 fee charged to your account.</span>
-Update here:
-<span class="flag" data-f="3">usps-delivery-confirm.info/track</span><br><br>
-<span class="flag" data-f="4">Pay the fee with a gift card code to release your package immediately.</span>
-</div>
-<span id="drillCount">0 of 4 found</span>`,
-n:"Let them work it for ninety seconds before revealing. Ask which flag they spotted first — the answer is usually the payment method, which is a good sign."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 9 of 11</span>Scam texts and scam calls</h2>
-<div class="grid g2">
-<div class="card"><h3>Texts</h3><p>Deliveries, tolls, banks, and "hi is this you?" from unknown numbers. Do not tap the link. Go to the real site yourself.</p></div>
-<div class="card"><h3>Calls</h3><p>Anyone can fake the number that shows up. Hang up and call back on a number you looked up yourself.</p></div>
-</div>
-<div class="callout caution"><span class="tag">Caution</span><p>Social Security, Medicare, and the IRS do not call to threaten you with arrest. That call is a scam every single time.</p></div>`,
-n:"Ask who has had one of these calls. Every hand goes up. Shared experience does more than the slide does."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 10 of 11</span>Downloads and updates</h2>
-<div class="grid g2">
-<div class="card"><h3>Download only from</h3><p>The Microsoft Store, or the company's own website that you reached by typing its address.</p></div>
-<div class="card" style="border-left-color:var(--flag)"><h3>Never from</h3><p>A pop-up saying your computer is infected. A "download" button in an ad. An email attachment you were not expecting.</p></div>
-</div>
-<div class="callout"><span class="tag">Tip</span><p>Leave Windows Update on. Those updates are mostly closing security holes.</p></div>`,
-n:"The fake-infection pop-up is worth describing out loud — several people in the room have clicked one."},
-
-{h:"Hour 4 · C2-L2",c:"Concept",t:"1:30",html:`
-<h2><span class="n">Concept 11 of 11</span>What is already protecting you</h2>
-<p class="lead">Search <b>Windows Security</b> in the taskbar. It is already installed and already running.</p>
-<div class="grid g3" style="margin-top:1em">
-<div class="card"><h3>Virus protection</h3><p>Watching in the background. Run a quick scan if something feels wrong.</p></div>
-<div class="card"><h3>Site and download checks</h3><p>The warnings we just talked about.</p></div>
-<div class="card"><h3>Firewall</h3><p>Blocks uninvited connections. Leave it on.</p></div>
-</div>
-<div class="callout"><span class="tag">Important</span><p>You do not need to buy antivirus software. Anything telling you otherwise in a pop-up is the threat, not the fix.</p></div>`,
-n:"This slide saves people real money. Say the last line twice."},
-
-{h:"Hour 4 · C2-L2",c:"Demonstration",t:"2:00",html:`
-<h2><span class="n">Watch first</span>Checking a link before you trust it</h2>
-<ol class="steps">
-<li>Copy the suspicious address — do not open it.</li>
-<li>New tab. Address bar: <b>virustotal.com</b>. Press <span class="kbd">Enter</span>.</li>
-<li>Choose <b>URL</b>, paste with <span class="kbd">Ctrl</span>+<span class="kbd">V</span>, press <span class="kbd">Enter</span>.</li>
-<li>Read the result. Green across the board means probably fine. Any red means leave it alone.</li>
-<li>Then open <b>Windows Security</b> and confirm everything shows a green check.</li>
-</ol>
-<div class="callout"><span class="tag">Note</span><p>A clean result is reassurance, not a guarantee. The four scam signs still apply.</p></div>`,
-n:"Use the USPS address from the drill. Have it copied and ready before class — do not type it live in front of them."},
-
-{h:"Hour 4 · C2-L2",c:"Lab launch",t:"12:00",html:`
-<h2><span class="n">Lab 4 · 12 minutes</span>Lock It Down</h2>
-<p class="lead">The two things that actually protect you, done before you leave.</p>
-<div class="grid g2" style="margin-top:1em">
-<div class="card"><h3>You will produce</h3><p>A four-word passphrase written on your paper card, one link checked through VirusTotal, and a look at Windows Security showing green.</p></div>
-<div class="card"><h3>Done when</h3><p>You can say your passphrase from memory without reading it, and you know where Windows Security lives.</p></div>
-</div>
-<div class="callout caution"><span class="tag">Caution</span><p>Write the passphrase on the paper card you take home. Do not save it in My Info.txt, and do not put it in the file with your address and phone number.</p></div>`,
-n:"Hand out the paper cards now. Watch that nobody types a passphrase into a file — stop that immediately if you see it."},
-
-{h:"Hour 4 · C2-L2",c:"Checkpoint",t:"1:30",html:`
-<h2><span class="n">Checkpoint</span>Three questions</h2>
-<div class="qa"><div class="q">1. A text says your account is locked and gives a link. What do you do?</div></div>
-<div class="qa"><div class="q">2. A site has a padlock. Is it safe?</div></div>
-<div class="qa"><div class="q">3. Which account gets the strongest passphrase and two-step sign-in first?</div></div>`,
-n:"These three are the whole hour. If they get these, they got it."},
-
-{h:"Hour 4 · C2-L2",c:"Checkpoint",t:"1:30",html:`
-<h2><span class="n">Checkpoint</span>Answers</h2>
-<div class="qa"><div class="q">1. A text says your account is locked.</div><div class="a">Do not tap the link. Go to the real site yourself, or call a number you looked up.</div></div>
-<div class="qa"><div class="q">2. A site has a padlock.</div><div class="a">Not necessarily. The padlock protects the road, not the destination. Read the address.</div></div>
-<div class="qa"><div class="q">3. Which account first?</div><div class="a">Email. Whoever controls it can reset everything else you own.</div></div>`,
-n:"Then send them to the last break: 14:40 out, 14:50 back for close-out."},
-
-{h:"Hour 4 · C2-L2",c:"Summary",t:"1:30",html:`
-<h2><span class="n">Take this home</span>Five habits</h2>
-<ol class="steps">
-<li>Pause before you click. Read the address from the left.</li>
-<li>A different passphrase for email, bank, and shopping.</li>
-<li>Two-step sign-in on email first.</li>
-<li>Updates on. Downloads only from the store or the real site.</li>
-<li>Gift cards are never a real way to pay a real bill.</li>
-</ol>
-<div class="callout"><span class="tag">Next</span><p>Ten-minute break. Then we close out — Thursday, device numbers, and shutting down properly.</p></div>`,
-n:"This is the printed one-pager they take home. Point at the handout as you read it."},
-
-/* ===================== CLOSE-OUT ===================== */
-{h:"Close-out",c:"Thursday",t:"3 min",html:`
-<h2><span class="n">Close-out · 3 minutes</span>Thursday, August 27</h2>
-<div class="grid g2">
-<div class="card"><h3>Same time, same room</h3><p>11:00 AM – 3:00 PM · 1721 Broadway · MacArthur Meeting Room. Bring this laptop and its charger.</p></div>
-<div class="card"><h3>What we cover</h3><p>Email · Google Drive, Docs and Sheets · Zoom · Google Meet. You will send a real email and join a real video call.</p></div>
-</div>
-<div class="callout caution"><span class="tag">Important</span><p>Attendance rule: missing an entire class day means no device with this group, and the series has to be repeated. If part of a day is missed, the make-up assignment covers it by the stated deadline.</p></div>`,
-n:"State the attendance rule plainly and without apology. People need to hear it once, clearly, while there is still time to plan around it."},
-
-{h:"Close-out",c:"Device ID",t:"3 min",html:`
-<h2><span class="n">Close-out</span>Write down your Device ID</h2>
-<ol class="steps">
-<li>Close the laptop lid and turn it over.</li>
-<li>Find the <b>QR code sticker</b> on the bottom.</li>
-<li>Copy the number printed beside it onto the last line of your Computer Distribution Receipt.</li>
-<li>Do the same for the sticker on your power adapter.</li>
-</ol>
-<div class="callout"><span class="tag">Important</span><p>This number is how we match your laptop to you. Keep the paperwork — you will need it Thursday.</p></div>`,
-n:"Walk the room and visually confirm each number against the sticker. Do not rely on students transcribing it correctly."},
-
-{h:"Close-out",c:"Shut down",t:"2 min",html:`
-<h2><span class="n">Close-out · 2 minutes</span>Shutting down properly</h2>
-<ol class="steps">
-<li>Save anything open — <span class="kbd">Ctrl</span>+<span class="kbd">S</span>.</li>
-<li>Click <b>Start</b> (the window logo).</li>
-<li>Click the <b>Power</b> icon.</li>
-<li>Choose <b>Shut down</b>.</li>
-<li>Wait for the screen to go completely black. Then close the lid.</li>
-</ol>
-<div class="callout caution"><span class="tag">Caution</span><p>Do not close the lid before the screen goes black, and never hold the power button to force it off unless the laptop has stopped responding entirely.</p></div>`,
-n:"Do it on the projector, then have the whole room do it together and wait for the black screens before anyone closes a lid."},
-
-{h:"Close-out",c:"Open floor",t:"5 min",html:`
-<div class="cover">
-  <div class="eyebrow">Close-out · 5 minutes</div>
-  <h1>Questions?</h1>
-  <div class="meta" style="margin-top:1.4em">
-    <b>Today you built</b><br>
-    A contact card · a filing system · your own bookmarks · a passphrase<br><br>
-    <b>See you Thursday</b> &nbsp;August 27 · 11:00 AM · same room<br><br><b>All the slides</b> &nbsp;techexchange-class.vercel.app</div><div style="margin-top:1.3em"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAewAAAHsCAIAAACfSAk3AAAK90lEQVR4nO3cwW0E1RZF0e8vZ0AAtuSQyIUgyIXQyIE5A/OEH9d3l9caW91V1eWtNzovH2/v/wOg6f/ffQEA/HsiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYa+3Pui3P3659VE5v//65z/+zcnzOfmcolvvhufzuVvv4a3vOqEbX+ckDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOEHZtO+VEcftictvh1r5KcYvjxOR3bXvO20xuAT31+dziJA4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhA2up1yYts+xuR3Fe+9uDEy+ZxvmdwqObFtz6T4v3OLkzhAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOEDYuu2Up3rqtkNxF6W4GzNp2zYIn3MSBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCLOdssitLY5t2xeTuyiTn7PtOd96N4rv2E/mJA4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhC2bjvlJ28yTG5fnDj5rsnf66kbLCdu/e6T9158N4qcxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJGt1MmtyaKbu1jTO6rTF7PUz/nxFPv64RufM5JHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIOzl4+39u6+By7btY0xuetzy1Hvf9pz5OidxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAsOR2ylO3Jib3OiY9da+juFFz4qnXc6L4ezmJA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhL3e+qDJHYnJnY1tGyy3dhu2Pedtz2eb4g7J5DtWfD63OIkDhIk4QJiIA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOECYiAOEvXy8vY992bZdgsktjskdkknFzZPiJsykyWve9rtvu54TTuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBho9spJ566r7Ltc27ZtkNy4qm/xYnJzZNt+ypPvR4ncYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgLDR7ZTJvYUT2zYQTmzbaTmxbctl2/Xc8tS9lxOTz/nE5P+XkzhAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOEDY660Pmtxb2LZ9sW3PZNtGzU++5qe+q7ds60ZxW8ZJHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIOzadsotxW2Hyes5Mbn/sO3en7o/c2LbDsmkbb/75PNxEgcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgb3U65tTUxuWsxubcw+Xxumbz3W/c1+f48daPmRHHDp/icncQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRrdTJjc9binukEya3JY5sW3z5JZt78bkLsot23ZabnESBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCLu2nTK5J3CygXBra+KpWxwnJvdMbj2fn/ycJ7dBbv1/TX7OUzmJA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhF3bTjnx1D2TW9c8uQlzy+Rmxbb7mnwPJ+/9xLbrOTH5PzjJSRwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBsdDvl1nbBrd2GbfsPt57PicndmFtuvRvbPueW4qZQ0bb7chIHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIe/l4e//ua/hP3Np/uGVy12LbtsOJ4n1NboxMvs/brueW4s7PCSdxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAsNdbH1TcUjhxa0fi1pbCret56pbLresp7qJMPuen3lexY07iAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYS8fb+9XPqi4oXHL5A4Jn9u2CVPcD7nlJz/DyR46iQOEiThAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhIk4QJiIA4S9fvcF/N22/ZDJbYcTT91p2facT0xuekzukNx6x7bd16TJnRYncYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgLDR7ZTivsHk1sSJW9djj+Lrijs22/ZMfvL/4C1O4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGHXtlO27Vqc7BtMbjvcsu05Tz6fbb/Xtm2ZScV7n7zmyX0VJ3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYCwa9spk1sBkxsat/YWtm2eTP5et2zbsbll297L5P+p9/DrnMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCXj7e3se+rLiTcMu2TY9b+w/bPufE5DtWvPdt+yonntqNE07iAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYde2Uya3QbbtdUxuX9yybWti24aG/ZDPbXuft5n8LZzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwl5vfdC2LY5b1zN5X9u2XCY3YYqbJ9ts+y22bbk89XqcxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcKubafc2m0oOtlAKO6ZTP6mt+598vmc2LbpceInP59ix5zEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwq5tp5zYthFxYtuWwq3rmdxyOTH5nCf3VYrfte2at9l2zU7iAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYaPbKSe2bWhMmtys2LYJc8u2TY/iLsot296xbVtAt77LSRwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBs3XbKU93aUpjc0Dj5nG3bIHxdcb9o2y7KJCdxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMNspQ7ZtgxT3MW6Z/C0m733bO7bNtv2iW5zEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwtZtp2zb2dhm227DLZNbJbc2NE4Uv+upv8W2HZtbnMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRrdTipsek7ZtTdz6vSZ/923v2Lbf4icrbsuccBIHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIe/l4e//uawDgX3ISBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCPsL5Tifn+RR9fUAAAAASUVORK5CYII=" alt="QR code linking to the course materials website" style="width:min(165px,30vw);border-radius:6px"></div><div style="display:none">
-  </div>
-</div>`,
-n:"Open floor. Do not fill the silence — wait. The best questions arrive about twenty seconds in."},
+<div class="callout"><span class="tag">Next</span><p>Put your laptop to <b>Sleep</b>. Ten-minute break. Back at <b>3:00</b> for Class 2 — the internet and staying safe online.</p></div>`,
+n:"Write 3:00 on the board. Remind them: Sleep, not Shut down."}
 ];
-
-/* ---------- render ---------- */
-const wrap = document.getElementById('slides');
-DECK.forEach((s,i)=>{
-  const d=document.createElement('section');
-  d.className='slide'; d.id='s'+i;
-  d.setAttribute('role','group');
-  d.setAttribute('aria-label','Slide '+(i+1)+' of '+DECK.length);
-  d.innerHTML=s.html;
-  wrap.appendChild(d);
-});
-
-let cur=0, notesOn=false;
-const el = {
-  chipL:document.getElementById('chipL'), chipR:document.getElementById('chipR'),
-  count:document.getElementById('count'), bar:document.getElementById('bar'),
-  notes:document.getElementById('notes'), notesBody:document.getElementById('notesBody'),
-  menu:document.getElementById('menu')
-};
-
-function show(i){
-  i=Math.max(0,Math.min(DECK.length-1,i));
-  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('on'));
-  document.getElementById('s'+i).classList.add('on');
-  const s=DECK[i];
-  el.chipL.textContent=s.h+' · '+s.c;
-  el.chipR.textContent=s.t;
-  el.count.textContent=(i+1)+' / '+DECK.length;
-  el.bar.style.width=((i+1)/DECK.length*100)+'%';
-  el.notesBody.textContent=s.n||'—';
-  document.getElementById('stage').scrollTop=0;
-  cur=i;
-  try{location.hash='s'+i}catch(e){}
-  if(document.getElementById('scamMsg')) armDrill();
-}
-function go(n){show(cur+n)}
-
-/* ---------- controls ---------- */
-document.getElementById('btnNext').onclick=()=>go(1);
-document.getElementById('btnPrev').onclick=()=>go(-1);
-document.getElementById('btnNotes').onclick=toggleNotes;
-document.getElementById('btnMenu').onclick=toggleMenu;
-
-function toggleNotes(){notesOn=!notesOn;el.notes.classList.toggle('on',notesOn)}
-function toggleMenu(){el.menu.classList.toggle('on')}
-
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){el.menu.classList.remove('on');return}
-  if(el.menu.classList.contains('on'))return;
-  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(1)}
-  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(-1)}
-  else if(e.key==='Home'){show(0)}
-  else if(e.key==='End'){show(DECK.length-1)}
-  else if(e.key==='n'||e.key==='N'){toggleNotes()}
-  else if(e.key==='m'||e.key==='M'){toggleMenu()}
-});
-
-/* touch */
-let tx=null;
-document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX},{passive:true});
-document.addEventListener('touchend',e=>{
-  if(tx===null)return;
-  const dx=e.changedTouches[0].clientX-tx;
-  if(Math.abs(dx)>60) go(dx<0?1:-1);
-  tx=null;
-},{passive:true});
-
-/* ---------- menu ---------- */
-(function(){
-  let html='', last='';
-  DECK.forEach((s,i)=>{
-    if(s.h!==last){html+='<h3>'+s.h+'</h3>';last=s.h}
-    const title=(s.html.match(/<h1>([\s\S]*?)<\/h1>/)||s.html.match(/<h2>[\s\S]*?<\/span>([\s\S]*?)<\/h2>/)||[,s.c])[1]
-      .replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
-    html+='<a href="#s'+i+'" data-i="'+i+'">'+String(i+1).padStart(2,'0')+' &nbsp; '+title+'</a>';
-  });
-  el.menu.innerHTML=html;
-  el.menu.addEventListener('click',e=>{
-    const a=e.target.closest('a'); if(!a)return;
-    e.preventDefault(); show(+a.dataset.i); el.menu.classList.remove('on');
-  });
-})();
-
-/* ---------- scam drill ---------- */
-function armDrill(){
-  const box=document.getElementById('scamMsg');
-  if(!box||box.dataset.armed)return;
-  box.dataset.armed='1';
-  const out=document.getElementById('drillCount');
-  const flags=box.querySelectorAll('.flag');
-  flags.forEach(f=>{
-    f.setAttribute('tabindex','0');
-    f.setAttribute('role','button');
-    const hit=()=>{
-      f.classList.add('hit');
-      const n=box.querySelectorAll('.flag.hit').length;
-      out.textContent = n<4 ? n+' of 4 found'
-        : 'All 4 found — urgency, a fee threat, a fake address, and gift-card payment.';
-    };
-    f.addEventListener('click',hit);
-    f.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();hit()}});
-  });
-}
-
-/* ---------- start ---------- */
-const h=(location.hash.match(/^#s(\d+)$/)||[])[1];
-show(h?+h:0);
-
 </script>
+<script src="assets/deck.js?v=20261027"></script>
 </body>
 </html>

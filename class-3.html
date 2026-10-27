@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Classes 3 &amp; 4 — Communicate &amp; Collaborate | Tech Exchange Digital Literacy</title>
+<style>
+:root{
+  --ink:#231F20; --lime:#99CC33; --slate:#332E2F; --paper:#FFFFFF; --flag:#FF4D4D;
+  --muted:#B9B4B5;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono","Courier New",Courier,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--ink); color:var(--paper); font-family:var(--sans);
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:2.5vh 3vw 9vh}
+.slide{display:none;width:100%;max-width:1180px;max-height:100%;overflow-y:auto}
+.slide.on{display:block;animation:in .22s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}}
+
+/* ---------- chip strip ---------- */
+#chips{position:fixed;top:0;left:0;right:0;height:4.2vh;min-height:34px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3vw;border-bottom:1px solid #3d3839;background:var(--ink);z-index:5}
+#chipL{font-family:var(--mono);font-size:clamp(11px,1.15vw,14px);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+#chipR{font-family:var(--mono);font-size:clamp(11px,1.15vw,14px);font-weight:600;
+  background:var(--lime);color:var(--ink);padding:.25em .8em;border-radius:2px;letter-spacing:.06em}
+
+/* ---------- footer ---------- */
+#foot{position:fixed;bottom:0;left:0;right:0;height:6.4vh;min-height:48px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 3vw;
+  border-top:1px solid #3d3839;background:var(--ink);z-index:5;gap:1rem}
+#brand{display:flex;align-items:center;gap:.6rem;font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(12px,1.2vw,15px)}
+#brand .mark{width:1.5em;height:1.5em;background:var(--lime);border-radius:3px;
+  display:grid;place-items:center;color:var(--ink);font-size:.8em;font-weight:900}
+#nav{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:clamp(11px,1.1vw,13px)}
+button{font:inherit;font-family:var(--mono);background:transparent;color:var(--muted);
+  border:1px solid #4a4445;border-radius:3px;padding:.35em .7em;cursor:pointer}
+button:hover{border-color:var(--lime);color:var(--lime)}
+button:focus-visible{outline:3px solid var(--lime);outline-offset:2px}
+#count{color:var(--muted);min-width:5.5em;text-align:center}
+#bar{position:fixed;bottom:6.4vh;left:0;height:3px;background:var(--lime);z-index:6;transition:width .2s}
+
+/* ---------- type ---------- */
+h1{font-size:clamp(2.1rem,5.4vw,4.4rem);font-weight:900;letter-spacing:-.035em;line-height:.98}
+h2{font-size:clamp(1.6rem,3.5vw,2.9rem);font-weight:900;letter-spacing:-.03em;line-height:1.04;
+  margin-bottom:.6em}
+h2 .n{color:var(--lime);font-family:var(--mono);font-size:.45em;font-weight:600;
+  letter-spacing:.1em;display:block;margin-bottom:.5em}
+p,li{font-size:clamp(1.02rem,1.75vw,1.5rem);line-height:1.5;color:#EDEAEA}
+.lead{font-size:clamp(1.15rem,2.1vw,1.75rem);color:var(--paper)}
+strong{color:var(--paper);font-weight:700}
+.kbd{font-family:var(--mono);background:var(--slate);border:1px solid #4a4445;
+  border-radius:3px;padding:.12em .45em;font-size:.9em;color:var(--lime);white-space:nowrap}
+ul{list-style:none}
+ul li{position:relative;padding-left:1.5em;margin-bottom:.65em}
+ul li::before{content:"";position:absolute;left:0;top:.62em;width:.55em;height:.55em;
+  background:var(--lime);border-radius:1px}
+ol{padding-left:0;counter-reset:s;list-style:none}
+ol li{position:relative;padding-left:2.4em;margin-bottom:.7em;counter-increment:s}
+ol li::before{content:counter(s);position:absolute;left:0;top:.05em;font-family:var(--mono);
+  font-size:.85em;font-weight:600;color:var(--ink);background:var(--lime);width:1.7em;height:1.7em;
+  display:grid;place-items:center;border-radius:3px}
+
+/* ---------- components ---------- */
+.grid{display:grid;gap:1rem;margin-top:.4em}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--slate);border-radius:5px;padding:1.1em 1.2em;border-left:3px solid var(--lime)}
+.card h3{font-size:clamp(.95rem,1.5vw,1.25rem);font-weight:700;margin-bottom:.35em;color:var(--paper)}
+.card p{font-size:clamp(.9rem,1.35vw,1.12rem);color:#CFCACB;line-height:1.42}
+.plain{border-left-color:#4a4445}
+
+.callout{border-radius:5px;padding:1em 1.2em;margin-top:1.1em;background:var(--slate);
+  border-left:4px solid var(--lime)}
+.callout .tag{font-family:var(--mono);font-size:.72em;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--lime);font-weight:600;display:block;margin-bottom:.35em}
+.callout.caution{border-left-color:var(--flag)}
+.callout.caution .tag{color:var(--flag)}
+.callout p{font-size:clamp(.95rem,1.5vw,1.25rem)}
+
+.obj{background:var(--slate);border-radius:5px;padding:1.1em 1.3em;margin-top:1em}
+.obj .tag{font-family:var(--mono);font-size:.72em;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--lime);font-weight:600;display:block;margin-bottom:.6em}
+
+.cover{border-left:5px solid var(--lime);padding-left:clamp(1rem,3vw,2.4rem)}
+.cover .eyebrow{font-family:var(--mono);color:var(--lime);letter-spacing:.2em;font-weight:600;
+  text-transform:uppercase;font-size:clamp(.75rem,1.3vw,1rem);margin-bottom:1.1em}
+.cover .meta{font-family:var(--mono);color:var(--muted);margin-top:1.6em;
+  font-size:clamp(.8rem,1.3vw,1.05rem);line-height:1.9}
+.cover .meta b{color:var(--lime);font-weight:600}
+
+.steps li{background:var(--slate);border-radius:4px;padding:.75em 1em .75em 3.4em;margin-bottom:.55em}
+.steps li::before{left:.8em;top:.75em}
+
+.qa{background:var(--slate);border-radius:5px;padding:1em 1.2em;margin-bottom:.7em}
+.qa .q{font-weight:700;font-size:clamp(1rem,1.6vw,1.3rem);margin-bottom:.3em}
+.qa .a{color:var(--lime);font-family:var(--mono);font-size:clamp(.88rem,1.4vw,1.1rem)}
+
+table{width:100%;border-collapse:collapse;margin-top:.6em}
+th,td{text-align:left;padding:.6em .7em;border-bottom:1px solid #433d3e;
+  font-size:clamp(.88rem,1.4vw,1.15rem)}
+th{font-family:var(--mono);font-size:.78em;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--lime);font-weight:600}
+
+/* scam drill */
+.msg{background:var(--slate);border-radius:6px;padding:1.2em 1.4em;font-size:clamp(.95rem,1.55vw,1.25rem);
+  line-height:1.65;max-width:44ch;border:1px solid #4a4445}
+.flag{background:#4a4445;border-radius:3px;padding:.05em .3em;cursor:pointer;
+  border-bottom:2px dotted var(--lime)}
+.flag:hover{background:#5a5354}
+.flag.hit{background:var(--flag);color:var(--ink);font-weight:700;border-bottom-color:transparent}
+#drillCount{font-family:var(--mono);color:var(--lime);font-weight:600;margin-top:.9em;display:block;
+  font-size:clamp(.9rem,1.4vw,1.15rem)}
+
+/* notes */
+#notes{position:fixed;left:0;right:0;bottom:6.4vh;max-height:42vh;overflow-y:auto;
+  background:#171415;border-top:2px solid var(--lime);padding:1.1em 3vw;display:none;z-index:7}
+#notes.on{display:block}
+#notes h4{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--lime);margin-bottom:.5em}
+#notes p{font-size:clamp(.9rem,1.3vw,1.08rem);color:#DAD6D7;line-height:1.55}
+
+/* menu */
+#menu{position:fixed;inset:0;background:rgba(20,17,18,.97);z-index:9;display:none;
+  padding:6vh 6vw;overflow-y:auto}
+#menu.on{display:block}
+#menu h3{font-family:var(--mono);color:var(--lime);letter-spacing:.16em;text-transform:uppercase;
+  font-size:.85rem;margin:1.4em 0 .6em}
+#menu h3:first-child{margin-top:0}
+#menu a{display:block;color:#DAD6D7;text-decoration:none;padding:.35em 0;
+  font-size:clamp(.92rem,1.4vw,1.15rem);border-bottom:1px solid #2e2a2b}
+#menu a:hover,#menu a:focus{color:var(--lime)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div id="chips"><span id="chipL"></span><span id="chipR"></span></div>
+<div id="stage"><div id="slides"></div></div>
+<div id="bar" style="width:0"></div>
+<div id="notes"><h4>Instructor notes</h4><p id="notesBody"></p></div>
+<div id="menu" role="dialog" aria-label="Jump to section"></div>
+<div id="foot">
+  <div id="brand"><span class="mark">T</span> Tech&nbsp;Exchange &nbsp;·&nbsp; Digital Literacy</div>
+  <div id="nav">
+    <button id="btnMenu" aria-label="Jump to section">Menu</button>
+    <button id="btnNotes" aria-label="Toggle instructor notes">Notes (N)</button>
+    <button id="btnPrev" aria-label="Previous slide">←</button>
+    <span id="count"></span>
+    <button id="btnNext" aria-label="Next slide">→</button>
+  </div>
+</div>
+<script>
+const DECK = [
+
+/* ===================== FRONT MATTER ===================== */
+{h:"Classes 3–4",c:"Welcome",t:"0:10",html:`
+<div class="cover">
+  <div class="eyebrow">Essential Digital Literacy · Classes 3 &amp; 4</div>
+  <h1>Communicate &amp;<br>Collaborate</h1>
+  <div class="meta">
+    <b>Today</b> &nbsp;Thursday, August 27, 2026 · 11:00 AM – 3:00 PM<br>
+    <b>Where</b> &nbsp;1721 Broadway, Oakland · MacArthur Meeting Room<br>
+    <b>Final class</b> &nbsp;Devices go home with you today
+  </div>
+</div>`,
+n:"Sign-in sheet around now. Laptops open and powering on while you talk. Confirm everyone has their Device ID recorded from Tuesday."},
+
+{h:"Classes 3–4",c:"Welcome",t:"0:10",html:`
+<h2><span class="n">Today's plan</span>Four hours, four tools</h2>
+<table>
+<tr><th>Hour</th><th>What we cover</th><th>What you walk out with</th></tr>
+<tr><td><span class="kbd">11:00</span></td><td>Email — Gmail</td><td>A sent email and a labelled inbox</td></tr>
+<tr><td><span class="kbd">12:00</span></td><td>Google Drive, Docs, Sheets</td><td>Your files in the cloud</td></tr>
+<tr><td><span class="kbd">13:10</span></td><td>Zoom</td><td>A meeting you joined yourself</td></tr>
+<tr><td><span class="kbd">14:00</span></td><td>Google Meet</td><td>A meeting you started yourself</td></tr>
+</table>
+<div class="callout"><span class="tag">Note</span><p>Break every hour. Lunch at 12:40. We finish at 3:00 with your device paperwork.</p></div>`,
+n:"Point at the artifact column again. Same promise as Tuesday — they leave with four things they made."},
+
+{h:"Classes 3–4",c:"Welcome",t:"0:10",html:`
+<h2><span class="n">From Tuesday</span>What you already have</h2>
+<div class="grid g4">
+<div class="card"><h3>My Info.txt</h3><p>Your contact card, saved in Documents.</p></div>
+<div class="card"><h3>My Files</h3><p>Personal, Jobs, Health — your filing cabinet.</p></div>
+<div class="card"><h3>My Sites</h3><p>Three bookmarks you use for real.</p></div>
+<div class="card"><h3>Your passphrase</h3><p>Four words on the paper card.</p></div>
+</div>
+<div class="callout"><span class="tag">Important</span><p>You will use all four today. Same ground rule as Tuesday: nothing you do is unfixable, and <span class="kbd">Ctrl</span>+<span class="kbd">Z</span> still undoes your last action.</p></div>`,
+n:"Have them open File Explorer and confirm My Info.txt is still there before you start. Anyone missing it, rebuild during Hour 1's lab — it takes two minutes."},
+
+/* ===================== HOUR 1 : C3-L1 ===================== */
+{h:"Hour 1 · C3-L1",c:"Module cover",t:"40 min",html:`
+<div class="cover">
+  <div class="eyebrow">Hour 1 · Module C3-L1</div>
+  <h1>Email<br>Fundamentals</h1>
+  <div class="meta">
+    <b>Teach</b> 25 min &nbsp;·&nbsp; <b>Hands-on</b> 12 min &nbsp;·&nbsp; <b>Checkpoint</b> 3 min<br>
+    <b>You will build</b> &nbsp;A sent email and a labelled, organised inbox
+  </div>
+</div>`,
+n:"Start 11:10. Lab launch by 11:35. Have your instructor demo account open and projected before you begin."},
+
+{h:"Hour 1 · C3-L1",c:"Why this matters",t:"1:30",html:`
+<h2><span class="n">Why this matters</span>Email is the key to everything else</h2>
+<p class="lead">Your email address is how you sign in to benefits portals, job applications, banks, and every tool we use today. It is the front door.</p>
+<div class="obj"><span class="tag">By the end of this hour you can</span>
+<ul>
+<li>Read an email address and say what each part means</li>
+<li>Sign in to and out of your account</li>
+<li>Send a message, reply to one, and forward one</li>
+<li>Distinguish To, CC, and BCC</li>
+<li>Label, archive, delete, and search your mail</li>
+<li>Recognise spam and get it out of your inbox</li>
+</ul></div>`,
+n:"Front door is the framing that lands. Tie it back to Tuesday's rule that email gets the strongest passphrase."},
+
+{h:"Hour 1 · C3-L1",c:"Recall",t:"1:00",html:`
+<h2><span class="n">Building on Class 1</span>You already protected this account</h2>
+<p class="lead">On Tuesday you learned that email gets your strongest passphrase and two-step sign-in first, because whoever controls it can reset everything else.</p>
+<p style="margin-top:1em">Today you find out why it is worth that much protection.</p>`,
+n:"Thirty seconds. Continuity, then move."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 1 of 10</span>Reading an email address</h2>
+<p class="lead" style="font-family:var(--mono);color:var(--lime);font-size:clamp(1.1rem,2.4vw,2rem)">amy<b style="color:var(--paper)">.</b>smith82<b style="color:var(--paper)">@</b>gmail.com</p>
+<div class="grid g3" style="margin-top:1.2em">
+<div class="card"><h3>Before the @</h3><p>Your username. Who you are. Chosen by you, unique to you.</p></div>
+<div class="card"><h3>The @</h3><p>Reads as "at". Separates the person from the place.</p></div>
+<div class="card"><h3>After the @</h3><p>The provider — gmail.com, yahoo.com, outlook.com. Where the mail is kept.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>Same as a postal address: name first, then where they live. Read it aloud as "amy dot smith eighty-two at gmail dot com."</p></div>`,
+n:"Have a few people read their own address aloud using at and dot. It builds confidence for saying it over the phone."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 2 of 10</span>Signing in</h2>
+<ol class="steps">
+<li>Open your browser. Click the <b>address bar</b>.</li>
+<li>Type <b>gmail.com</b> and press <span class="kbd">Enter</span>.</li>
+<li>Enter your email address. Click <b>Next</b>.</li>
+<li>Enter your password. Click <b>Next</b>.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>Address bar, not a search. Same rule as Tuesday — going straight there means you can't land on a fake copy.</p></div>`,
+n:"Bookmark gmail.com together right now with Ctrl+D. It reinforces Tuesday and saves time all day."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 3 of 10</span>What you are looking at</h2>
+<div class="grid g2">
+<div class="card"><h3>Inbox</h3><p>Everything that arrives. Your starting point, on the left.</p></div>
+<div class="card"><h3>Sent</h3><p>Copies of everything you send. Proof you sent it.</p></div>
+<div class="card"><h3>Drafts</h3><p>Messages you started but haven't sent. Saved automatically.</p></div>
+<div class="card"><h3>Spam and Trash</h3><p>Junk, and things you deleted. Trash empties itself after about 30 days.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>Search box across the top. Settings gear top right. Everything else is on the left.</p></div>`,
+n:"Project your demo account and point at each one. Do not let anyone open their own inbox yet — you lose the room."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"2:30",html:`
+<h2><span class="n">Concept 4 of 10</span>Sending a message</h2>
+<ol class="steps">
+<li>Click <b>Compose</b>, top left. A box opens bottom right.</li>
+<li><b>To</b> — the address you are sending to.</li>
+<li><b>Subject</b> — a few words saying what it is about.</li>
+<li><b>Body</b> — the message itself.</li>
+<li>Click <b>Send</b>.</li>
+</ol>
+<div class="callout"><span class="tag">Important</span><p>Always write a subject. A message with no subject often lands in spam, and people are less likely to open it.</p></div>`,
+n:"Write a bad subject and a good one on the board: 'hi' versus 'Question about Tuesday's class'. The difference sticks."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 5 of 10</span>To, CC, and BCC</h2>
+<div class="grid g3">
+<div class="card"><h3>To</h3><p>The people the message is <b>for</b>. They are expected to read and reply.</p></div>
+<div class="card"><h3>CC — carbon copy</h3><p>People who should <b>know</b> but do not need to act. Everyone can see them.</p></div>
+<div class="card"><h3>BCC — blind carbon copy</h3><p>A hidden copy. Nobody else sees that address.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>Emailing a group who do not know each other? Put them in <b>BCC</b>. It keeps everyone's address private.</p></div>`,
+n:"The BCC-for-groups tip is the practical one. Most people have had their address shared in a mass email without meaning to."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 6 of 10</span>Reply, Reply All, Forward</h2>
+<div class="grid g3">
+<div class="card"><h3>Reply</h3><p>Goes to the sender only. Your default.</p></div>
+<div class="card"><h3>Reply All</h3><p>Goes to everyone who received it. Use it deliberately.</p></div>
+<div class="card"><h3>Forward</h3><p>Sends the message on to someone new.</p></div>
+</div>
+<div class="callout caution"><span class="tag">Caution</span><p>Reply All on a message sent to fifty people sends your answer to all fifty. Check the To line before you send.</p></div>`,
+n:"Everyone has a Reply All story. Ask for one — it teaches the lesson better than the slide does."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 7 of 10</span>Attachments</h2>
+<ol class="steps">
+<li>In a message you are writing, click the <b>paperclip</b> at the bottom.</li>
+<li>Find your file — <b>Documents</b>, then <b>My Files</b>, then the folder you want.</li>
+<li>Click the file once, then click <b>Open</b>. Wait for it to finish loading.</li>
+</ol>
+<div class="callout caution"><span class="tag">Caution</span><p>Never open an attachment you were not expecting, even from someone you know. Attachments are the most common way a laptop gets infected.</p></div>`,
+n:"This is the payoff for Tuesday's filing cabinet — attaching is just navigating the folders they already built."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 8 of 10</span>Spam</h2>
+<p class="lead">Unwanted mail. The digital version of the junk that comes to your mailbox at home.</p>
+<div class="grid g2" style="margin-top:1em">
+<div class="card"><h3>Gmail catches most of it</h3><p>It goes to the Spam folder automatically. You rarely need to look.</p></div>
+<div class="card"><h3>When one gets through</h3><p>Open it, click <b>Report spam</b>. Gmail learns and blocks the next one.</p></div>
+</div>
+<div class="callout caution"><span class="tag">Caution</span><p>The four signs from Tuesday apply here exactly: urgency, a threat or a prize, a wrong address, an unusual way to pay. Do not click. Report and delete.</p></div>`,
+n:"Direct callback to Class 1 Hour 4. The scam drill they did Tuesday is the same skill applied to the inbox."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 9 of 10</span>Labels, archive, delete</h2>
+<div class="grid g3">
+<div class="card"><h3>Label</h3><p>A tag you attach — <b>Jobs</b>, <b>Health</b>, <b>Workshops</b>. One message can carry several.</p></div>
+<div class="card"><h3>Archive</h3><p>Out of the inbox, still findable. Use this for most things.</p></div>
+<div class="card"><h3>Delete</h3><p>To Trash, gone after about 30 days.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>Labels are the same idea as the folders you built on Tuesday — a drawer for each part of your life.</p></div>`,
+n:"Archive over delete is the habit worth teaching. Storage is free; regret is not."},
+
+{h:"Hour 1 · C3-L1",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 10 of 10</span>Finding an old message</h2>
+<p class="lead">The search box at the top searches every message you have ever sent or received.</p>
+<div class="grid g3" style="margin-top:1em">
+<div class="card"><h3>A person</h3><p>Type their name or address.</p></div>
+<div class="card"><h3>A subject</h3><p>Type a word from the subject line.</p></div>
+<div class="card"><h3>Anything inside</h3><p>Type a word from the body of the message.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>You never have to organise perfectly. Search finds it either way.</p></div>`,
+n:"Same relief as Tuesday's Windows Search — permission to forget where things are."},
+
+{h:"Hour 1 · C3-L1",c:"Demonstration",t:"2:30",html:`
+<h2><span class="n">Watch first</span>Send, find, label</h2>
+<ol class="steps">
+<li>Click <b>Compose</b>. In <b>To</b>, type the class address on the board.</li>
+<li><b>Subject:</b> Email Basics — your first name.</li>
+<li><b>Body:</b> one sentence about something you learned Tuesday.</li>
+<li>Click <b>Send</b>. Then open <b>Sent</b> on the left and find it there.</li>
+<li>Open the message, click the <b>label</b> icon, create a label called <b>Workshops</b>.</li>
+</ol>
+<div class="callout"><span class="tag">Important</span><p>Watch me do it once all the way through. Hands off keyboards for this pass.</p></div>`,
+n:"Write the class demo address on the board in large letters before you start. Mistyped addresses eat the whole lab."},
+
+{h:"Hour 1 · C3-L1",c:"Lab launch",t:"12:00",html:`
+<h2><span class="n">Lab 5 · 12 minutes</span>Send Your First Real Email</h2>
+<p class="lead">One message sent, found, and filed.</p>
+<div class="grid g2" style="margin-top:1em">
+<div class="card"><h3>You will produce</h3><p>A message sent to the class address, visible in your <b>Sent</b> folder, carrying a label called <b>Workshops</b>.</p></div>
+<div class="card"><h3>Done when</h3><p>You click <b>Workshops</b> on the left and your message is sitting there.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>Finished early? Attach <b>My Info.txt</b> from Documents and send it to yourself. Now you have your details anywhere you can get to email.</p></div>`,
+n:"Circulate immediately. Watch for the address typed with a comma instead of a dot, and for people hunting the label icon — it looks like a luggage tag."},
+
+{h:"Hour 1 · C3-L1",c:"Checkpoint",t:"1:30",html:`
+<h2><span class="n">Checkpoint</span>Three questions</h2>
+<div class="qa"><div class="q">1. You are emailing twelve neighbours who do not know each other. Which field?</div></div>
+<div class="qa"><div class="q">2. You want a message out of your inbox but still findable next year. Archive or delete?</div></div>
+<div class="qa"><div class="q">3. An email you were not expecting has an attachment. What do you do?</div></div>`,
+n:"Give fifteen seconds of quiet before taking hands."},
+
+{h:"Hour 1 · C3-L1",c:"Checkpoint",t:"1:30",html:`
+<h2><span class="n">Checkpoint</span>Answers</h2>
+<div class="qa"><div class="q">1. Twelve neighbours who do not know each other.</div><div class="a">BCC. It keeps every address private.</div></div>
+<div class="qa"><div class="q">2. Out of the inbox, still findable.</div><div class="a">Archive. Delete removes it after about 30 days.</div></div>
+<div class="qa"><div class="q">3. An unexpected attachment.</div><div class="a">Do not open it. Check with the sender another way first.</div></div>`,
+n:"Then break: 11:50 out, 12:00 back."},
+
+{h:"Hour 1 · C3-L1",c:"Summary",t:"1:00",html:`
+<h2><span class="n">Hour 1 complete</span>What you can now do</h2>
+<ul>
+<li>Read an email address aloud and explain its parts</li>
+<li>Sign in and out of your account safely</li>
+<li>Send, reply, reply all, and forward</li>
+<li>Choose correctly between To, CC, and BCC</li>
+<li>Attach a file from your own folders</li>
+<li>Label, archive, delete, and search your mail</li>
+</ul>
+<div class="callout"><span class="tag">Next</span><p>Ten-minute break. Then Hour 2 — where your files can live so you never lose them again.</p></div>`,
+n:"12:00 on the board."},
+
+/* ===================== HOUR 2 : C3-L2 ===================== */
+{h:"Hour 2 · C3-L2",c:"Module cover",t:"40 min",html:`
+<div class="cover">
+  <div class="eyebrow">Hour 2 · Module C3-L2</div>
+  <h1>Google Drive,<br>Docs &amp; Sheets</h1>
+  <div class="meta">
+    <b>Teach</b> 25 min &nbsp;·&nbsp; <b>Hands-on</b> 12 min &nbsp;·&nbsp; <b>Checkpoint</b> 3 min<br>
+    <b>You will build</b> &nbsp;Your contact card, living in the cloud
+  </div>
+</div>`,
+n:"Start 12:00. Lab launch by 12:25. Lunch at 12:40 — protect it."},
+
+{h:"Hour 2 · C3-L2",c:"Why this matters",t:"1:30",html:`
+<h2><span class="n">Why this matters</span>What if the laptop breaks?</h2>
+<p class="lead">Everything you saved on Tuesday lives on this one machine. If it is lost, dropped, or stolen, it goes with it. Unless you put a copy somewhere else.</p>
+<div class="obj"><span class="tag">By the end of this hour you can</span>
+<ul>
+<li>Explain what cloud storage is</li>
+<li>Upload a file from your laptop to Google Drive</li>
+<li>Create a document, name it, and format text</li>
+<li>Enter numbers in a spreadsheet and total them</li>
+<li>Organise Drive into folders and share a file</li>
+</ul></div>`,
+n:"Lead with the fear and answer it. 'What if the laptop breaks' is the question they are already carrying."},
+
+{h:"Hour 2 · C3-L2",c:"Recall",t:"1:00",html:`
+<h2><span class="n">Building on Hour 1</span>Same account, more tools</h2>
+<p class="lead">The Google account you just used for email also gives you Drive, Docs, Sheets, Slides, and — this afternoon — Google Meet.</p>
+<p style="margin-top:1em">One sign-in. Nothing new to create.</p>
+<div class="callout"><span class="tag">Tip</span><p>The nine-dot grid in the top-right corner of Gmail switches between all of them.</p></div>`,
+n:"Show the nine-dot grid live. It is the single most useful navigation control in the Google world and most people never notice it."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 1 of 10</span>What the cloud actually is</h2>
+<p class="lead">Someone else's computer, in a building with backup power, holding a copy of your files.</p>
+<div class="grid g3" style="margin-top:1em">
+<div class="card"><h3>Reachable anywhere</h3><p>Any device that can sign in to your account.</p></div>
+<div class="card"><h3>Survives your laptop</h3><p>Break it, lose it — the files are still there.</p></div>
+<div class="card"><h3>Free to a point</h3><p>15 GB with every Google account. Thousands of documents.</p></div>
+</div>
+<div class="callout"><span class="tag">Note</span><p>It is not magic and it is not mysterious. It is a copy kept somewhere safer than your bag.</p></div>`,
+n:"Demystify hard. 'The cloud' makes people anxious because it sounds like nowhere. Name the building."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 2 of 10</span>Getting to Drive</h2>
+<ol class="steps">
+<li>From Gmail, click the <b>nine-dot grid</b> in the top-right corner.</li>
+<li>Click <b>Drive</b>.</li>
+<li>Or type <b>drive.google.com</b> in the address bar.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>Bookmark it with <span class="kbd">Ctrl</span>+<span class="kbd">D</span> into your <b>My Sites</b> folder from Tuesday.</p></div>`,
+n:"Every bookmark you add today makes tomorrow easier. Keep reinforcing the habit."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 3 of 10</span>Drive looks familiar on purpose</h2>
+<div class="grid g2">
+<div class="card"><h3>My Drive</h3><p>Your filing cabinet. Folders and files you own — the same idea as Documents.</p></div>
+<div class="card"><h3>Home / Recent</h3><p>What you touched lately. Like the papers already on your desk.</p></div>
+<div class="card"><h3>Shared with me</h3><p>Files other people gave you access to.</p></div>
+<div class="card"><h3>Trash</h3><p>Deleted items, recoverable for 30 days.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>List view for details, grid view for pictures. The toggle is top right.</p></div>`,
+n:"Anchor to File Explorer from Tuesday at every opportunity. Same shape, different window."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 4 of 10</span>Getting a file into Drive</h2>
+<ol class="steps">
+<li>Click <b>+ New</b>, top left.</li>
+<li>Choose <b>File upload</b>.</li>
+<li>Find your file — <b>Documents</b>, <b>My Files</b>, <b>Personal</b>, <b>My Info.txt</b>.</li>
+<li>Click it, then <b>Open</b>. Watch the progress box in the corner.</li>
+</ol>
+<div class="callout"><span class="tag">Note</span><p>Uploading makes a copy. The original stays on your laptop. Now you have two, in two places — which is the whole point.</p></div>`,
+n:"'Now you have two, in two places' is the sentence that makes backup click. Say it slowly."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 5 of 10</span>Google Docs</h2>
+<p class="lead">A word processor that runs in your browser. Free, nothing to install.</p>
+<ol class="steps">
+<li><b>+ New</b>, then <b>Google Docs</b>. A blank document opens in a new tab.</li>
+<li>Click <b>Untitled document</b> top left and give it a real name.</li>
+<li>Type. Select text by dragging over it, then use the toolbar for size, bold, and colour.</li>
+</ol>
+<div class="callout"><span class="tag">Important</span><p>There is no Save button, and you do not need one. It saves every few seconds by itself.</p></div>`,
+n:"The missing Save button genuinely alarms people. Address it before anyone asks."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 6 of 10</span>Your keyboard still works</h2>
+<table>
+<tr><th>Keys</th><th>In Docs, Sheets, and Slides</th></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">C</span> / <span class="kbd">Ctrl</span>+<span class="kbd">V</span></td><td>Copy and paste</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">Z</span></td><td>Undo — exactly as on Tuesday</td></tr>
+<tr><td><span class="kbd">Ctrl</span>+<span class="kbd">A</span></td><td>Select everything</td></tr>
+<tr><td><span class="kbd">Shift</span></td><td>Capital letters</td></tr>
+</table>
+<div class="callout"><span class="tag">Note</span><p>Nothing new to learn here. The keys you practised Tuesday work in every one of these tools.</p></div>`,
+n:"Deliberate confidence slide. Sixty seconds, and the room relaxes."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 7 of 10</span>Google Sheets</h2>
+<p class="lead">A grid. Columns have letters, rows have numbers. Every box has an address like <b>A1</b>.</p>
+<ol class="steps">
+<li>Click a box and type. Press <span class="kbd">Enter</span> to move down, <span class="kbd">Tab</span> to move right.</li>
+<li>To add up a column, click an empty box below it.</li>
+<li>Type <b>=SUM(A1:A5)</b> and press <span class="kbd">Enter</span>. The total appears.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>The <b>=</b> tells Sheets "this is a calculation, not text." <b>A1:A5</b> means "from A1 down to A5."</p></div>`,
+n:"Keep this to one formula. SUM is the only one that matters today — resist the temptation to add AVERAGE."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 8 of 10</span>Google Slides</h2>
+<p class="lead">For presentations. Same account, same toolbar, same keyboard.</p>
+<div class="grid g3" style="margin-top:1em">
+<div class="card"><h3>Add a slide</h3><p>The <b>+</b> at the top left.</p></div>
+<div class="card"><h3>Change the look</h3><p><b>Theme</b> applies colours and fonts to every slide at once.</p></div>
+<div class="card"><h3>Present</h3><p>The <b>Slideshow</b> button, top right. <span class="kbd">Esc</span> exits.</p></div>
+</div>
+<div class="callout"><span class="tag">Note</span><p>This deck was built the same way. Nothing here is beyond you.</p></div>`,
+n:"Ninety seconds. Slides is the least essential of the three for this audience — do not let it eat Sheets' time."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 9 of 10</span>Sharing a file</h2>
+<ol class="steps">
+<li>Open the file. Click <b>Share</b>, top right.</li>
+<li>Type the person's email address.</li>
+<li>Choose what they can do: <b>Viewer</b>, <b>Commenter</b>, or <b>Editor</b>.</li>
+<li>Click <b>Send</b>.</li>
+</ol>
+<div class="callout caution"><span class="tag">Caution</span><p>"Anyone with the link" means anyone at all — forwarded, posted, or found. For anything personal, share with named addresses only.</p></div>`,
+n:"The anyone-with-the-link warning matters. It is the most common way private documents leak."},
+
+{h:"Hour 2 · C3-L2",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 10 of 10</span>Folders in Drive</h2>
+<ol class="steps">
+<li>Click <b>+ New</b>, then <b>Folder</b>. Name it and click <b>Create</b>.</li>
+<li>Drag files into it, or two-finger tap a file and choose <b>Organise</b>, then <b>Move</b>.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>Use the same drawer names as Tuesday — <b>Personal</b>, <b>Jobs</b>, <b>Health</b>. One system in two places is far easier to remember than two systems.</p></div>`,
+n:"Mirroring the local folder names is genuinely good advice, not just a callback. Push it."},
+
+{h:"Hour 2 · C3-L2",c:"Demonstration",t:"2:00",html:`
+<h2><span class="n">Watch first</span>Laptop to cloud in five steps</h2>
+<ol class="steps">
+<li>Nine-dot grid, then <b>Drive</b>.</li>
+<li><b>+ New</b>, then <b>Folder</b>. Name it <b>Personal</b>.</li>
+<li><b>+ New</b>, then <b>File upload</b>. Choose <b>My Info.txt</b> from Documents.</li>
+<li>Drag the uploaded file into <b>Personal</b>.</li>
+<li>Double-click it to open. Your details, on any device you can sign in from.</li>
+</ol>`,
+n:"Ending on 'any device you can sign in from' is the emotional payoff. Pause there before launching the lab."},
+
+{h:"Hour 2 · C3-L2",c:"Lab launch",t:"12:00",html:`
+<h2><span class="n">Lab 6 · 12 minutes</span>Put Your Files in the Cloud</h2>
+<p class="lead">A copy of your contact card that outlives the laptop.</p>
+<div class="grid g2" style="margin-top:1em">
+<div class="card"><h3>You will produce</h3><p>A <b>Personal</b> folder in Drive containing <b>My Info.txt</b>, plus one Google Doc of your own named something meaningful.</p></div>
+<div class="card"><h3>Done when</h3><p>You can open your contact card from Drive without touching Documents on the laptop.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>Finished early? Open a Sheet, type <b>10</b> in A1 and <b>15</b> in A2, then <b>=SUM(A1:A2)</b> in A3.</p></div>`,
+n:"Watch for people uploading into the wrong folder, and for the upload progress box being missed entirely — it is small and bottom-right."},
+
+{h:"Hour 2 · C3-L2",c:"Checkpoint",t:"1:30",html:`
+<h2><span class="n">Checkpoint</span>Three questions</h2>
+<div class="qa"><div class="q">1. You upload a file to Drive. Is it still on your laptop?</div></div>
+<div class="qa"><div class="q">2. Where is the Save button in Google Docs?</div></div>
+<div class="qa"><div class="q">3. You are sharing a document with your address on it. Named people, or anyone with the link?</div></div>`,
+n:"Question 3 is the one to slow down on."},
+
+{h:"Hour 2 · C3-L2",c:"Checkpoint",t:"1:30",html:`
+<h2><span class="n">Checkpoint</span>Answers</h2>
+<div class="qa"><div class="q">1. Still on your laptop?</div><div class="a">Yes. Uploading copies it. You now have two, in two places.</div></div>
+<div class="qa"><div class="q">2. The Save button.</div><div class="a">There isn't one. It saves itself every few seconds.</div></div>
+<div class="qa"><div class="q">3. Sharing something personal.</div><div class="a">Named people only. "Anyone with the link" means anyone at all.</div></div>`,
+n:"Then lunch: laptops to Sleep, back at 13:10. Write it on the board and say it twice."},
+
+{h:"Hour 2 · C3-L2",c:"Summary",t:"1:00",html:`
+<h2><span class="n">Hour 2 complete</span>What you can now do</h2>
+<ul>
+<li>Explain what cloud storage is and why it matters</li>
+<li>Reach Drive from the nine-dot grid or the address bar</li>
+<li>Upload a file from your laptop</li>
+<li>Create, name, and format a Google Doc</li>
+<li>Enter data in Sheets and total a column with <b>=SUM</b></li>
+<li>Make folders and share a file safely</li>
+</ul>
+<div class="callout"><span class="tag">Next</span><p>Lunch — thirty minutes. Laptops to <b>Sleep</b>, not Shut down. Back at 13:10 for video calls.</p></div>`,
+n:"13:10 on the board. Lunch is the segment most likely to run long."},
+/* ===================== HOUR 3 : C4-L1 ===================== */
+{h:"Hour 3 · C4-L1",c:"Module cover",t:"40 min",html:`
+<div class="cover">
+  <div class="eyebrow">Hour 3 · Module C4-L1</div>
+  <h1>Zoom</h1>
+  <div class="meta">
+    <b>Teach</b> 25 min &nbsp;·&nbsp; <b>Hands-on</b> 12 min &nbsp;·&nbsp; <b>Checkpoint</b> 3 min<br>
+    <b>You will build</b> &nbsp;A meeting you joined and spoke in, yourself
+  </div>
+</div>`,
+n:"Start 13:10. Your practice meeting must already be running with the waiting room ON before the hour begins. Meeting ID on the board in large digits."},
+
+{h:"Hour 3 · C4-L1",c:"Why this matters",t:"1:30",html:`
+<h2><span class="n">Why this matters</span>The appointment you can't miss</h2>
+<p class="lead">Doctors, benefits interviews, job interviews, court dates, and grandchildren all happen on video now. Not knowing how to join is a real barrier.</p>
+<div class="obj"><span class="tag">By the end of this hour you can</span>
+<ul>
+<li>Join a meeting from a link or a Meeting ID</li>
+<li>Allow camera and microphone when asked</li>
+<li>Mute, unmute, and turn your camera on and off</li>
+<li>Send a chat message and raise your hand</li>
+<li>Leave a meeting without disrupting it</li>
+</ul></div>`,
+n:"Name the real stakes. A missed telehealth appointment is the concrete version of this lesson."},
+
+{h:"Hour 3 · C4-L1",c:"Recall",t:"1:00",html:`
+<h2><span class="n">Building on this morning</span>It starts in your inbox</h2>
+<p class="lead">Almost every meeting invitation arrives as an email. You spent Hour 1 learning to find, open, and read those.</p>
+<p style="margin-top:1em">Joining a call is opening an email and clicking one button. That is most of it.</p>`,
+n:"Deflate the fear early. 'Open an email, click one button' is genuinely the whole skill."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 1 of 10</span>What video conferencing is</h2>
+<p class="lead">A phone call where everyone can see each other, running over the internet instead of the phone network.</p>
+<div class="grid g4" style="margin-top:1em">
+<div class="card"><h3>Zoom</h3><p>The most widely used. Today's focus.</p></div>
+<div class="card plain"><h3>Google Meet</h3><p>Built into your Google account. Next hour.</p></div>
+<div class="card plain"><h3>Microsoft Teams</h3><p>Common at workplaces.</p></div>
+<div class="card plain"><h3>FaceTime</h3><p>Apple devices only.</p></div>
+</div>
+<div class="callout"><span class="tag">Note</span><p>They all work the same way: a link or a code, a camera, a microphone, and a mute button.</p></div>`,
+n:"Say the last line clearly. Learning one means they can use all four."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 2 of 10</span>Check your connection first</h2>
+<ol class="steps">
+<li>Look at the <b>bottom-right</b> of your taskbar for the Wi-Fi icon.</li>
+<li>Click it to see the networks in range.</li>
+<li>Choose yours, enter the password, wait for <b>Connected</b>.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>Video needs more internet than anything else you do. A weak signal shows up as freezing, robot voices, or dropped calls — it is almost never your laptop's fault.</p></div>`,
+n:"Naming the symptoms of weak Wi-Fi saves them from blaming the machine later."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 3 of 10</span>Two ways in</h2>
+<div class="grid g2">
+<div class="card"><h3>The browser</h3><p>Go to <b>zoom.us</b>, click <b>Join a Meeting</b>. Nothing to install. Works on any computer, including one at the library.</p></div>
+<div class="card"><h3>The app</h3><p>Downloaded once, then it opens by itself. Slightly smoother, a few more features.</p></div>
+</div>
+<div class="callout"><span class="tag">Note</span><p>Today we use the browser. You do not need an account to <b>join</b> a Zoom meeting — only to host one.</p></div>`,
+n:"'No account needed to join' removes the biggest imagined obstacle. Lead with it if the room looks anxious."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 4 of 10</span>The Meeting ID</h2>
+<p class="lead">A number, usually nine to eleven digits, that identifies one specific meeting.</p>
+<ol class="steps">
+<li>Open <b>zoom.us</b> and click <b>Join a Meeting</b>.</li>
+<li>Type the Meeting ID. Click <b>Join</b>.</li>
+<li>Type your name the way you want others to see it.</li>
+<li>Enter the passcode if you are asked for one.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>Clicking the link in the invitation email does all of this for you. The Meeting ID is the backup for when the link will not work.</p></div>`,
+n:"Frame the ID as the fallback, not the primary route. Most of the time they will click a link."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 5 of 10</span>The permission pop-ups</h2>
+<p class="lead">The first time you join, your browser asks two questions. They look alarming. They are routine.</p>
+<div class="grid g2" style="margin-top:1em">
+<div class="card"><h3>"Use your microphone?"</h3><p>Click <b>Allow</b>. Without it nobody can hear you.</p></div>
+<div class="card"><h3>"Use your camera?"</h3><p>Click <b>Allow</b>. You can still turn the camera off once you are inside.</p></div>
+</div>
+<div class="callout"><span class="tag">Important</span><p>Allowing is not the same as being on. You control both from inside the meeting, at any moment.</p></div>`,
+n:"This is where first-timers freeze. Say the Important line twice — allowing is permission, not exposure."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 6 of 10</span>The waiting room</h2>
+<p class="lead">A holding screen until the host lets you in. "Please wait, the meeting host will let you in soon."</p>
+<div class="grid g2" style="margin-top:1em">
+<div class="card"><h3>What to do</h3><p>Nothing. Wait. Do not close the tab or rejoin.</p></div>
+<div class="card"><h3>Why it exists</h3><p>It stops strangers wandering into meetings. It is a safety feature.</p></div>
+</div>`,
+n:"People panic here and rejoin repeatedly, creating three copies of themselves in your queue. Warn them now."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"2:30",html:`
+<h2><span class="n">Concept 7 of 10</span>The four buttons that matter</h2>
+<div class="grid g2">
+<div class="card"><h3>Mute / Unmute</h3><p>Bottom left, a microphone. A red line means muted. Stay muted unless you are speaking.</p></div>
+<div class="card"><h3>Start / Stop Video</h3><p>Next to it, a camera. Off shows your name instead of your face.</p></div>
+<div class="card"><h3>Chat</h3><p>A speech bubble. Type a message to everyone without interrupting.</p></div>
+<div class="card"><h3>Leave</h3><p>Bottom right, red. Ends it for you only.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>The buttons hide when you stop moving. Move your finger on the touchpad and they come back.</p></div>`,
+n:"The disappearing toolbar confuses everyone once. Mention it before it happens."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 8 of 10</span>Raise your hand</h2>
+<p class="lead">A polite way to say "I have a question" without talking over anyone.</p>
+<ol class="steps">
+<li>Click <b>Participants</b> or <b>Reactions</b> in the toolbar.</li>
+<li>Click <b>Raise Hand</b>. A small hand appears next to your name.</li>
+<li>Click it again to lower it once you have spoken.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>In a meeting with more than five people, this is far more effective than trying to jump in.</p></div>`,
+n:"Have the whole room raise hands at once during the lab. It is visible, safe, and gets a laugh."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 9 of 10</span>Being seen and heard well</h2>
+<div class="grid g4">
+<div class="card"><h3>Light in front</h3><p>A window behind you turns you into a silhouette. Face the light.</p></div>
+<div class="card"><h3>Camera at eye level</h3><p>Books under the laptop work fine.</p></div>
+<div class="card"><h3>Quiet room</h3><p>TV off. Mute when not speaking.</p></div>
+<div class="card"><h3>Plugged in</h3><p>Video drains the battery quickly.</p></div>
+</div>`,
+n:"Practical and immediately usable. Ninety seconds — do not turn it into a photography lesson."},
+
+{h:"Hour 3 · C4-L1",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 10 of 10</span>Hosting your own</h2>
+<p class="lead">To <b>start</b> a meeting you need a free Zoom account. To <b>join</b> one you never do.</p>
+<div class="grid g3" style="margin-top:1em">
+<div class="card"><h3>Sign up</h3><p><b>zoom.us</b>, then <b>Sign Up, It's Free</b>. Verify by email.</p></div>
+<div class="card"><h3>Start or schedule</h3><p><b>New Meeting</b> for now, <b>Schedule</b> for later.</p></div>
+<div class="card"><h3>Invite</h3><p><b>Copy Invitation</b>, then paste it into an email.</p></div>
+</div>
+<div class="callout"><span class="tag">Note</span><p>Free meetings with three or more people stop after 40 minutes. Everyone simply rejoins.</p></div>`,
+n:"The 40-minute limit surprises people mid-call. Better they hear it here."},
+
+{h:"Hour 3 · C4-L1",c:"Demonstration",t:"2:00",html:`
+<h2><span class="n">Watch first</span>Joining, start to finish</h2>
+<ol class="steps">
+<li>Address bar: <b>zoom.us</b>. Press <span class="kbd">Enter</span>.</li>
+<li>Click <b>Join a Meeting</b>. Type the Meeting ID from the board.</li>
+<li>Type your first name. Click <b>Join</b>.</li>
+<li>Click <b>Allow</b> for microphone, then <b>Allow</b> for camera.</li>
+<li>Wait in the waiting room. Once inside: mute, unmute, camera off, camera on, send a chat message.</li>
+</ol>`,
+n:"Do this on the projector while your practice meeting is live so they see the host side admitting people."},
+
+{h:"Hour 3 · C4-L1",c:"Lab launch",t:"12:00",html:`
+<h2><span class="n">Lab 7 · 12 minutes</span>Join the Practice Meeting</h2>
+<p class="lead">Everyone in the room, in the same call, on their own laptop.</p>
+<div class="grid g2" style="margin-top:1em">
+<div class="card"><h3>You will produce</h3><p>Your name visible in the participant list, one chat message sent, and a hand raised and lowered.</p></div>
+<div class="card"><h3>Done when</h3><p>You have muted, unmuted, turned your camera off and on, and left the meeting on purpose.</p></div>
+</div>
+<div class="callout caution"><span class="tag">Caution</span><p>Keep laptop speakers <b>muted</b> unless you are speaking. Twenty unmuted microphones in one room causes a screech that will hurt.</p></div>`,
+n:"Enforce the mute rule hard or the room becomes unusable. Admit people in small batches and unmute one at a time."},
+
+{h:"Hour 3 · C4-L1",c:"Checkpoint",t:"1:30",html:`
+<h2><span class="n">Checkpoint</span>Three questions</h2>
+<div class="qa"><div class="q">1. Do you need a Zoom account to join a meeting?</div></div>
+<div class="qa"><div class="q">2. The screen says the host will let you in soon. What do you do?</div></div>
+<div class="qa"><div class="q">3. The buttons disappeared. Where did they go?</div></div>`,
+n:"All three are the anxieties that actually stop people. Take them seriously."},
+
+{h:"Hour 3 · C4-L1",c:"Checkpoint",t:"1:30",html:`
+<h2><span class="n">Checkpoint</span>Answers</h2>
+<div class="qa"><div class="q">1. Account needed to join?</div><div class="a">No. Only to host one.</div></div>
+<div class="qa"><div class="q">2. The waiting room.</div><div class="a">Wait. Do not close the tab and do not rejoin.</div></div>
+<div class="qa"><div class="q">3. The buttons vanished.</div><div class="a">They hide when you stop moving. Move your finger on the touchpad.</div></div>`,
+n:"Then break: 13:50 out, 14:00 back. Last hour of the series."},
+
+{h:"Hour 3 · C4-L1",c:"Summary",t:"1:00",html:`
+<h2><span class="n">Hour 3 complete</span>What you can now do</h2>
+<ul>
+<li>Join a Zoom meeting from a link or a Meeting ID</li>
+<li>Allow camera and microphone confidently</li>
+<li>Wait properly in a waiting room</li>
+<li>Mute, unmute, and control your camera</li>
+<li>Use chat and raise your hand</li>
+<li>Leave a meeting without disrupting it</li>
+</ul>
+<div class="callout"><span class="tag">Next</span><p>Ten-minute break. Then the last hour — the same skills in the tool already built into your Google account.</p></div>`,
+n:"14:00 on the board."},
+
+/* ===================== HOUR 4 : C4-L2 ===================== */
+{h:"Hour 4 · C4-L2",c:"Module cover",t:"40 min",html:`
+<div class="cover">
+  <div class="eyebrow">Hour 4 · Module C4-L2</div>
+  <h1>Google Meet</h1>
+  <div class="meta">
+    <b>Teach</b> 25 min &nbsp;·&nbsp; <b>Hands-on</b> 12 min &nbsp;·&nbsp; <b>Checkpoint</b> 3 min<br>
+    <b>You will build</b> &nbsp;A meeting of your own, and an invitation you sent
+  </div>
+</div>`,
+n:"Start 14:00. Send the Meet invitation to the class list before the break so it is waiting in their inboxes."},
+
+{h:"Hour 4 · C4-L2",c:"Why this matters",t:"1:30",html:`
+<h2><span class="n">Why this matters</span>You already have this one</h2>
+<p class="lead">Google Meet comes with the account you used this morning. Nothing to download, nothing to sign up for, no time limit for one-to-one calls.</p>
+<div class="obj"><span class="tag">By the end of this hour you can</span>
+<ul>
+<li>Reach Meet from Gmail or from Calendar</li>
+<li>Join a call from an email invitation</li>
+<li>Use the preview screen before anyone sees you</li>
+<li>Control microphone, camera, and chat</li>
+<li>Start your own meeting and invite someone to it</li>
+</ul></div>`,
+n:"'You already have this one' is the hook. It costs them nothing and takes no setup."},
+
+{h:"Hour 4 · C4-L2",c:"Recall",t:"1:00",html:`
+<h2><span class="n">Building on Hour 3</span>The same four buttons</h2>
+<p class="lead">Microphone, camera, chat, leave. Different colours, same jobs, same places on the screen.</p>
+<p style="margin-top:1em">You are not learning a new skill this hour. You are proving to yourself that the one you just learned transfers.</p>`,
+n:"Say this clearly. The confidence that skills transfer is worth more than any single feature."},
+
+{h:"Hour 4 · C4-L2",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 1 of 9</span>What Meet is</h2>
+<p class="lead">Google's video calling service, free with every Google account.</p>
+<div class="grid g3" style="margin-top:1em">
+<div class="card"><h3>Nothing to install</h3><p>It runs in the browser you already have open.</p></div>
+<div class="card"><h3>Up to 100 people</h3><p>Far more than you will ever need.</p></div>
+<div class="card"><h3>One-to-one is unlimited</h3><p>No 40-minute cut-off when it is just two of you.</p></div>
+</div>`,
+n:"The unlimited one-to-one point matters for people calling family. Say it."},
+
+{h:"Hour 4 · C4-L2",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 2 of 9</span>Three ways to get there</h2>
+<ol class="steps">
+<li><b>From Gmail</b> — the nine-dot grid, top right, then <b>Meet</b>.</li>
+<li><b>From the address bar</b> — type <b>meet.google.com</b>.</li>
+<li><b>From an invitation</b> — click the button inside the email.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>The third way is how it will happen almost every time.</p></div>`,
+n:"Same nine-dot grid as Hour 2. Point at it again — repetition is what makes it stick."},
+
+{h:"Hour 4 · C4-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 3 of 9</span>Joining from an invitation</h2>
+<ol class="steps">
+<li>Open <b>gmail.com</b>. Find the invitation in your inbox.</li>
+<li>Open it. Look for the blue <b>Join with Google Meet</b> button.</li>
+<li>Click it. A new tab opens with the preview screen.</li>
+</ol>
+<div class="callout"><span class="tag">Note</span><p>The same email carries a meeting code and a phone number to dial. If the button ever fails, those are your backups.</p></div>`,
+n:"The invitation is already in their inbox from before the break. Have them find it now rather than describing it."},
+
+{h:"Hour 4 · C4-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 4 of 9</span>The preview screen</h2>
+<p class="lead">Before you enter, Meet shows you exactly what everyone else will see. Nobody can see you yet.</p>
+<div class="grid g2" style="margin-top:1em">
+<div class="card"><h3>Check</h3><p>Your face, your lighting, what is behind you. Speak and watch the microphone bar move.</p></div>
+<div class="card"><h3>Adjust</h3><p>Turn the camera off, mute yourself, or blur the background — all before joining.</p></div>
+</div>
+<div class="callout"><span class="tag">Important</span><p>This screen is private. Take the ten seconds. Then click <b>Join now</b>.</p></div>`,
+n:"This is Meet's best feature for anxious first-timers. Dwell here — it removes the fear of appearing unprepared."},
+
+{h:"Hour 4 · C4-L2",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 5 of 9</span>Blurring your background</h2>
+<ol class="steps">
+<li>On the preview screen or inside the call, find the <b>effects</b> icon.</li>
+<li>Choose <b>Blur</b>. Your room goes soft; you stay sharp.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>For a doctor's appointment or a job interview from home, this is the single most useful button on the screen.</p></div>`,
+n:"Privacy at home is a real concern for this group. Frame blur as dignity, not decoration."},
+
+{h:"Hour 4 · C4-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 6 of 9</span>Inside the call</h2>
+<div class="grid g2">
+<div class="card"><h3>Microphone and camera</h3><p>Bottom centre. Red means off. <span class="kbd">Ctrl</span>+<span class="kbd">D</span> mutes, <span class="kbd">Ctrl</span>+<span class="kbd">E</span> toggles the camera.</p></div>
+<div class="card"><h3>Chat and people</h3><p>Bottom right. Type a message, or see who is here.</p></div>
+<div class="card"><h3>Who is speaking</h3><p>Their tile grows automatically.</p></div>
+<div class="card"><h3>Leave</h3><p>The red phone. Ends it for you; the meeting carries on.</p></div>
+</div>`,
+n:"Explicitly compare to Zoom as you go. Same jobs, same corners. That is the point of this hour."},
+
+{h:"Hour 4 · C4-L2",c:"Concept",t:"2:00",html:`
+<h2><span class="n">Concept 7 of 9</span>Starting your own</h2>
+<ol class="steps">
+<li>Go to <b>meet.google.com</b>.</li>
+<li>Click <b>New meeting</b>.</li>
+<li>Choose <b>Start an instant meeting</b>.</li>
+<li>Your room opens. Click <b>Copy joining info</b>.</li>
+<li>Paste it into an email and send.</li>
+</ol>
+<div class="callout"><span class="tag">Tip</span><p>Step five is Hour 1 all over again. Compose, paste, send.</p></div>`,
+n:"Point out that hosting is just email plus one button. It closes the loop on the whole day."},
+
+{h:"Hour 4 · C4-L2",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 8 of 9</span>Scheduling for later</h2>
+<ol class="steps">
+<li>Open <b>Google Calendar</b> from the nine-dot grid.</li>
+<li>Click the day and time you want.</li>
+<li>Give it a title. Click <b>Add Google Meet video conferencing</b>.</li>
+<li>Add guests by email address. Click <b>Save</b>, then <b>Send</b>.</li>
+</ol>
+<div class="callout"><span class="tag">Note</span><p>Everyone invited gets the email, the link, and a reminder before it starts.</p></div>`,
+n:"Ninety seconds. Scheduling is a stretch goal for this audience — demonstrate, do not drill."},
+
+{h:"Hour 4 · C4-L2",c:"Concept",t:"1:30",html:`
+<h2><span class="n">Concept 9 of 9</span>Leaving well</h2>
+<div class="grid g3">
+<div class="card"><h3>Say goodbye</h3><p>In a small call, a short goodbye is normal courtesy.</p></div>
+<div class="card"><h3>Click the red phone</h3><p>One click. No confirmation — be ready.</p></div>
+<div class="card"><h3>The meeting continues</h3><p>Leaving does not end it for anyone else.</p></div>
+</div>
+<div class="callout"><span class="tag">Tip</span><p>Left by accident? Click the link again. You go straight back in.</p></div>`,
+n:"The rejoin reassurance is worth more than the etiquette. Nothing here is permanent."},
+
+{h:"Hour 4 · C4-L2",c:"Demonstration",t:"2:00",html:`
+<h2><span class="n">Watch first</span>Join, then host</h2>
+<ol class="steps">
+<li>Open <b>gmail.com</b>. Find the invitation I sent before the break.</li>
+<li>Click <b>Join with Google Meet</b>. Check the preview. Click <b>Join now</b>.</li>
+<li>Mute, unmute, blur your background, send one chat message.</li>
+<li>Leave with the red phone.</li>
+<li>Go to <b>meet.google.com</b>, click <b>New meeting</b>, then <b>Start an instant meeting</b>. Copy the joining info.</li>
+</ol>`,
+n:"Do all five on the projector. The transition from guest to host in one demo is what makes it feel achievable."},
+
+{h:"Hour 4 · C4-L2",c:"Lab launch",t:"12:00",html:`
+<h2><span class="n">Lab 8 · 12 minutes</span>Join One, Start One</h2>
+<p class="lead">The last thing you build today. From guest to host in twelve minutes.</p>
+<div class="grid g2" style="margin-top:1em">
+<div class="card"><h3>You will produce</h3><p>A joined Meet call with one chat message sent — then your own instant meeting, with its joining link emailed to yourself.</p></div>
+<div class="card"><h3>Done when</h3><p>The link to a meeting <b>you</b> created is sitting in your own inbox.</p></div>
+</div>
+<div class="callout caution"><span class="tag">Caution</span><p>Microphones muted unless you are speaking. Same rule as Hour 3.</p></div>`,
+n:"Emailing themselves the link uses Hours 1, 2 and 4 together. Watch for people forgetting to paste before sending."},
+
+{h:"Hour 4 · C4-L2",c:"Checkpoint",t:"1:30",html:`
+<h2><span class="n">Checkpoint</span>Three questions</h2>
+<div class="qa"><div class="q">1. Where do you check your lighting before anyone can see you?</div></div>
+<div class="qa"><div class="q">2. You are joining from a cluttered kitchen. What do you turn on?</div></div>
+<div class="qa"><div class="q">3. You clicked the red phone by accident. Is the meeting over?</div></div>`,
+n:"Warm and easy. This is the last checkpoint of the series — end on confidence."},
+
+{h:"Hour 4 · C4-L2",c:"Checkpoint",t:"1:30",html:`
+<h2><span class="n">Checkpoint</span>Answers</h2>
+<div class="qa"><div class="q">1. Checking before anyone sees you.</div><div class="a">The preview screen, before you click Join now. It is private.</div></div>
+<div class="qa"><div class="q">2. A cluttered room behind you.</div><div class="a">Background blur.</div></div>
+<div class="qa"><div class="q">3. Left by accident.</div><div class="a">No. Click the link again and you are back in.</div></div>`,
+n:"Then the last break: 14:40 out, 14:50 back for close-out and paperwork."},
+
+{h:"Hour 4 · C4-L2",c:"Summary",t:"1:30",html:`
+<h2><span class="n">Take this home</span>Video calls, five habits</h2>
+<ol class="steps">
+<li>The invitation is in your email. Open it and click the button.</li>
+<li><b>Allow</b> the camera and microphone. You still control both.</li>
+<li>Check the preview screen before you join.</li>
+<li>Stay muted unless you are speaking.</li>
+<li>Face the light, plug in the charger, blur the background.</li>
+</ol>
+<div class="callout"><span class="tag">Next</span><p>Ten-minute break. Then we finish — your paperwork, your laptop, and where to get help.</p></div>`,
+n:"This is the printed one-pager. Point at the handout as you read it."},
+
+/* ===================== CLOSE-OUT ===================== */
+{h:"Close-out",c:"Devices",t:"3 min",html:`
+<h2><span class="n">Close-out · 3 minutes</span>Your laptop goes home today</h2>
+<ol class="steps">
+<li>Check your <b>Computer Distribution Receipt</b> — Device ID for the laptop and for the power adapter.</li>
+<li>Sign and date it. Hand it to me.</li>
+<li>Take your charger. Take your handouts from both classes.</li>
+</ol>
+<div class="callout"><span class="tag">Important</span><p>Everything on this laptop is yours. The folders, the contact card, the bookmarks. Nothing gets wiped.</p></div>`,
+n:"Collect every signed receipt before anyone leaves the room. Match each Device ID against the sticker yourself — do not accept a transcription you did not verify."},
+
+{h:"Close-out",c:"Getting help",t:"2 min",html:`
+<h2><span class="n">Close-out</span>Where to get help after today</h2>
+<div class="grid g2">
+<div class="card"><h3>Tech Exchange</h3><p>(510) 866-2260 · Support@TechExchange.org · 1716 Telegraph Ave., Oakland</p></div>
+<div class="card"><h3>Your public library</h3><p>Free computer help, free Wi-Fi, and a person who will sit with you.</p></div>
+</div>
+<div class="grid g2" style="margin-top:1.2em;align-items:center"><div style="text-align:center"><img src="data:image/png;base64,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" alt="QR code linking to the course materials website" style="width:min(220px,40vw);border-radius:6px"></div><div><h3 style="font-size:clamp(1rem,1.7vw,1.4rem);font-weight:700;margin-bottom:.4em">All the slides live here</h3><p style="font-family:var(--mono);color:var(--lime);font-size:clamp(.95rem,1.6vw,1.25rem);word-break:break-all">techexchange-class.vercel.app</p><p style="margin-top:.7em">Point your phone camera at the square. Or type the address and press <span class="kbd">Ctrl</span>+<span class="kbd">D</span> to bookmark it.</p></div></div>`,
+n:"Have them bookmark the course link right now, in the room, while you can help. Ten seconds each and it triples the chance they use it."},
+
+{h:"Close-out",c:"Shut down",t:"2 min",html:`
+<h2><span class="n">Close-out · 2 minutes</span>Shutting down properly</h2>
+<ol class="steps">
+<li>Save anything open — <span class="kbd">Ctrl</span>+<span class="kbd">S</span>.</li>
+<li>Sign out of Gmail if you are on a shared computer. On your own laptop you can stay signed in.</li>
+<li>Click <b>Start</b>, then the <b>Power</b> icon, then <b>Shut down</b>.</li>
+<li>Wait for the screen to go completely black, then close the lid.</li>
+</ol>
+<div class="callout caution"><span class="tag">Caution</span><p>Never hold the power button to force it off unless the laptop has stopped responding entirely.</p></div>`,
+n:"Same as Tuesday, done together. Wait for every screen to be black before lids close."},
+
+{h:"Close-out",c:"Open floor",t:"5 min",html:`
+<div class="cover">
+  <div class="eyebrow">Close-out · 5 minutes</div>
+  <h1>Congratulations</h1>
+  <div class="meta" style="margin-top:1.4em">
+    <b>Across two classes you built</b><br>
+    A contact card · a filing system · your own bookmarks · a passphrase<br>
+    A sent email · files in the cloud · a call you joined · a meeting you started<br><br>
+    <b>Eight hours. Eight things that are yours.</b>
+  </div>
+</div>`,
+n:"Open floor. Do not fill the silence — wait. Then thank them by name where you can."},
+];
+
+/* ---------- render ---------- */
+const wrap = document.getElementById('slides');
+DECK.forEach((s,i)=>{
+  const d=document.createElement('section');
+  d.className='slide'; d.id='s'+i;
+  d.setAttribute('role','group');
+  d.setAttribute('aria-label','Slide '+(i+1)+' of '+DECK.length);
+  d.innerHTML=s.html;
+  wrap.appendChild(d);
+});
+
+let cur=0, notesOn=false;
+const el = {
+  chipL:document.getElementById('chipL'), chipR:document.getElementById('chipR'),
+  count:document.getElementById('count'), bar:document.getElementById('bar'),
+  notes:document.getElementById('notes'), notesBody:document.getElementById('notesBody'),
+  menu:document.getElementById('menu')
+};
+
+function show(i){
+  i=Math.max(0,Math.min(DECK.length-1,i));
+  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('on'));
+  document.getElementById('s'+i).classList.add('on');
+  const s=DECK[i];
+  el.chipL.textContent=s.h+' · '+s.c;
+  el.chipR.textContent=s.t;
+  el.count.textContent=(i+1)+' / '+DECK.length;
+  el.bar.style.width=((i+1)/DECK.length*100)+'%';
+  el.notesBody.textContent=s.n||'—';
+  document.getElementById('stage').scrollTop=0;
+  cur=i;
+  try{location.hash='s'+i}catch(e){}
+  if(document.getElementById('scamMsg')) armDrill();
+}
+function go(n){show(cur+n)}
+
+/* ---------- controls ---------- */
+document.getElementById('btnNext').onclick=()=>go(1);
+document.getElementById('btnPrev').onclick=()=>go(-1);
+document.getElementById('btnNotes').onclick=toggleNotes;
+document.getElementById('btnMenu').onclick=toggleMenu;
+
+function toggleNotes(){notesOn=!notesOn;el.notes.classList.toggle('on',notesOn)}
+function toggleMenu(){el.menu.classList.toggle('on')}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){el.menu.classList.remove('on');return}
+  if(el.menu.classList.contains('on'))return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(1)}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(-1)}
+  else if(e.key==='Home'){show(0)}
+  else if(e.key==='End'){show(DECK.length-1)}
+  else if(e.key==='n'||e.key==='N'){toggleNotes()}
+  else if(e.key==='m'||e.key==='M'){toggleMenu()}
+});
+
+/* touch */
+let tx=null;
+document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(tx===null)return;
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>60) go(dx<0?1:-1);
+  tx=null;
+},{passive:true});
+
+/* ---------- menu ---------- */
+(function(){
+  let html='', last='';
+  DECK.forEach((s,i)=>{
+    if(s.h!==last){html+='<h3>'+s.h+'</h3>';last=s.h}
+    const title=(s.html.match(/<h1>([\s\S]*?)<\/h1>/)||s.html.match(/<h2>[\s\S]*?<\/span>([\s\S]*?)<\/h2>/)||[,s.c])[1]
+      .replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+    html+='<a href="#s'+i+'" data-i="'+i+'">'+String(i+1).padStart(2,'0')+' &nbsp; '+title+'</a>';
+  });
+  el.menu.innerHTML=html;
+  el.menu.addEventListener('click',e=>{
+    const a=e.target.closest('a'); if(!a)return;
+    e.preventDefault(); show(+a.dataset.i); el.menu.classList.remove('on');
+  });
+})();
+
+/* ---------- scam drill ---------- */
+function armDrill(){
+  const box=document.getElementById('scamMsg');
+  if(!box||box.dataset.armed)return;
+  box.dataset.armed='1';
+  const out=document.getElementById('drillCount');
+  const flags=box.querySelectorAll('.flag');
+  flags.forEach(f=>{
+    f.setAttribute('tabindex','0');
+    f.setAttribute('role','button');
+    const hit=()=>{
+      f.classList.add('hit');
+      const n=box.querySelectorAll('.flag.hit').length;
+      out.textContent = n<4 ? n+' of 4 found'
+        : 'All 4 found — urgency, a fee threat, a fake address, and gift-card payment.';
+    };
+    f.addEventListener('click',hit);
+    f.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();hit()}});
+  });
+}
+
+/* ---------- start ---------- */
+const h=(location.hash.match(/^#s(\d+)$/)||[])[1];
+show(h?+h:0);
+
+</script>
+</body>
+</html>
