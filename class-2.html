@@ -38,45 +38,46 @@ var LOCK='<rect class="ink" x="0" y="8" width="16" height="13" rx="3"/><path d="
 window.DECK = [
 
 /* ============================== CLASS 2 · FRONT MATTER ============================== */
-{h:"Class 2",c:"Welcome",t:"3:00 PM",html:`
+{h:"Class 2",c:"Welcome",t:"12:00 PM",html:`
 <div class="cover">`+LOGO+`
   <div class="eyebrow">Essential Digital Literacy · Class 2</div>
   <h1>Internet &amp;<br>Online Safety</h1>
   <div class="meta">
-    <b>Date</b>Tuesday, October 27, 2026 · 3:00 PM – 5:00 PM<br>
-    <b>Where</b>1721 Broadway, Oakland · MacArthur Meeting Room<br>
+    <b>Date</b>Friday, October 30, 2026 · 12:00 PM – 2:00 PM<br>
+    <b>Where</b>Diablo Valley College · Room H&#8209;106 · 321 Golf Club Rd, Pleasant Hill<br>
     <b>Bring</b>Your laptop and its charger
   </div>
 </div>`,
 n:"Welcome back. Laptops out of Sleep — tap a key or the touchpad. Anyone whose laptop shut down instead: press the power button now so it boots while you talk."},
 
-{h:"Class 2",c:"Plan",t:"3:02 PM",html:`
+{h:"Class 2",c:"Plan",t:"12:02 PM",html:`
 <h2><span class="n">Class 2 plan</span>Two lectures, two things you build</h2>
 <table>
 <tr><th>Time</th><th>Lecture</th><th>Hands-on lab — what you walk out with</th></tr>
-<tr><td><span class="kbd">3:00</span></td><td><b>3 · Internet Fundamentals</b><br><span class="small">Browsers, addresses, search, websites</span></td><td>A favorites bar of sites you really use</td></tr>
-<tr><td><span class="kbd">4:00</span></td><td><b>4 · Staying Safe Online</b><br><span class="small">Secure sites, passphrases, 2-step, scams</span></td><td>A strong passphrase you can remember</td></tr>
-<tr><td><span class="kbd">4:50</span></td><td><b>Wrap-up</b></td><td>Questions, resources, shut down together</td></tr>
+<tr><td><span class="kbd">12:00</span></td><td><b>3 · Internet Fundamentals</b><br><span class="small">Browsers, addresses, search, websites</span></td><td>A favorites bar of sites you really use</td></tr>
+<tr><td><span class="kbd">1:00</span></td><td><b>4 · Staying Safe Online</b><br><span class="small">Secure sites, passphrases, 2-step, scams</span></td><td>A strong passphrase you can remember</td></tr>
+<tr><td><span class="kbd">1:50</span></td><td><b>Wrap-up</b></td><td>Questions, resources, shut down together</td></tr>
 </table>
 <div class="grid g3 mt">
 <div class="card"><span class="tag">From Class 1</span><p><b>My Info.txt</b> in Documents › My Files › Personal</p></div>
 <div class="card"><span class="tag">From Class 1</span><p>Copy, paste, undo, and snap two windows side by side</p></div>
 <div class="card"><span class="tag">From Class 1</span><p>TypingClub — keep practicing at home</p></div>
-</div>`,
+</div>
+<p class="mt small"><b>Using a Mac at home?</b> Both lectures include <b>On a Mac</b> slides — the same skills in Safari, with <span class="kbd">⌘ Cmd</span> in place of <span class="kbd">Ctrl</span>.</p>`,
 n:"Quick show of hands: who found My Info.txt by searching for it? Anyone missing it can rebuild it during Lab 3 — it takes two minutes."},
 
 /* ============================== LECTURE 3 · INTERNET FUNDAMENTALS ============================== */
-{h:"Lecture 3",c:"Lecture cover",t:"3:00–3:50",html:`
+{h:"Lecture 3",c:"Lecture cover",t:"12:00–12:50",html:`
 <div class="cover">
-  <div class="eyebrow">Class 2 · Lecture 3 of 4</div>
+  <div class="eyebrow">Class 2 · Lecture 3 · C2-L1</div>
   <h1>Internet<br>Fundamentals</h1>
   <div class="meta">
-    <b>Covers</b>How the web works · the browser · web addresses · search · websites<br>
+    <b>Covers</b>How the web works · the browser · web addresses · search · websites · Safari on a Mac<br>
     <b>Timing</b>Teach 30 min · Hands-on lab 15 min · Checkpoint 5 min · Break 10 min<br>
     <b>You build</b>A “My Sites” folder on your favorites bar
   </div>
 </div>`,
-n:"People are post-break and slow — open with the address-bar demo energy, not a definition."},
+n:"Noon start — people may be thinking about lunch. Open with the address-bar demo energy, not a definition. Ask who uses a Mac at home so you know how much time the On a Mac slides need."},
 
 {h:"Lecture 3",c:"Objectives",t:"1 min",html:`
 <h2><span class="n">Why this matters</span>Find what you need — and land on the real site</h2>
@@ -88,10 +89,11 @@ n:"People are post-break and slow — open with the address-bar demo energy, not
 <li>Read a web address and tell who you are really visiting</li>
 <li>Search smarter and spot the ads in search results</li>
 <li>Find your way around a website and save it to your favorites</li>
+<li>Do the same things on a Mac, in Safari</li>
 </ul></div>`,
 n:"The address-bar-versus-search confusion is the biggest practical win this hour. Flag it now."},
 
-{h:"Lecture 3",c:"Concept",t:"2 min",html:`
+{h:"Lecture 3",c:"Concept",t:"1 min",html:`
 <h2><span class="n">How the web works</span>A request goes out, a page comes back</h2>
 <svg class="dg" viewBox="0 0 900 290" role="img" aria-label="Diagram: your laptop sends a request through the Wi-Fi router, your internet provider, and the internet to a web server, which sends the page back the same way.">
 <defs><marker id="ar5" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#3F6B0A"/></marker></defs>
@@ -118,16 +120,16 @@ n:"The address-bar-versus-search confusion is the biggest practical win this hou
 <div class="callout"><span class="tag">The whole idea</span><p>Your browser asks another computer for a page. That computer sends it back. It usually takes less than a second.</p></div>`,
 n:"Sixty seconds. No exam on this — it is scaffolding for the browser and for why the address matters."},
 
-{h:"Lecture 3",c:"Concept",t:"2 min",html:`
+{h:"Lecture 3",c:"Concept",t:"1 min",html:`
 <h2><span class="n">Two tools, two jobs</span>Browser vs. search engine</h2>
 <div class="grid g2">
-<div class="card"><span class="tag">A program on your computer</span><h3>Web browser</h3><p>Opens and shows web pages. You need one to use the internet at all.</p><p class="mt"><b>Microsoft Edge</b> (built into Windows) · Google Chrome · Mozilla Firefox · Apple Safari</p></div>
+<div class="card"><span class="tag">A program on your computer</span><h3>Web browser</h3><p>Opens and shows web pages. You need one to use the internet at all.</p><p class="mt"><b>Microsoft Edge</b> (built into Windows) · <b>Apple Safari</b> (built into every Mac) · Google Chrome · Mozilla Firefox</p></div>
 <div class="card"><span class="tag">A website you open in the browser</span><h3>Search engine</h3><p>Looks things up and gives you a list of pages to choose from.</p><p class="mt"><b>Google</b> · Bing · DuckDuckGo · Yahoo</p></div>
 </div>
 <div class="callout"><span class="tag">In one line</span><p>The browser is the <b>car</b>. The search engine is the <b>map</b> you look at when you don't know the address.</p></div>`,
 n:"Do not run a browser-preference debate. Today we use Edge because it is already on every laptop."},
 
-{h:"Lecture 3",c:"Concept",t:"3 min",html:`
+{h:"Lecture 3",c:"Concept",t:"2 min",html:`
 <h2><span class="n">Anatomy of the browser</span>Microsoft Edge — Chrome looks almost the same</h2>
 <div class="fig wide">
 <svg class="dg" viewBox="0 -20 900 360" role="img" aria-label="Annotated web browser window: tabs, new tab button, back and forward, refresh, address bar with padlock, favorites star, settings and more, favorites bar.">
@@ -166,7 +168,7 @@ n:"Do not run a browser-preference debate. Today we use Edge because it is alrea
 <li data-n="2"><b>New tab</b> &nbsp;<span class="kbd">Ctrl</span>+<span class="kbd">T</span></li>
 <li data-n="3"><b>Back / Forward</b> — Back is the most useful button online</li>
 <li data-n="4"><b>Refresh</b> — reload a stuck page</li>
-<li data-n="5"><b>Padlock</b> — the connection is encrypted</li>
+<li data-n="5"><b>Site info</b> — padlock or sliders icon; click to check the connection</li>
 <li data-n="6"><b>Address bar</b> — where the page lives</li>
 <li data-n="7"><b>Star</b> — add to favorites</li>
 <li data-n="8"><b>Settings and more</b> — print, zoom, history</li>
@@ -175,7 +177,54 @@ n:"Do not run a browser-preference debate. Today we use Edge because it is alrea
 </div>`,
 n:"Open Edge on the projector and match each number to the real window. Have everyone click Back a few times on a live page — it defuses the fear of clicking the wrong link."},
 
-{h:"Lecture 3",c:"Concept",t:"3 min",html:`
+{h:"Lecture 3",c:"On a Mac",t:"2 min",html:`
+<h2><span class="n">On a Mac</span>Safari — the browser built into every Mac</h2>
+<div class="fig wide">
+<svg class="dg" viewBox="0 -18 900 346" role="img" aria-label="Annotated Safari window on a Mac: window buttons, sidebar, back and forward, the Smart Search field with reload, share, new tab, favorites bar, and tabs.">
+<rect class="ui" x="20" y="20" width="820" height="310" rx="10"/>
+<rect class="ui2" x="21" y="21" width="818" height="52" rx="9"/>
+<circle class="flagsoft" cx="46" cy="47" r="7"/><circle class="ui" cx="68" cy="47" r="7"/><circle class="limesoft" cx="90" cy="47" r="7"/>
+<rect class="frame" x="114" y="37" width="26" height="20" rx="3"/><line class="wire" x1="123" y1="37" x2="123" y2="57"/>
+<text class="t-l" x="160" y="57">‹</text><text class="t-l" x="190" y="57">›</text>
+<rect class="ui" x="230" y="33" width="420" height="30" rx="8"/>
+<text class="t-m" x="440" y="54" text-anchor="middle">ssa.gov</text>
+<text class="t-m" x="624" y="54">⟳</text>
+<rect class="frame" x="688" y="40" width="18" height="17" rx="2"/><line class="wire" x1="697" y1="30" x2="697" y2="48"/><path class="wire" d="M691,36 L697,30 L703,36" fill="none"/>
+<text class="t-l" x="738" y="57">+</text>
+<rect class="frame" x="782" y="37" width="9" height="9"/><rect class="frame" x="795" y="37" width="9" height="9"/><rect class="frame" x="782" y="50" width="9" height="9"/><rect class="frame" x="795" y="50" width="9" height="9"/>
+<line class="wire" x1="21" y1="73" x2="839" y2="73"/>
+<path class="limesoft" d="M40,82 h10 l4,4 h14 v14 h-28z"/><text class="t-s" x="74" y="98" font-weight="700">My Sites</text>
+<text class="t-s" x="160" y="98">SSA</text><text class="t-s" x="210" y="98">Library</text><text class="t-s" x="280" y="98">CalJOBS</text>
+<line class="wire" x1="21" y1="108" x2="839" y2="108"/>
+<rect class="ui" x="30" y="114" width="400" height="28" rx="6"/><text class="t-s" x="230" y="133" text-anchor="middle">Social Security</text>
+<text class="t-s t-mut" x="630" y="133" text-anchor="middle">Search results</text>
+<line class="wire" x1="21" y1="148" x2="839" y2="148"/>
+<rect class="limesoft" x="40" y="166" width="780" height="56" rx="6"/>
+<rect class="ink" x="60" y="184" width="220" height="18" rx="3" opacity=".75"/>
+<rect class="ui2" x="60" y="246" width="500" height="12" rx="3"/><rect class="ui2" x="60" y="270" width="460" height="12" rx="3"/><rect class="ui2" x="60" y="294" width="520" height="12" rx="3"/>
+<rect class="frame" x="600" y="242" width="220" height="66" rx="6"/>
+<line class="lead" x1="68" y1="14" x2="68" y2="38"/><g class="co"><circle cx="68" cy="0" r="15"/><text x="68" y="0">1</text></g>
+<line class="lead" x1="127" y1="14" x2="127" y2="36"/><g class="co"><circle cx="127" cy="0" r="15"/><text x="127" y="0">2</text></g>
+<line class="lead" x1="178" y1="14" x2="178" y2="38"/><g class="co"><circle cx="178" cy="0" r="15"/><text x="178" y="0">3</text></g>
+<line class="lead" x1="440" y1="14" x2="440" y2="32"/><g class="co"><circle cx="440" cy="0" r="15"/><text x="440" y="0">4</text></g>
+<line class="lead" x1="697" y1="14" x2="697" y2="28"/><g class="co"><circle cx="697" cy="0" r="15"/><text x="697" y="0">5</text></g>
+<line class="lead" x1="745" y1="14" x2="745" y2="38"/><g class="co"><circle cx="745" cy="0" r="15"/><text x="745" y="0">6</text></g>
+<line class="lead" x1="855" y1="91" x2="842" y2="91"/><g class="co"><circle cx="872" cy="91" r="15"/><text x="872" y="91">7</text></g>
+<line class="lead" x1="855" y1="128" x2="842" y2="128"/><g class="co"><circle cx="872" cy="128" r="15"/><text x="872" y="128">8</text></g>
+</svg>
+<ol class="legend cols">
+<li data-n="1"><b>Window buttons</b> — red closes the window</li>
+<li data-n="2"><b>Sidebar</b> — your bookmarks</li>
+<li data-n="3"><b>Back / Forward</b></li>
+<li data-n="4"><b>Smart Search</b> — address <i>or</i> search; ⟳ reloads</li>
+<li data-n="5"><b>Share</b> — send this page</li>
+<li data-n="6"><b>New tab</b> &nbsp;<span class="kbd">⌘ Cmd</span>+<span class="kbd">T</span></li>
+<li data-n="7"><b>Favorites bar</b> — same idea as Edge</li>
+<li data-n="8"><b>Tabs</b> — click to switch</li>
+</ol>
+</div>`,
+n:"Ask who has a Mac or iPad at home. Safari looks a little different on each macOS version — the jobs of the buttons don't change. Same habits as Edge: one box for addresses and searches, Back is safe, tabs keep your place."},
+{h:"Lecture 3",c:"Concept",t:"2 min",html:`
 <h2><span class="n">The most important habit</span>Address bar or search?</h2>
 <div class="grid g2">
 <div class="card good"><span class="tag">You know where you're going</span><h3>Type the address</h3><p>Type <span class="url">ssa.gov</span> and press <span class="kbd">Enter</span>. You arrive at Social Security — no results page, no ads, nobody in between.</p></div>
@@ -215,7 +264,7 @@ n:"The single most valuable slide of the hour. Type ssa.gov live. Then search 's
 </svg>`,
 n:"Read the top address out loud, part by part. Then the trick: scammers put a trusted name at the front. Find the ending (.com, .gov, .org) and read the word right before it. That is who you are talking to."},
 
-{h:"Lecture 3",c:"Concept",t:"2 min",html:`
+{h:"Lecture 3",c:"Concept",t:"1 min",html:`
 <h2><span class="n">Links and tabs</span>Explore without losing your place</h2>
 <div class="grid g2">
 <div class="card"><h3>Spot a link</h3><p>When the pointer turns into a <b>pointing hand</b>, it's a link. Links can be words (often blue and underlined), pictures, or buttons.</p></div>
@@ -230,7 +279,22 @@ n:"Read the top address out loud, part by part. Then the trick: scammers put a t
 </table>`,
 n:"Ctrl+Shift+T is the 'undo' of the browser. It gets the same reaction as Ctrl+Z did in Lecture 1."},
 
-{h:"Lecture 3",c:"Concept",t:"3 min",html:`
+{h:"Lecture 3",c:"On a Mac",t:"2 min",html:`
+<h2><span class="n">On a Mac</span>Press ⌘ Command wherever Windows says Ctrl</h2>
+<table>
+<tr><th>To</th><th>Windows</th><th>Mac</th></tr>
+<tr><td>Jump to the address bar</td><td><span class="kbd">Ctrl</span> + <span class="kbd">L</span></td><td><span class="kbd">⌘</span> + <span class="kbd">L</span></td></tr>
+<tr><td>Open a new tab</td><td><span class="kbd">Ctrl</span> + <span class="kbd">T</span></td><td><span class="kbd">⌘</span> + <span class="kbd">T</span></td></tr>
+<tr><td>Close this tab</td><td><span class="kbd">Ctrl</span> + <span class="kbd">W</span></td><td><span class="kbd">⌘</span> + <span class="kbd">W</span></td></tr>
+<tr><td>Bring back a closed tab</td><td><span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">T</span></td><td><span class="kbd">⌘</span> + <span class="kbd">Shift</span> + <span class="kbd">T</span></td></tr>
+<tr><td>Go back a page</td><td><span class="kbd">Alt</span> + <span class="kbd">←</span></td><td><span class="kbd">⌘</span> + <span class="kbd">[</span></td></tr>
+<tr><td>Save to favorites</td><td><span class="kbd">Ctrl</span> + <span class="kbd">D</span></td><td><span class="kbd">⌘</span> + <span class="kbd">D</span></td></tr>
+<tr><td>Find a word on the page</td><td><span class="kbd">Ctrl</span> + <span class="kbd">F</span></td><td><span class="kbd">⌘</span> + <span class="kbd">F</span></td></tr>
+<tr><td>Zoom in · out · reset</td><td><span class="kbd">Ctrl</span> + <span class="kbd">+</span> <span class="kbd">−</span> <span class="kbd">0</span></td><td><span class="kbd">⌘</span> + <span class="kbd">+</span> <span class="kbd">−</span> <span class="kbd">0</span></td></tr>
+</table>
+<p class="hint">⌘ is the Command key, right beside the space bar. Hold it, then tap the letter — just like Ctrl.</p>`,
+n:"Sixty-second rule, not a memory test. If nobody in the room uses a Mac, point at the table, say it's in the online slides, and move on."},
+{h:"Lecture 3",c:"Concept",t:"2 min",html:`
 <h2><span class="n">Anatomy of a results page</span>Read before you click</h2>
 <div class="fig wide">
 <svg class="dg" viewBox="0 -20 900 470" role="img" aria-label="Annotated search results page: search box, format tabs, a sponsored ad, real results with web address and title, a side panel, and related searches.">
@@ -272,25 +336,25 @@ n:"Ctrl+Shift+T is the 'undo' of the browser. It gets the same reaction as Ctrl+
 </div>`,
 n:"Ads are not evil, but you should know which links paid to be there. In the drawing, the sponsored 'fast service' charges a fee for something the real ssa.gov does free."},
 
-{h:"Lecture 3",c:"Concept",t:"3 min",html:`
+{h:"Lecture 3",c:"Concept",t:"2 min",html:`
 <h2><span class="n">Search smarter</span>Four tricks that narrow the list</h2>
 <table>
 <tr><th>Type this</th><th>What it does</th><th>Example</th></tr>
-<tr><td><span class="url">"exact phrase"</span></td><td>Only pages with those words in that order</td><td><span class="url">"Oakland job fair"</span></td></tr>
+<tr><td><span class="url">"exact phrase"</span></td><td>Only pages with those words in that order</td><td><span class="url">"Contra Costa job fair"</span></td></tr>
 <tr><td><span class="url">-word</span></td><td>Leave out pages with that word</td><td><span class="url">jaguar -car</span> (the animal)</td></tr>
-<tr><td><span class="url">OR</span></td><td>Either word — capital letters</td><td><span class="url">college OR university Oakland</span></td></tr>
+<tr><td><span class="url">OR</span></td><td>Either word — capital letters</td><td><span class="url">college OR university Pleasant Hill</span></td></tr>
 <tr><td><span class="url">site:</span></td><td>Only one kind of site</td><td><span class="url">food assistance site:.gov</span></td></tr>
 </table>
 <div class="callout"><span class="tag">Tip</span><p>All the words you type are already included — you don't need to type AND. Not finding it? Use different words, or try the <b>related searches</b> at the bottom of the page.</p></div>`,
 n:"Demo one live: search jaguar, then jaguar -car, and point at how the results change. site:.gov is the one that protects people — official answers only."},
 
-{h:"Lecture 3",c:"Concept",t:"2 min",html:`
+{h:"Lecture 3",c:"Concept",t:"1 min",html:`
 <h2><span class="n">Choosing a result</span>Five-second check before you click</h2>
 <ol class="steps">
 <li><b>Is it labeled Sponsored or Ad?</b> It paid to be at the top. Skip it unless you meant to shop.</li>
 <li><b>Read the address.</b> Is the name the organization you expect? Is it <span class="url">.gov</span> for government services?</li>
 <li><b>Does the title answer your question?</b> Pick the one that matches, not just the first.</li>
-<li><b>After you click,</b> check the padlock and the address again.</li>
+<li><b>After you click,</b> check for a <b>Not secure</b> warning and read the address again.</li>
 </ol>
 <div class="callout caution"><span class="tag">Caution</span><p>Government services like Social Security, Medicare, and the DMV are free on their official <span class="url">.gov</span> sites. Sites that charge a fee to “help” are usually unnecessary.</p></div>`,
 n:"This is the bridge into Lecture 4. Keep it practical: read the address, every time."},
@@ -345,6 +409,15 @@ n:"Open your local library's website live and find each part. The footer is wher
 <div class="callout"><span class="tag">Tip</span><p>Keep it tidy: right-click the favorites bar → <b>Add folder</b> → name it <b>My Sites</b>. Like folders in File Explorer.</p></div>`,
 n:"Favorites are the safe habit: a saved real address beats searching every time and risking a look-alike."},
 
+{h:"Lecture 3",c:"On a Mac",t:"2 min",html:`
+<h2><span class="n">On a Mac</span>Favorites, Reader, and PDFs in Safari</h2>
+<div class="grid g3">
+<div class="card"><span class="tag">Save a favorite</span><h3><span class="kbd">⌘ Cmd</span>+<span class="kbd">D</span></h3><p>Choose <b>Favorites</b> in the list, then click <b>Add</b>. No bar? <b>View › Show Favorites Bar</b>.</p></div>
+<div class="card"><span class="tag">Easier reading</span><h3>Reader</h3><p><b>View › Show Reader</b> clears away ads and clutter and shows large, clean text. Press <span class="kbd">Esc</span> to leave.</p></div>
+<div class="card"><span class="tag">Keep a copy</span><h3>Save as PDF</h3><p><b>File › Export as PDF</b>. Same result as printing to PDF on Windows.</p></div>
+</div>
+<div class="callout"><span class="tag">Same habits</span><p>Type the address you know, skip Sponsored results, save the real site. Choose Safari's search engine in <b>Safari › Settings › Search</b>.</p></div>`,
+n:"Reader is the Mac feature people love most — demo it on a cluttered news page if you have a Mac on hand. Favorites in Safari works like Edge: star equals Command-D."},
 {h:"Lecture 3",c:"Concept",t:"1 min",html:`
 <h2><span class="n">Make pages easier to use</span>Zoom, find, and print</h2>
 <div class="grid g3">
@@ -358,7 +431,7 @@ n:"Have everyone zoom in and back to normal. Ctrl+F on a long benefits page save
 {h:"Lecture 3",c:"Demonstration",t:"3 min",html:`
 <h2><span class="n">Watch first</span>Search, check, save</h2>
 <ol class="steps">
-<li>Open Edge. In the address bar type <span class="url">ssa.gov</span> and press <span class="kbd">Enter</span>. Check the padlock.</li>
+<li>Open Edge, type <span class="url">ssa.gov</span>, press <span class="kbd">Enter</span>. Check: no <b>Not secure</b> warning.</li>
 <li>Click the star → <b>Favorites bar</b> → <b>Done</b>.</li>
 <li>New tab (<span class="kbd">Ctrl</span>+<span class="kbd">T</span>). Search: <b>public library near me</b>. Skip any Sponsored result.</li>
 <li>Read the address of a real result, open it, and use the site's <b>navigation menu</b> to find computer help.</li>
@@ -374,8 +447,8 @@ n:"Narrate the address check out loud every time. That habit is the point of the
 <div class="card"><span class="tag">Part A · Search challenge</span><p>Find each and write down the <b>web address</b> you used:<br>1. Your library's open hours · 2. The California DMV site (it ends in <span class="url">.gov</span>) · 3. A job board you would use</p></div>
 <div class="card"><span class="tag">Part B · Build My Sites</span><p>Create a <b>My Sites</b> folder on the favorites bar and save <b>three</b> sites you will really use into it.</p></div>
 </div>
-<div class="callout"><span class="tag">Done when</span><p>Your favorites bar shows <b>My Sites</b>, it holds three sites, and every one has a padlock and an address you checked.</p></div>
-<p class="hint">Stretch: use <span class="url">site:.gov</span> to find a free benefits program in your county.</p>
+<div class="callout"><span class="tag">Done when</span><p>Your favorites bar shows <b>My Sites</b>, it holds three sites, none says <b>Not secure</b>, and you read every address.</p></div>
+<p class="hint">On a Mac? Same lab in Safari — <span class="kbd">⌘ Cmd</span>+<span class="kbd">D</span> saves to Favorites. Stretch: use <span class="url">site:.gov</span> to find a free benefits program in Contra Costa County.</p>
 </div>`,
 n:"Circulate. Watch for people clicking Sponsored results and for favorites saved to 'Other favorites' instead of the bar. The DMV answer is dmv.ca.gov."},
 
@@ -384,7 +457,7 @@ n:"Circulate. Watch for people clicking Sponsored results and for favorites save
 <div class="qa"><div class="q">1. You know the address. Where do you type it — the address bar or a search?</div><div class="a">The address bar. It goes straight there — no ads, no look-alikes.</div></div>
 <div class="qa"><div class="q">2. In <b>ssa.gov.benefits-check.com</b>, who are you really visiting?</div><div class="a">benefits-check.com — the name right before the ending.</div></div>
 <div class="qa"><div class="q">3. What does the word “Sponsored” on a result mean?</div><div class="a">It is a paid ad.</div></div>
-<div class="qa"><div class="q">4. You closed a tab by mistake. What do you press?</div><div class="a">Ctrl + Shift + T.</div></div>
+<div class="qa"><div class="q">4. Closed a tab by mistake? What do you press (Windows, then Mac)?</div><div class="a">Windows: Ctrl + Shift + T. Mac: ⌘ Command + Shift + T.</div></div>
 <div class="qa"><div class="q">5. How do you save a site to your favorites bar?</div><div class="a">Click the star (or Ctrl + D) → Favorites bar → Done.</div></div>
 <p class="hint">Press A (or the Answers button) to show the answers.</p>`,
 n:"If more than two people miss question 2, redo the look-alike slide before the break — Lecture 4 builds on it."},
@@ -397,18 +470,19 @@ n:"If more than two people miss question 2, redo the look-alike slide before the
 <li>Read a web address and spot a look-alike</li>
 <li>Search with quotes, minus, OR, and site:, and recognize ads</li>
 <li>Find your way around a website and save it to <b>My Sites</b></li>
+<li>Do it all on a Mac in Safari — ⌘ Command in place of Ctrl</li>
 </ul>
-<div class="callout"><span class="tag">Next</span><p>Ten-minute break. Back at <b>4:00</b> for Lecture 4 — keeping your accounts and money safe online.</p></div>`,
-n:"3:50 out, 4:00 back. Laptops to Sleep."},
+<div class="callout"><span class="tag">Next</span><p>Ten-minute break. Back at <b>1:00</b> for Lecture 4 — keeping your accounts and money safe online.</p></div>`,
+n:"12:50 out, 1:00 back. Laptops to Sleep (Windows: Start › Power › Sleep · Mac: Apple menu › Sleep)."},
 
 /* ============================== LECTURE 4 · STAYING SAFE ONLINE ============================== */
-{h:"Lecture 4",c:"Lecture cover",t:"4:00–4:50",html:`
+{h:"Lecture 4",c:"Lecture cover",t:"1:00–1:50",html:`
 <div class="cover">
-  <div class="eyebrow">Class 2 · Lecture 4 of 4</div>
+  <div class="eyebrow">Class 2 · Lecture 4 · C2-L2</div>
   <h1>Staying Safe<br>Online</h1>
   <div class="meta">
-    <b>Covers</b>Secure websites · strong passphrases · 2-step verification · scams<br>
-    <b>Timing</b>Teach 30 min · Hands-on lab 15 min · Checkpoint 5 min<br>
+    <b>Covers</b>Secure websites · strong passphrases · 2-step verification · scams · Mac safety settings<br>
+    <b>Timing</b>Teach 31 min · Hands-on lab 15 min · Checkpoint 4 min<br>
     <b>You build</b>A passphrase you can remember — and a plan to protect your email
   </div>
 </div>`,
@@ -423,10 +497,11 @@ n:"Tone matters this hour: strengths-based, never shaming. Many people in the ro
 <li>Create a strong passphrase you can actually remember</li>
 <li>Explain 2-step verification and why it stops most break-ins</li>
 <li>Recognize phishing and social-engineering scams — and know what to do</li>
+<li>Turn on the safety settings built into a Mac</li>
 </ul></div>`,
 n:"Ask: 'Why do we need to be careful online?' Take two answers, then move on."},
 
-{h:"Lecture 4",c:"Concept",t:"2 min",html:`
+{h:"Lecture 4",c:"Concept",t:"1 min",html:`
 <h2><span class="n">What cybersecurity means</span>Two goals for everyday people</h2>
 <div class="grid g2">
 <div class="card good"><span class="tag">Goal 1</span><h3>Your information stays yours</h3><p>Only you — and people you choose — can see your accounts, passwords, and personal details.</p></div>
@@ -436,31 +511,47 @@ n:"Ask: 'Why do we need to be careful online?' Take two answers, then move on."}
 n:"Keep the definitions short. The rest of the hour is about the habits that achieve these two goals."},
 
 {h:"Lecture 4",c:"Concept",t:"2 min",html:`
-<h2><span class="n">Secure websites</span>Look left of the address</h2>
-<svg class="dg" viewBox="0 0 860 260" role="img" aria-label="Two address bars: one with a padlock and https, which is an encrypted connection; one marked Not secure with http, where you should never enter personal information.">
-<rect class="ui2" x="30" y="20" width="800" height="58" rx="29"/>
-<g transform="translate(58,32) scale(1.3)">`+LOCK+`</g>
-<text class="t-l" x="92" y="57">https://www.ssa.gov/myaccount</text>
-<text class="t-m t-green" x="40" y="108">✔  Padlock + https — the connection is encrypted. Safe to sign in if the name is right.</text>
-<rect class="flagsoft" x="30" y="140" width="800" height="58" rx="29"/>
-<path d="M66,152 L82,182 L50,182 Z" fill="none" stroke="#C22222" stroke-width="2.5" stroke-linejoin="round"/><text class="t-s t-red" x="66" y="179" text-anchor="middle">!</text>
-<text class="t-m t-red" x="94" y="176">Not secure</text><line class="wire" x1="196" y1="156" x2="196" y2="182"/>
-<text class="t-l" x="210" y="177">http://free-gift-card-claim.biz</text>
-<text class="t-m t-red" x="40" y="230">✖  “Not secure” or no padlock — never type a password or card number here.</text>
+<h2><span class="n">Secure websites</span>Look for the warning, not the lock</h2>
+<svg class="dg" viewBox="0 0 860 280" role="img" aria-label="Three address bars for ssa.gov: Edge shows a padlock, Chrome shows a sliders icon, Safari shows nothing extra. All three are encrypted. A fourth address bar says Not secure for an http site, where you should never type personal information.">
+<rect class="ui2" x="30" y="6" width="500" height="42" rx="23"/>
+<g transform="translate(54,16) scale(1.1)">`+LOCK+`</g><text class="t-m" x="86" y="34">ssa.gov</text>
+<text class="t-s" x="550" y="33" font-weight="700">Edge</text><text class="t-s t-mut" x="610" y="33">padlock</text>
+<rect class="ui2" x="30" y="56" width="500" height="42" rx="23"/>
+<g stroke="#231F20" stroke-width="2.4" fill="none"><line x1="52" y1="71" x2="74" y2="71"/><line x1="52" y1="83" x2="74" y2="83"/></g><circle class="ink" cx="58" cy="71" r="4"/><circle class="ink" cx="68" cy="83" r="4"/>
+<text class="t-m" x="86" y="84">ssa.gov</text>
+<text class="t-s" x="550" y="83" font-weight="700">Chrome</text><text class="t-s t-mut" x="625" y="83">sliders icon</text>
+<rect class="ui2" x="30" y="106" width="500" height="42" rx="23"/>
+<text class="t-m" x="280" y="134" text-anchor="middle">ssa.gov</text>
+<text class="t-s" x="550" y="133" font-weight="700">Safari (Mac)</text><text class="t-s t-mut" x="665" y="133">nothing extra</text>
+<text class="t-m t-green" x="30" y="178">✔  No warning = the connection is encrypted, in all three browsers.</text>
+<rect class="flagsoft" x="30" y="192" width="800" height="48" rx="24"/>
+<path d="M62,201 L77,229 L47,229 Z" fill="none" stroke="#C22222" stroke-width="2.5" stroke-linejoin="round"/><text class="t-s t-red" x="62" y="226" text-anchor="middle">!</text>
+<text class="t-m t-red" x="92" y="223">Not secure</text><line class="wire" x1="194" y1="203" x2="194" y2="229"/>
+<text class="t-l" x="208" y="224">http://free-gift-card-claim.biz</text>
+<text class="t-m t-red" x="30" y="268">✖  “Not secure” in any browser — never type a password or card number here.</text>
 </svg>
-<div class="callout"><span class="tag">Tip</span><p>Some browsers hide the <b>https://</b> part. Click once in the address bar to see the full address.</p></div>`,
-n:"Show a real https site and click the padlock to show 'Connection is secure.' Then point out that most browsers now warn loudly on http pages."},
-
-{h:"Lecture 4",c:"Concept",t:"2 min",html:`
-<h2><span class="n">An important catch</span>The padlock is not a trust badge</h2>
+<div class="callout"><span class="tag">Check any site</span><p>Click the icon at the left of the address to see <b>Connection is secure</b>. In Safari on a Mac: <b>Safari › Connection Security Details</b>.</p></div>`,
+n:"Updated rule. Chrome swapped the padlock for a sliders icon in 2023, and Safari stopped showing one in 2025 (Safari 18.4), because people read the padlock as 'this site is honest.' The warning to teach is the one every browser shows: Not secure. Click the site-info icon on the projector to show Connection is secure."},
+{h:"Lecture 4",c:"Concept",t:"1 min",html:`
+<h2><span class="n">An important catch</span>Secure is not the same as honest</h2>
 <div class="grid g2">
-<div class="card good"><span class="tag">What the padlock means</span><h3>The connection is private</h3><p>Nobody in between — like someone on the same café Wi-Fi — can read what you send.</p></div>
-<div class="card bad"><span class="tag">What it does not mean</span><h3>The site is honest</h3><p>Scam sites can get a padlock too. A padlock on <span class="url">benefits-check.com</span> just means you're privately talking to a scammer.</p></div>
+<div class="card good"><span class="tag">What “secure” means</span><h3>The connection is private</h3><p>Nobody in between — like someone on the same café Wi-Fi — can read what you send.</p></div>
+<div class="card bad"><span class="tag">What it does not mean</span><h3>The site is honest</h3><p>Scam sites get secure connections too. No warning on <span class="url">benefits-check.com</span> just means you're privately talking to a scammer.</p></div>
 </div>
-<div class="callout"><span class="tag">The two-part check</span><p><b>1.</b> Padlock present. <b>2.</b> The name before the ending is who you expect. You need <b>both</b>.</p></div>`,
-n:"This corrects an old rule of thumb that 'padlock = safe.' It connects directly to the look-alike address from Lecture 3."},
+<div class="callout"><span class="tag">The two-part check</span><p><b>1.</b> No <b>Not secure</b> warning. <b>2.</b> The name before the ending is who you expect. You need <b>both</b>.</p></div>`,
+n:"This corrects the old rule of thumb that padlock means safe — the reason Chrome and Safari dropped the padlock. It connects directly to the look-alike address from Lecture 3."},
 
-{h:"Lecture 4",c:"Concept",t:"3 min",html:`
+{h:"Lecture 4",c:"On a Mac",t:"2 min",html:`
+<h2><span class="n">On a Mac</span>Turn on Safari's built-in alarms</h2>
+<ol class="steps">
+<li>In Safari, click <b>Safari › Settings</b> in the menu bar, then the <b>Security</b> tab.</li>
+<li>Keep <b>Warn when visiting a fraudulent website</b> checked. Safari stops you before a known phishing site opens.</li>
+<li>If you see <b>Warn before connecting to a website over HTTP</b>, check it too.</li>
+<li>To check any page: <b>Safari › Connection Security Details</b>.</li>
+</ol>
+<div class="callout caution"><span class="tag">If Safari warns you</span><p>Close the tab. Never click past a warning on a page that wants a password or a payment.</p></div>`,
+n:"The fraud warning is on by default — the point is to know where it lives and not to switch it off. The HTTP option only appears on newer versions of Safari."},
+{h:"Lecture 4",c:"Concept",t:"2 min",html:`
 <h2><span class="n">Strong passwords</span>Length beats complexity</h2>
 <svg class="dg" viewBox="0 0 880 290" role="img" aria-label="Bar chart of password length: P@ss1! is 6 characters and weak; Summer2026! is 11 characters and a common pattern; cowshelpmakecheese is 18 characters and strong; Cows-Help-Make-Cheese-7 is 23 characters and strongest.">
 <g class="t-m">
@@ -485,7 +576,7 @@ n:"The bars show length only — the point is visual: longer is stronger. Use th
 <div class="callout"><span class="tag">Site rules</span><p>Requirements are usually listed under the password box, or appear after a try is rejected. Read them, then adjust.</p></div>`,
 n:"Strengths-based: if someone shares a current method, don't shame it — show how to make it longer. Never ask anyone to say a real password out loud."},
 
-{h:"Lecture 4",c:"Concept",t:"2 min",html:`
+{h:"Lecture 4",c:"Concept",t:"1 min",html:`
 <h2><span class="n">Password don'ts</span>Five habits that put accounts at risk</h2>
 <div class="grid g2">
 <div class="card bad"><h3>Common words</h3><p><b>password</b>, <b>123456</b>, or <b>qwerty</b> are the first things guessed.</p></div>
@@ -496,7 +587,7 @@ n:"Strengths-based: if someone shares a current method, don't shame it — show 
 <div class="callout caution"><span class="tag">And</span><p>No sticky notes on the screen or under the keyboard.</p></div>`,
 n:"Reuse is the big one. Ask: 'If your Netflix password leaked, what else would it open?'"},
 
-{h:"Lecture 4",c:"Concept",t:"2 min",html:`
+{h:"Lecture 4",c:"Concept",t:"1 min",html:`
 <h2><span class="n">Keeping track</span>Three safe ways to remember them</h2>
 <div class="grid g3">
 <div class="card"><span class="tag">1 · Notebook</span><h3>Written, kept private</h3><p>A notebook stored somewhere safe at home — not in your bag. Write a <b>hint</b> instead of the whole password if you can.</p></div>
@@ -505,7 +596,15 @@ n:"Reuse is the big one. Ask: 'If your Netflix password leaked, what else would 
 </div>`,
 n:"Meet people where they are. A notebook kept safely at home is far better than one reused password. Password managers are the long-term goal."},
 
-{h:"Lecture 4",c:"Concept",t:"3 min",html:`
+{h:"Lecture 4",c:"On a Mac",t:"2 min",html:`
+<h2><span class="n">On a Mac</span>The Passwords app remembers them for you</h2>
+<div class="grid g2">
+<div class="card good"><span class="tag">When you sign up</span><h3>Safari suggests a strong one</h3><p>Click a new-password box and Safari offers a long, random password in a yellow box. Accept it and your Mac saves it.</p></div>
+<div class="card good"><span class="tag">When you need it</span><h3>Open the Passwords app</h3><p>Press <span class="kbd">⌘ Cmd</span>+<span class="kbd">Space</span>, type <b>Passwords</b>, press <span class="kbd">Return</span>, and unlock it with your Mac password or Touch ID.</p></div>
+</div>
+<div class="callout"><span class="tag">Good to know</span><p>The app flags passwords you've reused or that showed up in a data breach. With iCloud Keychain on, they sync to your iPhone too. Older Mac? Look in <b>System Settings › Passwords</b>.</p></div>`,
+n:"This is option 2 from the last slide, already installed on every newer Mac. Windows users: Edge and Chrome offer the same 'suggest a strong password' feature, and Bitwarden works on both."},
+{h:"Lecture 4",c:"Concept",t:"2 min",html:`
 <h2><span class="n">2-step verification</span>A second lock on your most important accounts</h2>
 <svg class="dg" viewBox="0 0 880 280" role="img" aria-label="Diagram: your password plus a code sent to your phone together open the account. A scammer with only the password is blocked.">
 <defs><marker id="ar6" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#3F6B0A"/></marker></defs>
@@ -525,7 +624,16 @@ n:"Meet people where they are. A notebook kept safely at home is far better than
 <div class="callout"><span class="tag">Turn it on first for</span><p><b>Email</b> (it resets every other password), <b>banking</b>, and <b>government accounts</b>. Look in the account's <b>Security</b> settings for “2-step verification” or “two-factor.”</p></div>`,
 n:"Never share a verification code with anyone — a real company will never call and ask for it. That single rule stops a huge share of account takeovers."},
 
-{h:"Lecture 4",c:"Concept",t:"2 min",html:`
+{h:"Lecture 4",c:"On a Mac",t:"2 min",html:`
+<h2><span class="n">On a Mac</span>Four settings worth checking at home</h2>
+<div class="grid g2">
+<div class="card"><span class="tag">1 · Updates</span><h3>Keep macOS current</h3><p><b>Apple menu › System Settings › General › Software Update</b>. Turn on automatic updates — they patch security holes.</p></div>
+<div class="card"><span class="tag">2 · Firewall</span><h3>Block unwanted connections</h3><p><b>System Settings › Network › Firewall</b>, then switch it on.</p></div>
+<div class="card"><span class="tag">3 · Apple Account</span><h3>2-step is built in</h3><p><b>System Settings ›</b> your name <b>› Sign-In &amp; Security</b>. Two-factor authentication should say <b>On</b>.</p></div>
+<div class="card"><span class="tag">4 · Apps</span><h3>Install from trusted places</h3><p>The <b>App Store</b> or the maker's own website. If your Mac says an app can't be opened, don't force it.</p></div>
+</div>`,
+n:"Menu names are for recent macOS (System Settings). Older Macs say System Preferences, and the Apple Account page may say Password and Security. Windows equivalent for the room: Settings › Windows Update."},
+{h:"Lecture 4",c:"Concept",t:"1 min",html:`
 <h2><span class="n">Online scams</span>Two common tricks</h2>
 <div class="grid g2">
 <div class="card bad"><span class="tag">Phishing</span><h3>Fake messages that “fish” for information</h3><p>An email or text that looks like your bank, a delivery company, or a government agency — with a link to a fake site that collects your login or card number.</p></div>
@@ -546,7 +654,7 @@ n:"Invite one or two examples from the room, briefly. Thank people for sharing �
 </div>`,
 n:"One 'yes' is enough to stop and verify on your own. Scammers rely on urgency to keep you from thinking."},
 
-{h:"Lecture 4",c:"Concept",t:"3 min",html:`
+{h:"Lecture 4",c:"Concept",t:"2 min",html:`
 <h2><span class="n">Anatomy of a phishing email</span>Six warning signs in one message</h2>
 <div class="fig wide">
 <svg class="dg" viewBox="0 0 880 420" role="img" aria-label="Annotated phishing email with six warning signs: mismatched sender address, urgent subject, generic greeting, spelling mistakes, a verify button, and an unexpected attachment.">
@@ -593,7 +701,7 @@ US Postal Service: Your package is on hold due to an <span class="flag">unpaid $
 </div>`,
 n:"Let the room call out answers while you click. The real Postal Service does not text you asking for fees. The 555 phone number is fictional."},
 
-{h:"Lecture 4",c:"Concept",t:"2 min",html:`
+{h:"Lecture 4",c:"Concept",t:"1 min",html:`
 <h2><span class="n">Dos and don'ts</span>When a message feels off</h2>
 <div class="grid g2">
 <div>
@@ -620,22 +728,22 @@ n:"The golden rule: go to the source yourself. Never use the contact details ins
 {h:"Lecture 4",c:"Concept",t:"2 min",html:`
 <h2><span class="n">If you already clicked</span>Act fast — it is fixable</h2>
 <ol class="steps">
-<li><b>Change the password</b> of that account — and anywhere you reused it. Use a new passphrase.</li>
-<li><b>Turn on 2-step verification</b> for that account.</li>
+<li><b>Change the password</b> — on that account and anywhere you reused it — and <b>turn on 2-step verification</b>.</li>
 <li><b>Gave card or bank details?</b> Call the number on the back of your card right away.</li>
 <li><b>Report it:</b> <span class="url">ReportFraud.ftc.gov</span>. If someone used your identity: <span class="url">IdentityTheft.gov</span>.</li>
-<li><b>Ask for help</b> — Tech Exchange, your library, or someone you trust. Being targeted is not your fault.</li>
-</ol>`,
-n:"End the content on agency, not fear. Scams succeed against smart people every day; what matters is acting quickly."},
+<li><b>Ask for help</b> — Tech Exchange, your library, or someone you trust. It is not your fault.</li>
+</ol>
+<div class="callout caution"><span class="tag">Fake “virus” pop-up froze the screen?</span><p>Don't call the number. Windows: <span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">Esc</span> › End task · Mac: <span class="kbd">⌘ Cmd</span>+<span class="kbd">Option</span>+<span class="kbd">Esc</span> › Force Quit.</p></div>`,
+n:"End the content on agency, not fear. Scams succeed against smart people every day; what matters is acting quickly. Pop-up tip: on a Mac, reopen Safari while holding Shift so the scam page does not reload."},
 
 {h:"Lecture 4",c:"Hands-on lab",t:"15 min",html:`
 <div class="lab">
 <span class="badge">Lab 4 · 15 minutes</span>
 <h2 style="margin-bottom:.4em">Lock It Down</h2>
 <div class="grid g3">
-<div class="card"><span class="tag">Part A · Secure-site check</span><p>Open two sites from <b>My Sites</b>. For each, confirm the <b>padlock</b> and read the <b>name</b> before the ending.</p></div>
+<div class="card"><span class="tag">Part A · Secure-site check</span><p>Open two sites from <b>My Sites</b>. For each, confirm there is <b>no Not secure warning</b> and read the <b>name</b> before the ending.</p></div>
 <div class="card"><span class="tag">Part B · Your passphrase</span><p>On your paper card, build a <b>4-word passphrase</b> of 15+ characters, then add a capital, number, and symbol.</p></div>
-<div class="card"><span class="tag">Part C · Your plan</span><p>Write down the <b>one account</b> you will turn on 2-step verification for this week. Email is the best choice.</p></div>
+<div class="card"><span class="tag">Part C · Your plan</span><p>Write down the <b>one account</b> you will turn on 2-step verification for this week. Email is the best choice. Mac at home? Add <b>Software Update</b> to your list.</p></div>
 </div>
 <div class="callout caution"><span class="tag">Important</span><p>Practice only — don't type a real password into anything today, and don't share your card. Take it home and keep it private.</p></div>
 </div>`,
@@ -643,7 +751,7 @@ n:"Hand out the paper cards. Circulate and check passphrase length, not content 
 
 {h:"Lecture 4",c:"Checkpoint",t:"3 min",html:`
 <h2><span class="n">Checkpoint</span>Five quick questions</h2>
-<div class="qa"><div class="q">1. A site has a padlock. Is that enough to trust it?</div><div class="a">No — also check that the name before the ending is who you expect.</div></div>
+<div class="qa"><div class="q">1. A site shows no “Not secure” warning. Is that enough to trust it?</div><div class="a">No — also check that the name before the ending is who you expect.</div></div>
 <div class="qa"><div class="q">2. Which is stronger: <b>P@ss1!</b> or <b>cowshelpmakecheese</b>?</div><div class="a">cowshelpmakecheese — longer is stronger.</div></div>
 <div class="qa"><div class="q">3. Someone calls “from your bank” and asks for the code just texted to you. What do you do?</div><div class="a">Never share it. Hang up and call the number on your card.</div></div>
 <div class="qa"><div class="q">4. Name two warning signs of a phishing email.</div><div class="a">Any two: wrong sender address, urgency, generic greeting, mistakes, a verify link, an unexpected attachment.</div></div>
@@ -654,11 +762,12 @@ n:"Question 3 is the single most valuable rule of the day. Make sure everyone ca
 {h:"Lecture 4",c:"Summary",t:"1 min",html:`
 <h2><span class="n">Lecture 4 complete</span>What you can now do</h2>
 <ul>
-<li>Check for the padlock <b>and</b> the right name before signing in</li>
+<li>Check for <b>no Not secure warning</b> <b>and</b> the right name before signing in</li>
 <li>Build a long passphrase and use a different one for important accounts</li>
 <li>Turn on 2-step verification — and never share a code</li>
 <li>Recognize phishing and social engineering using six questions</li>
 <li>Know exactly what to do if you clicked</li>
+<li>On a Mac: keep Safari's fraud warning on, updates automatic, and let Passwords remember them</li>
 </ul>
 <div class="callout"><span class="tag">Next</span><p>Wrap-up: questions, where to keep practicing, and we shut down together.</p></div>`,
 n:"Transition straight into the close-out."},
@@ -683,6 +792,7 @@ n:"Do it on the projector, then have the whole room do it together. Wait for the
   <div class="meta">
     <b>You built</b>TypingClub progress · a filing system · My Sites · a passphrase<br>
     <b>Keep going</b>typingclub.com · edu.gcfglobal.org · your public library<br>
+    <b>Next class</b>Friday, November 6 · 12:00 PM · Room H&#8209;106 · bring your laptop and charger<br>
     <b>Get help</b>Tech Exchange · (510) 866-2260 · Support@TechExchange.org
   </div>
 </div>
