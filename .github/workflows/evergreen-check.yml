@@ -1,0 +1,17 @@
+name: Evergreen check
+
+# Fails if a cohort date, class time, or venue appears in the course materials.
+on:
+  push:
+  pull_request:
+
+jobs:
+  evergreen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pypdf
+      - run: python3 scripts/check-evergreen.py
